@@ -47,33 +47,13 @@ public class MainActivity extends Activity {
 				NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 				if (networkInfo != null && networkInfo.isConnected()) {
 		            new DownloadWebpageTask().execute(stringUrl);
+				} else {
+					Log.d("Not connected", "oh no...");
 				}
 			};
 		});
 	}
 
-	private class Test implements NameValuePair{
-
-		private String key;
-		private String value;
-
-		public Test(String key, String value){
-			this.key = key;
-			this.value = value;
-		}
-		
-		@Override
-		public String getName() {
-			return key;
-		}
-
-		@Override
-		public String getValue() {
-			// TODO Auto-generated method stub
-			return value;
-		}
-		
-	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -96,13 +76,25 @@ public class MainActivity extends Activity {
               
             // params comes from the execute() call: params[0] is the url.
             try {
-            	/*HttpClient client = new DefaultHttpClient();
+            	URL url = new URL(urls[0]);  
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();                
+                conn.setReadTimeout(10000 /* milliseconds */);
+                conn.setConnectTimeout(15000 /* milliseconds */);
+                conn.setRequestMethod("POST");
+                // Starts the query                
+                conn.connect();
+                int response = conn.getResponseCode();
+            	HttpClient client = new DefaultHttpClient();
 				HttpPost post = new HttpPost(urls[0]);
 				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-				pairs.add(new Test("g1227111_u", "sHg5fr0Alb"));
+				pairs.add(new Test("Login", "xs1738"));
+				pairs.add(new Test("Password", "1099"));
 				post.setEntity(new UrlEncodedFormEntity(pairs));
-				HttpResponse response = client.execute(post);*/
-                return downloadUrl(urls[0]);
+				HttpResponse hresponse = client.execute(post);
+				conn.disconnect();
+				Log.d("Something", Integer.toString(response));
+			//	return response.getParams().toString();
+               return downloadUrl(urls[0]);
             } catch (IOException e) {
             	Log.d("Error:",e.getMessage());
                 return "Unable to retrieve web page. URL may be invalid.";

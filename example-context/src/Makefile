@@ -1,7 +1,7 @@
 CONTEXT =	../webapps/ROOT
 JARS =	bean1.jar servlets.jar
 CLSDIR = 	$(CONTEXT)/WEB-INF/classes
-CLASSES = 	Simple.class Servlet_Postgres.class
+CLASSES = 	Simple.class Login_Servlet.class
 LIBDIR = 	$(CONTEXT)/WEB-INF/lib
 
 all:	install
@@ -24,5 +24,5 @@ Simple.class:	Simple.java
 servlets.jar:	$(CLASSES)
 	jar cf servlets.jar $(CLASSES)
 
-Servlet_Postgres.class:	Servlet_Postgres.java
-	javac -cp /usr/lib/tomcat7/tomcat-7.0.29/lib/servlet-api.jar Servlet_Postgres.java 										
+Login_Servlet.class:	Login_Servlet.java
+	javac -cp /usr/lib/tomcat7/tomcat-7.0.29/lib/servlet-api.jar  Login_Servlet.java 										

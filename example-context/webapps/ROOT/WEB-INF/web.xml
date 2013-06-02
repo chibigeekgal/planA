@@ -4,28 +4,10 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
     version="2.4">
 
-<!-- The invoker servlet, handling /servlet/* URLs -->
- <!--               <servlet>
-                    <servlet-name>invoker</servlet-name>
-                    <servlet-class>
-                      org.apache.catalina.servlets.InvokerServlet
-                    </servlet-class>
-                    <init-param>
-                        <param-name>debug</param-name>
-                        <param-value>0</param-value>
-                    </init-param>
-                    <load-on-startup>2</load-on-startup>
-                </servlet>
-
-                <servlet-mapping>
-                    <servlet-name>invoker</servlet-name>
-                    <url-pattern>/servlet/*</url-pattern>
-                </servlet-mapping> -->
-
  <!-- The Simple servlet, as URL /s -->
                 <servlet>
                   <servlet-name>simple</servlet-name>
-                  <servlet-class>Servlet_Postgres</servlet-class>
+                  <servlet-class>Login_Servlet</servlet-class>
                   <load-on-startup>5</load-on-startup>
                 </servlet>
 
