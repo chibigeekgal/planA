@@ -4,3 +4,6 @@ MaaApp/.classpath
 MaaApp/.project
 MaaApp/.settings/org.eclipse.jdt.core.prefs
 MaaApp/.metadata
+*.class
+logs/*
+*.jar
