@@ -8,6 +8,7 @@ import java.sql.*;
 
 public class Login_Servlet extends HttpServlet {
  
+
     @Override
     public void doPost(HttpServletRequest request,
                       HttpServletResponse response)
@@ -28,24 +29,29 @@ public class Login_Servlet extends HttpServlet {
 							   "g1227111_u", "sHg5fr0Alb" );
 
             Statement stmt = conn.createStatement();
-	    boolean login_exist = false;
-	    boolean password_exist = false;
 	    /* Get the password from the username etc using sql, then
 	     * do the check, if everything matches then give back the
 	     * points for the user */
-	    login_exist = stmt.execute("SELECT EXISTS (SELECT Login FROM Person WHERE Login="
-							+"'"+username+"'"+");");
-	    password_exist = stmt.execute("SELECT EXISTS (SELECT Pass_word FROM Person WHERE 									Pass_word="+"'"+password+"'"+");");
-	    
+
+	    ResultSet rs = stmt.executeQuery("SELECT Login FROM Person WHERE Login='"+username+"';");
+	    /*password_exist = stmt.execute("SELECT Pass_word FROM Person WHERE Pass_word="+"'"+password+"'"+";");*/
+
+			    out.println(username);
 	    /*if not exist in database,have to type the login again*/
-	    if(login_exist && password_exist == false){
-		throw new Exception();
-	    }
-	      else{
-		/*if correct entering,log into the system*/
-		out.println("Oh baby!");
-		conn.close();
-			}	
+	    boolean plz = rs.next(); 
+	    
+            if(!plz){			    
+	    out.println("There is an error1423.");
+		        File f = new File("/homes/dz1611/planA/e123log.txt");
+             FileWriter fw = new FileWriter(f.getAbsoluteFile());
+             BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(username+"  ");
+            bw.close();
+		//throw new Exception();
+	    }else if(plz){
+	    out.println("on baby");
+		}
+	conn.close();
         } catch (Exception e) {
             out.println( "<h1>exception: "+e+e.getMessage()+"</h1>" );
         }

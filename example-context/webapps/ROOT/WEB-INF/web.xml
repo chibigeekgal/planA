@@ -28,6 +28,18 @@
                   <servlet-name>login</servlet-name>
                   <url-pattern>/login</url-pattern>
                 </servlet-mapping>
+
+<!-- the login servelt -->
+                <servlet>
+                  <servlet-name>reg</servlet-name>
+                  <servlet-class>Register_Servlet</servlet-class>
+                  <load-on-startup>5</load-on-startup>
+                </servlet>
+
+                <servlet-mapping>
+                  <servlet-name>reg</servlet-name>
+                  <url-pattern>/reg</url-pattern>
+                </servlet-mapping>
 <!--
     <servlet>
       <servlet-name>hello</servlet-name>

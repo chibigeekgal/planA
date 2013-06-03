@@ -25,7 +25,10 @@ public class Register_Servlet extends HttpServlet {
 							   "g1227111_u", "sHg5fr0Alb" );
 	    Statement stmt = conn.createStatement();
 	    int result;
+
 	    result = stmt.executeUpdate("INSERT INTO Person VALUES("+"'"+username+"'"+", '"+password+"',10);");
+
+
 	    conn.close();
 	} catch (Exception e) {
 	    out.println( "<h1>exception: "+e+e.getMessage()+"</h1>" );
