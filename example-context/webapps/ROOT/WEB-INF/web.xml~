@@ -7,7 +7,7 @@
  <!-- The Simple servlet, as URL /s -->
                 <servlet>
                   <servlet-name>simple</servlet-name>
-                  <servlet-class>Servlet_Postgres</servlet-class>
+                  <servlet-class>Display_Servlet</servlet-class>
                   <load-on-startup>5</load-on-startup>
                 </servlet>
 

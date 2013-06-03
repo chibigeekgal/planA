@@ -1,7 +1,7 @@
 CONTEXT =	../webapps/ROOT
 JARS =	bean1.jar servlets.jar
 CLSDIR = 	$(CONTEXT)/WEB-INF/classes
-CLASSES = 	Login_Servlet.class
+CLASSES = 	Login_Servlet.class Display_Servlet.class
 LIBDIR = 	$(CONTEXT)/WEB-INF/lib
 
 all:	install
@@ -23,3 +23,5 @@ servlets.jar:	$(CLASSES)
 
 Login_Servlet.class:	Login_Servlet.java
 	javac -cp /usr/lib/tomcat7/tomcat-7.0.29/lib/servlet-api.jar  Login_Servlet.java 										
+Display_Servlet.class:	Display_Servlet.java
+	javac -cp /usr/lib/tomcat7/tomcat-7.0.29/lib/servlet-api.jar  Display_Servlet.java

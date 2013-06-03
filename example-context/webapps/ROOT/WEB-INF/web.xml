@@ -7,13 +7,13 @@
  <!-- The Simple servlet, as URL /s -->
                 <servlet>
                   <servlet-name>simple</servlet-name>
-                  <servlet-class>Login_Servlet</servlet-class>
+                  <servlet-class>Display_Servlet</servlet-class>
                   <load-on-startup>5</load-on-startup>
                 </servlet>
 
                 <servlet-mapping>
                   <servlet-name>simple</servlet-name>
-                  <url-pattern>/s</url-pattern>
+                  <url-pattern>/display</url-pattern>
                 </servlet-mapping>
 <!--
     <servlet>
