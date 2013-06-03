@@ -47,14 +47,14 @@ public class RegisterScreenActivity extends Activity {
 			public void onClick(View v) {
 				EditText password = (EditText) findViewById(R.id.editPassword);
 				EditText confirmP = (EditText) findViewById(R.id.editConfirmPassword);
-				if (!password.getText().equals(confirmP.getText())) {
+				/*if (!password.getText().equals(confirmP.getText())) {
 					t.setVisibility(TextView.VISIBLE);
-				} else {
-					String stringUrl = "http://146.169.53.106:59999/register";
+				} else {*/
+					String stringUrl = "http://146.169.53.2:59999/reg";
 					ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 					NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 					if (networkInfo != null && networkInfo.isConnected()) {
-						EditText user = (EditText) findViewById(R.id.userName);
+						EditText user = (EditText) findViewById(R.id.new_User);
 						username = user.getText().toString();
 						pass_word = password.getText().toString();
 						new LoginPageTask().execute(stringUrl);
@@ -63,7 +63,7 @@ public class RegisterScreenActivity extends Activity {
 					}
 				}
 				;
-			}
+			//}
 
 		});
 	}
@@ -91,7 +91,7 @@ public class RegisterScreenActivity extends Activity {
 						.openConnection();
 				conn.setReadTimeout(10000 /* milliseconds */);
 				conn.setConnectTimeout(15000 /* milliseconds */);
-				conn.setRequestMethod("GET");
+				conn.setRequestMethod("POST");
 			//Starts the query
 				conn.connect();
 				int response = conn.getResponseCode();
@@ -102,8 +102,12 @@ public class RegisterScreenActivity extends Activity {
 				pairs.add(new Test("Password", pass_word));
 				post.setEntity(new UrlEncodedFormEntity(pairs));
 				HttpResponse hresponse = client.execute(post);
+				InputStream i=conn.getInputStream();
+				String results=MainActivity.readIt(i,100);
+				
+				
 				conn.disconnect();
-				return new Integer(10).toString();
+				return results;
 			} catch (IOException e) {
 				Log.d("Error:", e.getMessage());
 				return "Unable to retrieve web page. URL may be invalid.";

@@ -76,7 +76,7 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
-	public String readIt(InputStream stream, int len) throws IOException,
+	public static String readIt(InputStream stream, int len) throws IOException,
 			UnsupportedEncodingException {
 		Reader reader = null;
 		reader = new InputStreamReader(stream, "UTF-8");
