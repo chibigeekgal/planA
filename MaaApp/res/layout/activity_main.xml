@@ -12,23 +12,23 @@
         android:id="@+id/TextView01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_below="@+id/textView2"
+        android:layout_alignLeft="@+id/loginName"
+        android:layout_below="@+id/loginName"
         android:layout_marginTop="15dp"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/loginName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
+        android:layout_alignLeft="@+id/userName"
         android:layout_alignParentTop="true"
         android:layout_marginTop="63dp"
         android:text="@string/Login"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/userName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/TextView01"
@@ -40,7 +40,7 @@
         android:id="@+id/editText2"
         android:layout_width="170dp"
         android:layout_height="40dp"
-        android:layout_alignBottom="@+id/textView2"
+        android:layout_alignBottom="@+id/loginName"
         android:layout_alignParentRight="true"
         android:layout_marginRight="18dp"
         android:ems="10"
@@ -55,12 +55,12 @@
         style="@style/styleName"
         android:layout_width="170dp"
         android:layout_height="30dp"
-        android:layout_alignBaseline="@+id/textView1"
-        android:layout_alignBottom="@+id/textView1"
+        android:layout_alignBaseline="@+id/userName"
+        android:layout_alignBottom="@+id/userName"
         android:layout_alignLeft="@+id/editText2" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/Login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -69,13 +69,13 @@
         android:text="@string/Go" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/Register_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/button1"
-        android:layout_below="@+id/button1"
+        android:layout_alignRight="@+id/Login_button"
+        android:layout_below="@+id/Login_button"
         android:layout_marginTop="43dp"
-        android:layout_toRightOf="@+id/textView1"
+        android:layout_toRightOf="@+id/userName"
         android:onClick=""
         android:text="@string/reg" />
 

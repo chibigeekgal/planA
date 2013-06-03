@@ -12,7 +12,6 @@ import java.util.List;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
@@ -20,6 +19,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -36,21 +36,28 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		Button b = (Button) findViewById(R.id.button2);
-		b.setOnClickListener(new View.OnClickListener() {
-			
+		Button registerButton = (Button) findViewById(R.id.Register_button);
+		Button loginButton = (Button) findViewById(R.id.Login_button);
+		loginButton.setOnClickListener(new View.OnClickListener() {
+
 			@Override
 			public void onClick(View v) {
-				//startActivity(new Intent(getApplicationContext(), RegisterScreenActivity.class));
-				String stringUrl = "http://146.169.53.106:59999/s";
+				String stringUrl = "http://146.169.53.106:59999/login";
 				ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 				NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 				if (networkInfo != null && networkInfo.isConnected()) {
-		            new DownloadWebpageTask().execute(stringUrl);
+					new LoginPageTask().execute(stringUrl);
 				} else {
 					Log.d("Not connected", "oh no...");
 				}
 			};
+		});
+		registerButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(getApplicationContext(),
+						RegisterScreenActivity.class));
+			}
 		});
 	}
 
@@ -61,80 +68,84 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
-	public String readIt(InputStream stream, int len) throws IOException, UnsupportedEncodingException {
-	    Reader reader = null;
-	    reader = new InputStreamReader(stream, "UTF-8");        
-	    char[] buffer = new char[len];
-	    reader.read(buffer);
-	    return new String(buffer);
+	public String readIt(InputStream stream, int len) throws IOException,
+			UnsupportedEncodingException {
+		Reader reader = null;
+		reader = new InputStreamReader(stream, "UTF-8");
+		char[] buffer = new char[len];
+		reader.read(buffer);
+		return new String(buffer);
 	}
-	
-	
-	private class DownloadWebpageTask extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... urls) {
-              
-            // params comes from the execute() call: params[0] is the url.
-            try {
-            	URL url = new URL(urls[0]);  
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();                
-                conn.setReadTimeout(10000 /* milliseconds */);
-                conn.setConnectTimeout(15000 /* milliseconds */);
-                conn.setRequestMethod("POST");
-                // Starts the query                
-                conn.connect();
-                int response = conn.getResponseCode();
-            	HttpClient client = new DefaultHttpClient();
+
+	private class LoginPageTask extends AsyncTask<String, Void, String> {
+		@Override
+		protected String doInBackground(String... urls) {
+
+			// params comes from the execute() call: params[0] is the url.
+			try {
+				return downloadUrl(urls[0]);
+/*
+				URL url = new URL(urls[0]);
+				HttpURLConnection conn = (HttpURLConnection) url
+						.openConnection();
+				conn.setReadTimeout(10000 /* milliseconds );
+	//			conn.setConnectTimeout(15000 /* milliseconds );
+		//		conn.setRequestMethod("GET");
+				// Starts the query
+			//	conn.connect();
+				/*
+				int response = conn.getResponseCode();
+				HttpClient client = new DefaultHttpClient();
 				HttpPost post = new HttpPost(urls[0]);
 				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 				pairs.add(new Test("Login", "xs1738"));
 				pairs.add(new Test("Password", "1099"));
 				post.setEntity(new UrlEncodedFormEntity(pairs));
-				HttpResponse hresponse = client.execute(post);
-				conn.disconnect();
-				Log.d("Something", Integer.toString(response));
-			//	return response.getParams().toString();
-               return downloadUrl(urls[0]);
-            } catch (IOException e) {
-            	Log.d("Error:",e.getMessage());
-                return "Unable to retrieve web page. URL may be invalid.";
-            }
-        }
-               
-        protected void onPostExecute(String result){
-        	TextView t = (TextView) findViewById(R.id.TextView01);
-        	t.setText(result);
-        }
-        private String downloadUrl(String myurl) throws IOException {
-            InputStream is = null;
-            // Only display the first 500 characters of the retrieved
-            // web page content.
-            int len = 500;
-          
-            try {
-                URL url = new URL(myurl);  
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();                
-                conn.setReadTimeout(10000 /* milliseconds */);
-                conn.setConnectTimeout(15000 /* milliseconds */);
-                conn.setRequestMethod("GET");
-                conn.setDoInput(true);
-                // Starts the query                
-                conn.connect();
-                int response = conn.getResponseCode();
-                Log.d("Example", "The response is: " + response);
-                is = conn.getInputStream();
+				HttpResponse hresponse = client.execute(post);*/
+				//conn.disconnect();
+			} catch (IOException e) {
+				Log.d("Error:", e.getMessage());
+				return "Unable to retrieve web page. URL may be invalid.";
+			}
+		}
 
-                // Convert the InputStream into a string
-                String contentAsString = readIt(is, len);
-                return contentAsString;
-                
-            // Makes sure that the InputStream is closed after the app is
-            // finished using it.
-            } finally {
-                if (is != null) {
-                    is.close();
-                } 
-            }
-        }
+		protected void onPostExecute(String result) {
+			Intent login = new Intent(getApplicationContext(), ProfileActivity.class);
+			login.putExtra("Points", result);
+			startActivity(login);
+		}
+
+		private String downloadUrl(String myurl) throws IOException {
+			InputStream is = null;
+			// Only display the first 500 characters of the retrieved
+			// web page content.
+			int len = 500;
+
+			try {
+				URL url = new URL(myurl);
+				HttpURLConnection conn = (HttpURLConnection) url
+						.openConnection();
+				conn.setReadTimeout(10000 /* milliseconds */);
+				conn.setConnectTimeout(15000 /* milliseconds */);
+				conn.setRequestMethod("GET");
+				conn.setDoInput(true);
+				// Starts the query
+				conn.connect();
+				int response = conn.getResponseCode();
+				Log.d("Example", "The response is: " + response);
+				is = conn.getInputStream();
+
+				// Convert the InputStream into a string
+				String contentAsString = readIt(is, len);
+				return contentAsString;
+
+				// Makes sure that the InputStream is closed after the app is
+				// finished using it.
+			} finally {
+				if (is != null) {
+					is.close();
+				}
+			}
+		}
 	}
 }
