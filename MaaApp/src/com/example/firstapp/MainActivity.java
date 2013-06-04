@@ -1,13 +1,10 @@
 package com.example.firstapp;
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,10 +15,12 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HTTP;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -37,7 +36,8 @@ public class MainActivity extends Activity {
 
 	private String username;
 	private String password;
-	
+	public static String error = "error";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -52,7 +52,7 @@ public class MainActivity extends Activity {
 				username = user.getText().toString();
 				EditText pass = (EditText) findViewById(R.id.passText);
 				password = pass.getText().toString();
-				String stringUrl = "http://146.169.53.92:59999/login";
+				String stringUrl = "http://146.169.53.93:59999/login";
 				ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 				NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 				if (networkInfo != null && networkInfo.isConnected()) {
@@ -86,6 +86,20 @@ public class MainActivity extends Activity {
 		reader.read(buffer);
 		return new String(buffer);
 	}
+	
+	private void showDialog() {
+		Builder b = new AlertDialog.Builder(this);
+		b.setMessage(error);
+		b.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.cancel();
+			}
+		});
+		AlertDialog d = b.create();
+		d.show();
+	}
 
 	private class LoginPageTask extends AsyncTask<String, Void, String> {
 		@Override
@@ -102,9 +116,6 @@ public class MainActivity extends Activity {
 				HttpResponse hresponse = client.execute(post);				
 				InputStream in = hresponse.getEntity().getContent();
 				String result = readIt(in, 100);
-				Log.d("username", username);
-				Log.d("password", password);
-				Log.d("result", result);
 				return result;
 			} catch (IOException e) {
 				Log.d("Error:", e.getMessage());
@@ -113,48 +124,17 @@ public class MainActivity extends Activity {
 		}
 
 		protected void onPostExecute(String result) {
-			Intent login = new Intent(getApplicationContext(), ProfileActivity.class);
-			login.putExtra("Points", result);
 			Log.d("postexecute",result);
-			startActivity(login);
-		}
-
-		
-		
-		
-		
-		private String downloadUrl(String myurl) throws IOException {
-			InputStream is = null;
-			// Only display the first 500 characters of the retrieved
-			// web page content.
-			int len = 500;
-
-			try {
-				URL url = new URL(myurl);
-				HttpURLConnection conn = (HttpURLConnection) url
-						.openConnection();
-				conn.setReadTimeout(10000 /* milliseconds */);
-				conn.setConnectTimeout(15000 /* milliseconds */);
-				conn.setRequestMethod("GET");
-				//conn.set
-				conn.setDoInput(true);
-				// Starts the query
-				conn.connect();
-				int response = conn.getResponseCode();
-				Log.d("Example", "The response is: " + response);
-				is = conn.getInputStream();
-
-				// Convert the InputStream into a string
-				String contentAsString = readIt(is, len);
-				return contentAsString;
-
-				// Makes sure that the InputStream is closed after the app is
-				// finished using it.
-			} finally {
-				if (is != null) {
-					is.close();
-				}
+			Log.d("error", error);
+			if(result.equals(error)){
+				showDialog();
+			} else {
+				Intent login = new Intent(getApplicationContext(),
+					ProfileActivity.class);
+				login.putExtra("Points", result);
+				startActivity(login);
 			}
 		}
+
 	}
 }
