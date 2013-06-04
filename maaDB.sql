@@ -4,9 +4,10 @@ DROP TABLE Answer;
 
 /*The table contains the use's login and password*/
 CREATE TABLE Person (
-  Login text unique not null,
+  Login text,
   Pass_word text not null,
   Points integer not null 
+  primary key(Login)
 );
 
 /*The table contains the questions asked by each user*/
@@ -22,6 +23,8 @@ CREATE TABLE Answer (
   Login text unique not null,
   Answer_content text
 );
+
+
 
 ---------------------------------------------------------
 INSERT INTO Person VALUES('dz1611','123', 10);

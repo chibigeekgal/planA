@@ -13,6 +13,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 
 import android.app.Activity;
 import android.content.Context;
@@ -41,7 +42,8 @@ public class RegisterScreenActivity extends Activity {
 		t.setVisibility(TextView.INVISIBLE);
 
 		Button bu = (Button) findViewById(R.id.toRegisterButton);
-		bu.setOnClickListener(new OnClickListener() {
+		
+		bu.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
@@ -50,14 +52,17 @@ public class RegisterScreenActivity extends Activity {
 				/*if (!password.getText().equals(confirmP.getText())) {
 					t.setVisibility(TextView.VISIBLE);
 				} else {*/
-					String stringUrl = "http://146.169.53.2:59999/reg";
+					String stringUrl = "http://146.169.53.92:59999/reg";
 					ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 					NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 					if (networkInfo != null && networkInfo.isConnected()) {
 						EditText user = (EditText) findViewById(R.id.new_User);
 						username = user.getText().toString();
 						pass_word = password.getText().toString();
-						new LoginPageTask().execute(stringUrl);
+
+						assert (username != null && pass_word != null);
+						LoginPageTask lpt = new LoginPageTask();
+						lpt.execute(stringUrl);
 					} else {
 						Log.d("Not connected", "oh no...");
 					}
@@ -86,27 +91,18 @@ public class RegisterScreenActivity extends Activity {
 
 			// params comes from the execute() call: params[0] is the url.
 			try {
-				URL url = new URL(urls[0]);
-				HttpURLConnection conn = (HttpURLConnection) url
-						.openConnection();
-				conn.setReadTimeout(10000 /* milliseconds */);
-				conn.setConnectTimeout(15000 /* milliseconds */);
-				conn.setRequestMethod("POST");
-			//Starts the query
-				conn.connect();
-				int response = conn.getResponseCode();
+			
 				HttpClient client = new DefaultHttpClient();
 				HttpPost post = new HttpPost(urls[0]);
 				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-				pairs.add(new Test("Login", username));
-				pairs.add(new Test("Password", pass_word));
+				pairs.add(new BasicNameValuePair("Login", username));
+				pairs.add(new BasicNameValuePair("Password", pass_word));
+				//Log.d("username", username);
+				//Log.d("password", pass_word);
 				post.setEntity(new UrlEncodedFormEntity(pairs));
 				HttpResponse hresponse = client.execute(post);
-				InputStream i=conn.getInputStream();
-				String results=MainActivity.readIt(i,100);
-				
-				
-				conn.disconnect();
+				InputStream i = hresponse.getEntity().getContent();
+				String results = MainActivity.readIt(i,100);
 				return results;
 			} catch (IOException e) {
 				Log.d("Error:", e.getMessage());

@@ -17,6 +17,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
 
 import android.app.Activity;
 import android.content.Context;
@@ -50,7 +52,7 @@ public class MainActivity extends Activity {
 				username = user.getText().toString();
 				EditText pass = (EditText) findViewById(R.id.passText);
 				password = pass.getText().toString();
-				String stringUrl = "http://146.169.53.2:59999/login";
+				String stringUrl = "http://146.169.53.92:59999/login";
 				ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 				NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 				if (networkInfo != null && networkInfo.isConnected()) {
@@ -91,28 +93,18 @@ public class MainActivity extends Activity {
 
 			// params comes from the execute() call: params[0] is the url.
 			try {
-				//return downloadUrl(urls[0]);
-
-				URL url = new URL(urls[0]);
-				HttpURLConnection conn = (HttpURLConnection) url
-						.openConnection();
-				conn.setReadTimeout(10000 /* milliseconds */);
-				conn.setConnectTimeout(15000 /* milliseconds*/ );
-				conn.setRequestMethod("POST");
-				//Starts the query
-				conn.connect();
-				int response = conn.getResponseCode();
 				HttpClient client = new DefaultHttpClient();
 				HttpPost post = new HttpPost(urls[0]);
 				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-				pairs.add(new Test("Login", username));
-				pairs.add(new Test("Password", password));
+				pairs.add(new BasicNameValuePair("Login", username));
+				pairs.add(new BasicNameValuePair("Password", password));
 				post.setEntity(new UrlEncodedFormEntity(pairs));
 				HttpResponse hresponse = client.execute(post);				
-				InputStream in = conn.getInputStream();
+				InputStream in = hresponse.getEntity().getContent();
 				String result = readIt(in, 100);
-				//Log.d("result", result);
-				conn.disconnect();
+				Log.d("username", username);
+				Log.d("password", password);
+				Log.d("result", result);
 				return result;
 			} catch (IOException e) {
 				Log.d("Error:", e.getMessage());

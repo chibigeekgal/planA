@@ -14,6 +14,7 @@ public class Login_Servlet extends HttpServlet {
                       HttpServletResponse response)
         throws IOException, ServletException
     {
+	response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         String username = request.getParameter("Login");
         String password = request.getParameter("Password");
@@ -36,20 +37,20 @@ public class Login_Servlet extends HttpServlet {
 	    ResultSet rs = stmt.executeQuery("SELECT Login FROM Person WHERE Login='"+username+"';");
 	    /*password_exist = stmt.execute("SELECT Pass_word FROM Person WHERE Pass_word="+"'"+password+"'"+";");*/
 
-			    out.println(username);
+			 out.println(username);
 	    /*if not exist in database,have to type the login again*/
 	    boolean plz = rs.next(); 
 	    
             if(!plz){			    
 	    out.println("There is an error1423.");
-		        File f = new File("/homes/dz1611/planA/e123log.txt");
+		        File f = new File("/homes/hs2711/planA/e123log.txt");
              FileWriter fw = new FileWriter(f.getAbsoluteFile());
              BufferedWriter bw = new BufferedWriter(fw);
             bw.write(username+"  ");
             bw.close();
 		//throw new Exception();
 	    }else if(plz){
-	    out.println("on baby");
+	    out.println("oh baby, it's not working perhaps");
 		}
 	conn.close();
         } catch (Exception e) {

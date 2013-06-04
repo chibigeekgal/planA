@@ -18,7 +18,9 @@ public class Register_Servlet extends HttpServlet {
 	} catch (ClassNotFoundException e) {
 	    out.println("<h1>Driver not found: " + e + e.getMessage() + "</h1>" );
         }
-	
+      File f = new File("/homes/hs2711/planA/e123log.txt");
+    FileWriter fw = new FileWriter(f.getAbsoluteFile());
+    BufferedWriter bw = new BufferedWriter(fw);
 	try { 
 	    Connection conn = DriverManager.getConnection (
 							   "jdbc:postgresql://db.doc.ic.ac.uk/g1227111_u",	
@@ -27,11 +29,15 @@ public class Register_Servlet extends HttpServlet {
 	    int result;
 
 	    result = stmt.executeUpdate("INSERT INTO Person VALUES("+"'"+username+"'"+", '"+password+"',10);");
-
+      bw.write(username+"  ");
+//      bw.close();
 
 	    conn.close();
 	} catch (Exception e) {
-	    out.println( "<h1>exception: "+e+e.getMessage()+"</h1>" );
+	    out.println( "<h1>exception: "+e.getMessage()+"</h1>" );
+	    bw.write(e.getMessage());
+	} finally {
+    bw.close();	
 	}
     }
 }
