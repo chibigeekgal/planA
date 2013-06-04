@@ -119,6 +119,10 @@ public class MainActivity extends Activity {
 			startActivity(login);
 		}
 
+		
+		
+		
+		
 		private String downloadUrl(String myurl) throws IOException {
 			InputStream is = null;
 			// Only display the first 500 characters of the retrieved
