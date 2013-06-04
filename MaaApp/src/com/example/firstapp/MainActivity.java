@@ -20,7 +20,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -86,20 +85,6 @@ public class MainActivity extends Activity {
 		reader.read(buffer);
 		return new String(buffer);
 	}
-	
-	private void showDialog(){
-		Builder b = new AlertDialog.Builder(this);
-		b.setMessage("Username and password wrong");
-		b.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				dialog.cancel();
-			}
-		});
-		AlertDialog d = b.create();
-		d.show();
-	}
 
 	private class LoginPageTask extends AsyncTask<String, Void, String> {
 		@Override
@@ -125,10 +110,14 @@ public class MainActivity extends Activity {
 
 		protected void onPostExecute(String result) {
 			showDialog();
-		/*	Intent login = new Intent(getApplicationContext(),
+			Intent login = new Intent(getApplicationContext(),
 					ProfileActivity.class);
 			login.putExtra("Points", result);
-			startActivity(login);*/
+			startActivity(login);
+		}
+
+		private void showDialog() {
+			Builder b = new AlertDialog.Builder(this);
 		}
 
 	}
