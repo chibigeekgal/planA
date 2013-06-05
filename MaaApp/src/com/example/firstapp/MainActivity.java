@@ -52,7 +52,7 @@ public class MainActivity extends Activity {
 				username = user.getText().toString();
 				EditText pass = (EditText) findViewById(R.id.passText);
 				password = pass.getText().toString();
-				String stringUrl = "http://146.169.53.93:59999/login";
+				String stringUrl = "http://146.169.53.104:59999/login";
 				ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 				NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 				if (networkInfo != null && networkInfo.isConnected()) {
@@ -87,7 +87,7 @@ public class MainActivity extends Activity {
 		return new String(buffer);
 	}
 	
-	private void showDialog() {
+	public void showDialog() {
 		Builder b = new AlertDialog.Builder(this);
 		b.setMessage(error);
 		b.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -115,7 +115,7 @@ public class MainActivity extends Activity {
 				post.setEntity(new UrlEncodedFormEntity(pairs));
 				HttpResponse hresponse = client.execute(post);				
 				InputStream in = hresponse.getEntity().getContent();
-				String result = readIt(in, 100);
+				String result = readIt(in, 10);
 				return result;
 			} catch (IOException e) {
 				Log.d("Error:", e.getMessage());

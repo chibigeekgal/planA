@@ -16,7 +16,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -102,7 +105,7 @@ public class RegisterScreenActivity extends Activity {
 				post.setEntity(new UrlEncodedFormEntity(pairs));
 				HttpResponse hresponse = client.execute(post);
 				InputStream i = hresponse.getEntity().getContent();
-				String results = MainActivity.readIt(i,100);
+				String results = MainActivity.readIt(i,5);
 				return results;
 			} catch (IOException e) {
 				Log.d("Error:", e.getMessage());
@@ -111,10 +114,29 @@ public class RegisterScreenActivity extends Activity {
 		}
 
 		protected void onPostExecute(String result) {
+			if(result.equals("exist")){
+				showDialog();
+			} else {
 			Intent login = new Intent(getApplicationContext(),
 					ProfileActivity.class);
 			login.putExtra("Points", result);
 			startActivity(login);
+			}
 		}
 	}
+	
+	public void showDialog() {
+		Builder b = new AlertDialog.Builder(this);
+		b.setMessage("Username already exist");
+		b.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.cancel();
+			}
+		});
+		AlertDialog d = b.create();
+		d.show();
+	}
+
 }
