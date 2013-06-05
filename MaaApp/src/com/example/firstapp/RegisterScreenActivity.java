@@ -90,6 +90,10 @@ public class RegisterScreenActivity extends Activity {
 		});
 	}
 
+	
+	
+	
+	
 	@Override
 	protected void onStart() {
 		EditText password = (EditText) findViewById(R.id.editPassword);
@@ -103,7 +107,7 @@ public class RegisterScreenActivity extends Activity {
 	}
 	
 	
-    //handler of Register Button
+    //handler Class of Register Button
 	private class LoginPageTask extends AsyncTask<String, Void, String> {
 		@Override
 		protected String doInBackground(String... urls) {
