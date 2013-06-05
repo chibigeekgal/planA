@@ -3,6 +3,7 @@ package com.example.firstapp;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -54,11 +55,6 @@ public class MainActivity extends Activity {
 		userName.setTypeface(userNamefont);  
 		
 		
-		
-		
-	
-		
-		
 		//end
 		Button registerButton = (Button) findViewById(R.id.Register_button);
 		Button loginButton = (Button) findViewById(R.id.Login_button);
@@ -70,7 +66,7 @@ public class MainActivity extends Activity {
 				username = user.getText().toString();
 				EditText pass = (EditText) findViewById(R.id.passText);
 				password = pass.getText().toString();
-				String stringUrl = "http://146.169.53.104:59999/login";
+				String stringUrl = "http://146.169.53.103:59999/login";
 				ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 				NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 				if (networkInfo != null && networkInfo.isConnected()) {
@@ -136,12 +132,15 @@ public class MainActivity extends Activity {
 				pairs.add(new BasicNameValuePair("Password", password));
 				post.setEntity(new UrlEncodedFormEntity(pairs));
 				HttpResponse hresponse = client.execute(post);				
-				InputStream in = hresponse.getEntity().getContent();
-				String result = readIt(in, 5);
-				return result;
+				ObjectInputStream in = new ObjectInputStream(hresponse.getEntity().getContent());
+				User user = (User) in.readObject();
+				return String.valueOf(user.getInt());
 			} catch (IOException e) {
 				Log.d("Error:", e.getMessage());
 				return "Unable to retrieve web page. URL may be invalid.";
+			} catch (ClassNotFoundException e) {
+				Log.d("Class not found", "Check....");
+				return "Error";				
 			}
 		}
 
