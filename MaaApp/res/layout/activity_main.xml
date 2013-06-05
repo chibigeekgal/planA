@@ -34,11 +34,12 @@
     <TextView
         android:id="@+id/userName"
         style="@style/CodeFont"
+        android:textStyle="bold|italic"
         android:layout_width="wrap_content"
         android:layout_height="21dp"
         android:text="@string/Password"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textStyle="bold|italic" />
+         />
 
     <EditText
         android:id="@+id/passText"
@@ -75,6 +76,6 @@
             android:layout_height="wrap_content"
             android:text="Create Account Now" />
         
-    </LinearLayout>
+    </LinearLayout>  
     
    </TableLayout>

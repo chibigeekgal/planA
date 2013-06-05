@@ -21,6 +21,7 @@ import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -44,17 +45,33 @@ public class RegisterScreenActivity extends Activity {
 		final TextView t = (TextView) findViewById(R.id.passwordError);
 		t.setVisibility(TextView.INVISIBLE);
 
-		Button bu = (Button) findViewById(R.id.toRegisterButton);
+		//For textFont purpose
+		TextView RegisterTitle = (TextView) findViewById(R.id.RegisterTitle);  
+		Typeface RegisterTitlefont = Typeface.createFromAsset(getAssets(), "Bigfish.ttf");  
+		RegisterTitle.setTypeface(RegisterTitlefont);  
 		
+		TextView userName = (TextView) findViewById(R.id.userName);  
+		Typeface userNamefont = Typeface.createFromAsset(getAssets(), "Bigfish.ttf");  
+		userName.setTypeface(userNamefont);  
+		
+		TextView loginName = (TextView) findViewById(R.id.loginName);  
+		Typeface loginNamefont = Typeface.createFromAsset(getAssets(), "Bigfish.ttf");  
+		loginName.setTypeface(loginNamefont);  
+		
+		TextView Points = (TextView) findViewById(R.id.Points);  
+		Typeface Pointsfont = Typeface.createFromAsset(getAssets(), "Bigfish.ttf");  
+		Points.setTypeface(Pointsfont);
+		
+		//end
+		
+		Button bu = (Button) findViewById(R.id.toRegisterButton);
 		bu.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
 				EditText password = (EditText) findViewById(R.id.editPassword);
 				EditText confirmP = (EditText) findViewById(R.id.editConfirmPassword);
-				/*if (!password.getText().equals(confirmP.getText())) {
-					t.setVisibility(TextView.VISIBLE);
-				} else {*/
+		
 					String stringUrl = "http://146.169.53.92:59999/reg";
 					ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 					NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
@@ -69,10 +86,7 @@ public class RegisterScreenActivity extends Activity {
 					} else {
 						Log.d("Not connected", "oh no...");
 					}
-				}
-				;
-			//}
-
+				};
 		});
 	}
 
@@ -87,7 +101,9 @@ public class RegisterScreenActivity extends Activity {
 		}
 		super.onStart();
 	}
-
+	
+	
+    //handler of Register Button
 	private class LoginPageTask extends AsyncTask<String, Void, String> {
 		@Override
 		protected String doInBackground(String... urls) {

@@ -29,18 +29,19 @@ public final class R {
     public static final class id {
         public static final int Login_button=0x7f080005;
         public static final int Points=0x7f08000b;
+        public static final int RegisterTitle=0x7f080011;
         public static final int Register_button=0x7f080006;
         public static final int RelativeLayout1=0x7f080007;
         public static final int TableLayout1=0x7f080000;
-        public static final int action_settings=0x7f080012;
-        public static final int editConfirmPassword=0x7f080010;
+        public static final int action_settings=0x7f080013;
+        public static final int custom_font=0x7f080012;
+        public static final int editConfirmPassword=0x7f08000c;
         public static final int editPassword=0x7f08000d;
-        public static final int editText1=0x7f08000e;
         public static final int idText=0x7f080002;
         public static final int loginName=0x7f080001;
-        public static final int new_User=0x7f08000c;
+        public static final int new_User=0x7f080010;
         public static final int passText=0x7f080004;
-        public static final int passwordError=0x7f080011;
+        public static final int passwordError=0x7f08000e;
         public static final int textView1=0x7f080009;
         public static final int textView2=0x7f080008;
         public static final int textView3=0x7f08000a;
@@ -49,9 +50,10 @@ public final class R {
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
-        public static final int profile_view=0x7f030001;
-        public static final int registration_view=0x7f030002;
-        public static final int xp=0x7f030003;
+        public static final int mainpage_view=0x7f030001;
+        public static final int profile_view=0x7f030002;
+        public static final int registration_view=0x7f030003;
+        public static final int xp=0x7f030004;
     }
     public static final class menu {
         public static final int main=0x7f070000;

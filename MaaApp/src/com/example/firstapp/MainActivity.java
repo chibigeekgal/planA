@@ -22,6 +22,7 @@ import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -31,6 +32,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
@@ -42,6 +44,22 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		//For textFont Purpose
+	    TextView loginName = (TextView) findViewById(R.id.loginName);  
+		Typeface loginNamefont = Typeface.createFromAsset(getAssets(), "Bigfish.ttf");  
+		loginName.setTypeface(loginNamefont);  
+	
+		TextView userName = (TextView) findViewById(R.id.userName);  
+		Typeface userNamefont = Typeface.createFromAsset(getAssets(), "Bigfish.ttf");  
+		userName.setTypeface(userNamefont);  
+		
+		
+		
+		
+	
+		
+		
+		//end
 		Button registerButton = (Button) findViewById(R.id.Register_button);
 		Button loginButton = (Button) findViewById(R.id.Login_button);
 		loginButton.setOnClickListener(new View.OnClickListener() {
@@ -69,6 +87,10 @@ public class MainActivity extends Activity {
 						RegisterScreenActivity.class));
 			}
 		});
+		
+		
+		
+		
 	}
 
 	@Override
@@ -115,7 +137,7 @@ public class MainActivity extends Activity {
 				post.setEntity(new UrlEncodedFormEntity(pairs));
 				HttpResponse hresponse = client.execute(post);				
 				InputStream in = hresponse.getEntity().getContent();
-				String result = readIt(in, 10);
+				String result = readIt(in, 5);
 				return result;
 			} catch (IOException e) {
 				Log.d("Error:", e.getMessage());
