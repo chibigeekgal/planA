@@ -36,7 +36,7 @@ public class Register_Servlet extends HttpServlet {
 							+ username +"';");
 			boolean duplicate_username = rs.next();
 			if (duplicate_username) {
-				out.println("Username already exist!");
+				out.println("exist!");
 				// throw new Exception();
 			} else if (!duplicate_username) {
 				/*insert the new user into database*/

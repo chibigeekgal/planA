@@ -40,6 +40,30 @@
                   <servlet-name>reg</servlet-name>
                   <url-pattern>/reg</url-pattern>
                 </servlet-mapping>
+
+<!-- the login servelt -->
+                <servlet>
+                  <servlet-name>question</servlet-name>
+                  <servlet-class>Question_Servlet</servlet-class>
+                  <load-on-startup>5</load-on-startup>
+                </servlet>
+
+                <servlet-mapping>
+                  <servlet-name>question</servlet-name>
+                  <url-pattern>/question</url-pattern>
+                </servlet-mapping>
+
+<!-- the login servelt -->
+                <servlet>
+                  <servlet-name>profile</servlet-name>
+                  <servlet-class>Profile_Servlet</servlet-class>
+                  <load-on-startup>5</load-on-startup>
+                </servlet>
+
+                <servlet-mapping>
+                  <servlet-name>profile</servlet-name>
+                  <url-pattern>/prof</url-pattern>
+                </servlet-mapping>
 <!--
     <servlet>
       <servlet-name>hello</servlet-name>
