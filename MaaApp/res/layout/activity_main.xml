@@ -1,81 +1,129 @@
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/TableLayout1"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@drawable/maths"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity" >
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true" >
 
-  
-    <TextView
-        android:id="@+id/loginName"
-        style="@style/CodeFont"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="65dp"
-        android:text="Username"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textStyle="bold|italic" />
+        android:background="#ffffff" >
 
-    <EditText
-        android:id="@+id/idText"
-        android:layout_width="170dp"
-        android:layout_height="40dp"
-        android:layout_marginRight="18dp"
-        android:layout_weight="0.00"
-        android:ems="10"
-        android:inputType="textEmailAddress|textPassword"
-        android:maxWidth="10dp" />                                 
+       
 
-    <TextView
-        android:id="@+id/userName"
-        style="@style/CodeFont"
-        android:textStyle="bold|italic"
-        android:layout_width="wrap_content"
-        android:layout_height="21dp"
-        android:text="@string/Password"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-         />
-
-    <EditText
-        android:id="@+id/passText"
-        style="@style/styleName"
-        android:layout_width="170dp"
-        android:layout_height="40dp"
-        android:layout_marginRight="18dp"
-        android:layout_weight="0.00"
-        android:ems="10" />
-    
-    
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" 
-        android:layout_margin="30dp">
-    <Button
-         android:id="@+id/Login_button"
-         
-         android:layout_height="wrap_content"
-         android:layout_width="243dp"
-         android:text="Log In" />
-   </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" 
-        android:layout_margin="30dp">
-
-        <Button
-            android:id="@+id/Register_button"
-            android:layout_width="243dp"
+        <LinearLayout
+            android:id="@+id/header"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Create Account Now" />
+            android:background="@layout/header_gradient"
+            android:paddingBottom="5dip"
+            android:paddingTop="5dip" >
+ 
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:src="@drawable/ic_launcher" />
+           
+        </LinearLayout>
+         
+        <LinearLayout
+            android:id="@+id/footer"
+            android:layout_width="fill_parent"
+            android:layout_height="90dip"
+            android:layout_alignParentBottom="true"
+            android:background="@layout/footer_repeat"
+            android:orientation="vertical" >
+        </LinearLayout>
         
-    </LinearLayout>  
-    
-   </TableLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/header"
+            android:background="@drawable/maths"
+            android:orientation="vertical"
+            android:padding="10dip" >
+
+            <!-- Email Label -->
+
+            <TextView
+                android:id="@+id/userName"
+                style="@style/CodeFont"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/Password"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="30sp"
+                android:textStyle="bold|italic" />
+
+            <EditText
+                android:id="@+id/idText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="100dp"
+                android:layout_marginRight="100dp"
+                android:layout_marginTop="20dp"
+                android:ems="10"
+                android:gravity="center"
+                android:inputType="textEmailAddress|textPassword" />
+
+            <TextView
+                android:id="@+id/loginName"
+                style="@style/CodeFont"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Username"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="30sp"
+                android:textStyle="bold|italic" />
+
+            <EditText
+                android:id="@+id/passText"
+                style="@style/styleName"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="100dp"
+                android:layout_marginRight="100dp"
+                android:layout_marginTop="20dp"
+                android:ems="10"
+                android:gravity="center" >
+
+                <requestFocus />
+            </EditText>
+
+            <!-- Login button -->
+
+            <Button
+                android:id="@+id/Login_button"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="120dp"
+                android:layout_marginRight="120dp"
+                android:layout_marginTop="10dip"
+                android:text="Log In" />
+
+            <Button
+                android:id="@+id/Register_button"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="120dp"
+                android:layout_marginRight="120dp"
+                android:layout_marginTop="10dip"
+                android:text="Create Account Now" />
+
+            <Button
+                android:id="@+id/Tempbutton"
+                android:layout_width="74dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:text="MainPage" />
+        </LinearLayout>
+        <!-- Login Form Ends -->
+
+    </RelativeLayout>
+
+</ScrollView>

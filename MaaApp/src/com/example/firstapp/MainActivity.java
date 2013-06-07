@@ -47,21 +47,19 @@ public class MainActivity extends Activity {
 		//For textFont Purpose
 	    TextView loginName = (TextView) findViewById(R.id.loginName);  
 		Typeface loginNamefont = Typeface.createFromAsset(getAssets(), "Bigfish.ttf");  
-		loginName.setTypeface(loginNamefont);  
+		loginName.setTypeface(loginNamefont);
+		 
 	
 		TextView userName = (TextView) findViewById(R.id.userName);  
 		Typeface userNamefont = Typeface.createFromAsset(getAssets(), "Bigfish.ttf");  
 		userName.setTypeface(userNamefont);  
 		
 		
-		
-		
-	
-		
-		
 		//end
 		Button registerButton = (Button) findViewById(R.id.Register_button);
 		Button loginButton = (Button) findViewById(R.id.Login_button);
+		Button TempButton = (Button) findViewById(R.id.Tempbutton);
+		
 		loginButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -88,7 +86,13 @@ public class MainActivity extends Activity {
 			}
 		});
 		
-		
+		TempButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(getApplicationContext(),
+						MainPageActivity.class));
+			}
+		});
 		
 		
 	}
@@ -123,6 +127,8 @@ public class MainActivity extends Activity {
 		d.show();
 	}
 
+	
+	//handler class for DataBase
 	private class LoginPageTask extends AsyncTask<String, Void, String> {
 		@Override
 		protected String doInBackground(String... urls) {

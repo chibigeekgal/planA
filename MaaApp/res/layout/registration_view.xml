@@ -1,103 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/RelativeLayout1"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal" >
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true" >
 
-    <TextView
-        android:id="@+id/Points"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/editConfirmPassword"
-        android:layout_alignLeft="@+id/editPassword"
-        android:text="@string/ConfirmPassword"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:background="#ffffff" >
 
-    <EditText
-        android:id="@+id/editPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/Points"
-        android:layout_alignLeft="@+id/loginName"
-        android:layout_marginBottom="21dp"
-        android:ems="10"
-        android:inputType="textPassword" />
+        <LinearLayout
+            android:id="@+id/header"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@layout/header_gradient"
+            android:paddingBottom="5dip"
+            android:paddingTop="5dip" >
 
-    <TextView
-        android:id="@+id/loginName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/editPassword"
-        android:layout_alignLeft="@+id/userName"
-        android:text="@string/Password"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+            <TextView
+                android:id="@+id/RegisterTitle"
+                style="@style/CodeFont"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="1.3"
+                android:text="Create Your Account"
+                android:textSize="40sp" />
+        </LinearLayout>
 
-    <TextView
-        android:id="@+id/passwordError"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/toRegisterButton"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="22dp"
-        android:text="@string/PasswordError" />
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/header"
+            android:orientation="vertical"
+            android:padding="10dip" >
 
-    <EditText
-        android:id="@+id/editConfirmPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/passwordError"
-        android:layout_alignLeft="@+id/Points"
-        android:layout_alignRight="@+id/editPassword"
-        android:ems="10"
-        android:inputType="textPassword" >
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/Email"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="30sp" />
 
-        <requestFocus />
-    </EditText>
+            <EditText
+                android:id="@+id/new_User"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dip"
+                android:layout_marginLeft="100dp"
+                android:layout_marginRight="100dp"
+                android:ems="10"
+                android:inputType="textEmailAddress" />
 
-    <EditText
-        android:id="@+id/new_User"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/loginName"
-        android:layout_alignLeft="@+id/loginName"
-        android:layout_alignRight="@+id/editPassword"
-        android:layout_marginBottom="16dp"
-        android:ems="10"
-        android:inputType="textEmailAddress" />
+            <TextView
+                android:id="@+id/Points"
+                 android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/ConfirmPassword"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="30sp" />
 
-    <TextView
-        android:id="@+id/RegisterTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/CodeFont"
-        android:layout_alignLeft="@+id/userName"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="23dp"
-        android:shadowColor="#00ccff"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:shadowRadius="1.5"
-        android:text="Create Your Account"
-        android:textSize="20sp" />
+            <EditText
+                android:id="@+id/editPassword"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dip"
+                android:layout_marginLeft="100dp"
+                android:layout_marginRight="100dp"
+                android:ems="10"
+                android:inputType="textPassword" />
 
-    <Button
-        android:id="@+id/toRegisterButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="58dp"
-        android:text="@string/register" />
+            <TextView
+                android:id="@+id/loginName"
+                 android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/Password"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="30sp" />
 
-    <TextView
-        android:id="@+id/userName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/new_User"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="33dp"
-        android:text="@string/Email"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+            <EditText
+                android:id="@+id/editConfirmPassword"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dip"
+                android:layout_marginLeft="100dp"
+                android:layout_marginRight="100dp"
+                android:ems="10"
+                android:inputType="textPassword" />
+        </LinearLayout>
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/passwordError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout1"
+            android:text="@string/PasswordError" />
+
+        <Button
+            android:id="@+id/toRegisterButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/passwordError"
+            android:layout_centerHorizontal="true"
+            android:text="@string/register" />
+    </RelativeLayout>
+
+</ScrollView>
