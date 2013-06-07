@@ -51,7 +51,7 @@ public class MainActivity extends Activity {
 		loginName.setTypeface(loginNamefont);
 		 
 	
-		TextView userName = (TextView) findViewById(R.id.userName);  
+		TextView userName = (TextView) findViewById(R.id.profilelogintext);  
 		Typeface userNamefont = Typeface.createFromAsset(getAssets(), "Bigfish.ttf");  
 		userName.setTypeface(userNamefont);  
 		
@@ -69,7 +69,7 @@ public class MainActivity extends Activity {
 				username = user.getText().toString();
 				EditText pass = (EditText) findViewById(R.id.passText);
 				password = pass.getText().toString();
-				String stringUrl = "http://146.169.53.103:59999/login";
+				String stringUrl = "http://146.169.53.93:59999/login";
 				ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 				NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 				if (networkInfo != null && networkInfo.isConnected()) {
@@ -143,27 +143,24 @@ public class MainActivity extends Activity {
 				pairs.add(new BasicNameValuePair("Password", password));
 				post.setEntity(new UrlEncodedFormEntity(pairs));
 				HttpResponse hresponse = client.execute(post);				
-				ObjectInputStream in = new ObjectInputStream(hresponse.getEntity().getContent());
-				User user = (User) in.readObject();
-				return String.valueOf(user.getInt());
+				InputStream i = hresponse.getEntity().getContent();
+				String results = MainActivity.readIt(i, 100);
+				return results;
 			} catch (IOException e) {
 				Log.d("Error:", e.getMessage());
 				return "Unable to retrieve web page. URL may be invalid.";
-			} catch (ClassNotFoundException e) {
-				Log.d("Class not found", "Check....");
-				return "Error";				
-			}
+			} 
 		}
 
 		protected void onPostExecute(String result) {
 			Log.d("postexecute",result);
-			Log.d("error", error);
 			if(result.equals(error)){
 				showDialog();
 			} else {
 				Intent login = new Intent(getApplicationContext(),
 					ProfileActivity.class);
 				login.putExtra("Points", result);
+				login.putExtra("Username", username);
 				startActivity(login);
 			}
 		}

@@ -40,7 +40,7 @@
             android:padding="10dip" >
 
             <TextView
-                android:id="@+id/userName"
+                android:id="@+id/profilelogintext"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
