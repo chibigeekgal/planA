@@ -145,23 +145,24 @@ public class MainActivity extends Activity {
 				pairs.add(new BasicNameValuePair("Password", password));
 				post.setEntity(new UrlEncodedFormEntity(pairs));
 				HttpResponse hresponse = client.execute(post);				
-				InputStream in = (hresponse.getEntity().getContent());
-				return "Got it";
+				InputStream i = hresponse.getEntity().getContent();
+				String results = MainActivity.readIt(i, 100);
+				return results;
 			} catch (IOException e) {
-			//	Log.d("Error:", e.getMessage());
+				Log.d("Error:", e.getMessage());
 				return "Unable to retrieve web page. URL may be invalid.";
 			} 
 		}
 
 		protected void onPostExecute(String result) {
 			Log.d("postexecute",result);
-			Log.d("error", error);
 			if(result.equals(error)){
 				showDialog();
 			} else {
 				Intent login = new Intent(getApplicationContext(),
 					ProfileActivity.class);
 				login.putExtra("Points", result);
+				login.putExtra("Username", username);
 				startActivity(login);
 			}
 		}

@@ -13,6 +13,7 @@ CREATE TABLE Person (
 /*The table contains the questions asked by each user*/
 CREATE TABLE Question (
   Question_index integer unique not null,
+  Question_title text not null,
   Login text unique not null,
   Content text not null
 );

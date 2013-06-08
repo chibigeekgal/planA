@@ -48,7 +48,7 @@ public class RegisterScreenActivity extends Activity {
 		Typeface RegisterTitlefont = Typeface.createFromAsset(getAssets(), "Bigfish.ttf");  
 		RegisterTitle.setTypeface(RegisterTitlefont);  
 		
-		TextView userName = (TextView) findViewById(R.id.userName);  
+		TextView userName = (TextView) findViewById(R.id.profilelogintext);  
 		Typeface userNamefont = Typeface.createFromAsset(getAssets(), "Bigfish.ttf");  
 		userName.setTypeface(userNamefont);  
 		
@@ -70,7 +70,7 @@ public class RegisterScreenActivity extends Activity {
 				EditText password = (EditText) findViewById(R.id.editPassword);
 				EditText confirmP = (EditText) findViewById(R.id.editConfirmPassword);
 		
-					String stringUrl = "http://146.169.53.92:59999/reg";
+					String stringUrl = "http://146.169.53.93:59999/reg";
 					ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 					NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 					if (networkInfo != null && networkInfo.isConnected()) {
@@ -138,6 +138,7 @@ public class RegisterScreenActivity extends Activity {
 			Intent login = new Intent(getApplicationContext(),
 					ProfileActivity.class);
 			login.putExtra("Points", result);
+			login.putExtra("Username", username);
 			startActivity(login);
 			}
 		}
