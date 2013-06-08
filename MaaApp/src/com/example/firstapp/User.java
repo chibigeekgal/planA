@@ -1,8 +1,10 @@
 package com.example.firstapp;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public class User {
+@SuppressWarnings("serial")
+public class User implements Serializable{
 	private LinkedList<Question> questions_asked;
 	private int points;
 	private String username;

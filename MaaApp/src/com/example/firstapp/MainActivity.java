@@ -3,7 +3,6 @@ package com.example.firstapp;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -69,11 +68,12 @@ public class MainActivity extends Activity {
 				username = user.getText().toString();
 				EditText pass = (EditText) findViewById(R.id.passText);
 				password = pass.getText().toString();
-				String stringUrl = "http://146.169.53.93:59999/login";
+				String stringUrl = "http://146.169.53.93:59999/person";
 				ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 				NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 				if (networkInfo != null && networkInfo.isConnected()) {
-					new LoginPageTask().execute(stringUrl);
+					LoginPageTask task=new LoginPageTask();
+					task.execute(stringUrl);
 				} else {
 					Log.d("Not connected", "oh no...");
 				}
@@ -166,4 +166,5 @@ public class MainActivity extends Activity {
 		}
 
 	}
+	
 }
