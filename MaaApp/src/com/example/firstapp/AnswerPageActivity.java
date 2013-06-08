@@ -3,8 +3,8 @@ package com.example.firstapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.GestureDetector.OnGestureListener;
 import android.view.GestureDetector;
+import android.view.GestureDetector.OnGestureListener;
 import android.view.MotionEvent;
 
 public class AnswerPageActivity extends Activity implements OnGestureListener{

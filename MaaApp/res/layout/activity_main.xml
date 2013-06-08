@@ -49,12 +49,12 @@
             <!-- Email Label -->
 
             <TextView
-                android:id="@+id/userName"
+                android:id="@+id/loginName"
                 style="@style/CodeFont"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@string/Password"
+                android:text="Username"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textSize="30sp"
                 android:textStyle="bold|italic" />
@@ -71,12 +71,12 @@
                 android:inputType="textEmailAddress|textPassword" />
 
             <TextView
-                android:id="@+id/loginName"
+                android:id="@+id/userName"
                 style="@style/CodeFont"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Username"
+                android:text="@string/Password"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textSize="30sp"
                 android:textStyle="bold|italic" />
@@ -90,12 +90,10 @@
                 android:layout_marginRight="100dp"
                 android:layout_marginTop="20dp"
                 android:ems="10"
-                android:gravity="center" >
+                android:gravity="center" />
 
-                <requestFocus />
-            </EditText>
-
-            <!-- Login button -->
+               
+        
 
             <Button
                 android:id="@+id/Login_button"
@@ -110,8 +108,8 @@
                 android:id="@+id/Register_button"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="120dp"
-                android:layout_marginRight="120dp"
+                android:layout_marginLeft="100dp"
+                android:layout_marginRight="100dp"
                 android:layout_marginTop="10dip"
                 android:text="Create Account Now" />
 

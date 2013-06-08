@@ -3,7 +3,6 @@ package com.example.firstapp;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -16,6 +15,9 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+
+import com.example.homepage.HomePageActivity;
+
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -91,7 +93,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				startActivity(new Intent(getApplicationContext(),
-						MainPageActivity.class));
+						HomePageActivity.class));
 			}
 		});
 		
@@ -143,16 +145,12 @@ public class MainActivity extends Activity {
 				pairs.add(new BasicNameValuePair("Password", password));
 				post.setEntity(new UrlEncodedFormEntity(pairs));
 				HttpResponse hresponse = client.execute(post);				
-				ObjectInputStream in = new ObjectInputStream(hresponse.getEntity().getContent());
-				User user = (User) in.readObject();
-				return String.valueOf(user.getInt());
+				InputStream in = (hresponse.getEntity().getContent());
+				return "Got it";
 			} catch (IOException e) {
-				Log.d("Error:", e.getMessage());
+			//	Log.d("Error:", e.getMessage());
 				return "Unable to retrieve web page. URL may be invalid.";
-			} catch (ClassNotFoundException e) {
-				Log.d("Class not found", "Check....");
-				return "Error";				
-			}
+			} 
 		}
 
 		protected void onPostExecute(String result) {
