@@ -146,8 +146,10 @@ public class MainActivity extends Activity {
 				pairs.add(new BasicNameValuePair("Login", username));
 				pairs.add(new BasicNameValuePair("Password", password));
 				post.setEntity(new UrlEncodedFormEntity(pairs));
-				HttpResponse hresponse = client.execute(post);				
+				HttpResponse hresponse = client.execute(post);
 				InputStream i = hresponse.getEntity().getContent();
+				Integer points=post.getParams().getIntParameter("Points", 0);
+				Log.d("Servlet points",points.toString());
 				String results = MainActivity.readIt(i, 100);
 				return results;
 			} catch (IOException e) {

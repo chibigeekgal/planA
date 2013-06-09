@@ -64,6 +64,17 @@
                   <servlet-name>profile</servlet-name>
                   <url-pattern>/prof</url-pattern>
                 </servlet-mapping>
+<!-- the person servelt -->
+                <servlet>
+                  <servlet-name>person</servlet-name>
+                  <servlet-class>Person_Servlet</servlet-class>
+                  <load-on-startup>5</load-on-startup>
+                </servlet>
+
+                <servlet-mapping>
+                  <servlet-name>person</servlet-name>
+                  <url-pattern>/person</url-pattern>
+                </servlet-mapping>
 <!--
     <servlet>
       <servlet-name>hello</servlet-name>

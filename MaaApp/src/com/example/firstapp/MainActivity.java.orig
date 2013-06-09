@@ -53,7 +53,7 @@ public class MainActivity extends Activity {
 		loginName.setTypeface(loginNamefont);
 		 
 	
-		TextView userName = (TextView) findViewById(R.id.profilelogintext);  
+		TextView userName = (TextView) findViewById(R.id.userName);  
 		Typeface userNamefont = Typeface.createFromAsset(getAssets(), "Bigfish.ttf");  
 		userName.setTypeface(userNamefont);  
 		
@@ -71,11 +71,16 @@ public class MainActivity extends Activity {
 				username = user.getText().toString();
 				EditText pass = (EditText) findViewById(R.id.passText);
 				password = pass.getText().toString();
-				String stringUrl = "http://146.169.53.93:59999/login";
+<<<<<<< HEAD
+				String stringUrl = "http://146.169.53.93:59999/person";
+=======
+				String stringUrl = "http://146.169.53.103:59999/login";
+>>>>>>> a9346a7d1b943af076abaab97f4b6ed86cdca659
 				ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 				NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 				if (networkInfo != null && networkInfo.isConnected()) {
-					new LoginPageTask().execute(stringUrl);
+					LoginPageTask task=new LoginPageTask();
+					task.execute(stringUrl);
 				} else {
 					Log.d("Not connected", "oh no...");
 				}
@@ -145,16 +150,11 @@ public class MainActivity extends Activity {
 				pairs.add(new BasicNameValuePair("Password", password));
 				post.setEntity(new UrlEncodedFormEntity(pairs));
 				HttpResponse hresponse = client.execute(post);				
-<<<<<<< HEAD
-				InputStream in = (hresponse.getEntity().getContent());
-				return "Got it";
-=======
 				InputStream i = hresponse.getEntity().getContent();
 				String results = MainActivity.readIt(i, 100);
 				return results;
->>>>>>> e87ff7e24d2d2c371d1e142589758b9ca609b4e2
 			} catch (IOException e) {
-			//	Log.d("Error:", e.getMessage());
+				Log.d("Error:", e.getMessage());
 				return "Unable to retrieve web page. URL may be invalid.";
 			} 
 		}
@@ -173,4 +173,5 @@ public class MainActivity extends Activity {
 		}
 
 	}
+	
 }
