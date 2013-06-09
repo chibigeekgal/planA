@@ -22,36 +22,42 @@ public final class R {
     }
     public static final class drawable {
         public static final int ic_launcher=0x7f020000;
-        public static final int login=0x7f020001;
-        public static final int math=0x7f020002;
-        public static final int maths=0x7f020003;
+        public static final int left=0x7f020001;
+        public static final int left1=0x7f020002;
+        public static final int login=0x7f020003;
+        public static final int math=0x7f020004;
+        public static final int maths=0x7f020005;
+        public static final int right=0x7f020006;
+        public static final int right1=0x7f020007;
     }
     public static final class id {
         public static final int Login_button=0x7f080006;
-        public static final int Points=0x7f080013;
-        public static final int RegisterTitle=0x7f080010;
+        public static final int Points=0x7f080015;
+        public static final int RegisterTitle=0x7f080012;
         public static final int Register_button=0x7f080007;
         public static final int RelativeLayout1=0x7f080009;
         public static final int Tempbutton=0x7f080008;
-        public static final int action_settings=0x7f080018;
+        public static final int action_settings=0x7f08001a;
         public static final int button1=0x7f08000a;
-        public static final int editConfirmPassword=0x7f080015;
-        public static final int editPassword=0x7f080014;
+        public static final int demo_external_activity=0x7f08000b;
+        public static final int editConfirmPassword=0x7f080017;
+        public static final int editPassword=0x7f080016;
         public static final int footer=0x7f080001;
-        public static final int gridLayout1=0x7f08000c;
         public static final int header=0x7f080000;
         public static final int idText=0x7f080003;
-        public static final int linearLayout1=0x7f080011;
-        public static final int loginName=0x7f080004;
-        public static final int new_User=0x7f080012;
+        public static final int linearLayout1=0x7f080013;
+        public static final int loginName=0x7f080002;
+        public static final int new_User=0x7f080014;
+        public static final int pager=0x7f08000c;
+        public static final int pager_title_strip=0x7f08000d;
         public static final int passText=0x7f080005;
-        public static final int passwordError=0x7f080016;
-        public static final int profile_login=0x7f08000e;
-        public static final int profile_points=0x7f08000f;
-        public static final int profilelogintext=0x7f080002;
-        public static final int profilepointstext=0x7f08000d;
-        public static final int quickContactBadge1=0x7f08000b;
-        public static final int toRegisterButton=0x7f080017;
+        public static final int passwordError=0x7f080018;
+        public static final int profile_login=0x7f080010;
+        public static final int profile_points=0x7f080011;
+        public static final int profilelogintext=0x7f08000e;
+        public static final int profilepointstext=0x7f08000f;
+        public static final int toRegisterButton=0x7f080019;
+        public static final int userName=0x7f080004;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
@@ -59,10 +65,12 @@ public final class R {
         public static final int askpage_view=0x7f030002;
         public static final int footer_repeat=0x7f030003;
         public static final int header_gradient=0x7f030004;
-        public static final int mainpage_view=0x7f030005;
-        public static final int profile_view=0x7f030006;
-        public static final int registration_view=0x7f030007;
-        public static final int xp=0x7f030008;
+        public static final int homepage_structure=0x7f030005;
+        public static final int homepage_view=0x7f030006;
+        public static final int pageviewer=0x7f030007;
+        public static final int profile_view=0x7f030008;
+        public static final int registration_view=0x7f030009;
+        public static final int xp=0x7f03000a;
     }
     public static final class menu {
         public static final int main=0x7f070000;
@@ -103,12 +111,14 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f040001;
+        public static final int AppBaseTheme=0x7f040003;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f040002;
+        public static final int AppTheme=0x7f040004;
         public static final int CodeFont=0x7f040000;
-        public static final int styleName=0x7f040003;
+        public static final int DashboardButton=0x7f040001;
+        public static final int FooterBar=0x7f040002;
+        public static final int styleName=0x7f040005;
     }
 }

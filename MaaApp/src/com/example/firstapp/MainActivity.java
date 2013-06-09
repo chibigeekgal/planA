@@ -8,13 +8,18 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+
+import com.example.homepage.HomePageActivity;
+
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -50,7 +55,7 @@ public class MainActivity extends Activity {
 		loginName.setTypeface(loginNamefont);
 		 
 	
-		TextView userName = (TextView) findViewById(R.id.profilelogintext);  
+		TextView userName = (TextView) findViewById(R.id.userName);  
 		Typeface userNamefont = Typeface.createFromAsset(getAssets(), "Bigfish.ttf");  
 		userName.setTypeface(userNamefont);  
 		
@@ -68,12 +73,11 @@ public class MainActivity extends Activity {
 				username = user.getText().toString();
 				EditText pass = (EditText) findViewById(R.id.passText);
 				password = pass.getText().toString();
-				String stringUrl = "http://146.169.53.93:59999/person";
+				String stringUrl = "http://146.169.53.103:59999/login";
 				ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 				NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 				if (networkInfo != null && networkInfo.isConnected()) {
-					LoginPageTask task=new LoginPageTask();
-					task.execute(stringUrl);
+					new LoginPageTask().execute(stringUrl);
 				} else {
 					Log.d("Not connected", "oh no...");
 				}
@@ -91,7 +95,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				startActivity(new Intent(getApplicationContext(),
-						MainPageActivity.class));
+						HomePageActivity.class));
 			}
 		});
 		
@@ -142,8 +146,10 @@ public class MainActivity extends Activity {
 				pairs.add(new BasicNameValuePair("Login", username));
 				pairs.add(new BasicNameValuePair("Password", password));
 				post.setEntity(new UrlEncodedFormEntity(pairs));
-				HttpResponse hresponse = client.execute(post);				
+				HttpResponse hresponse = client.execute(post);
 				InputStream i = hresponse.getEntity().getContent();
+				Integer points=post.getParams().getIntParameter("Points", 0);
+				Log.d("Servlet points",points.toString());
 				String results = MainActivity.readIt(i, 100);
 				return results;
 			} catch (IOException e) {
@@ -166,5 +172,4 @@ public class MainActivity extends Activity {
 		}
 
 	}
-	
 }
