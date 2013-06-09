@@ -14,8 +14,20 @@ public class Person_Servlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		String username = request.getParameter("Login");
-		String password = request.getParameter("Password");
+                String password = request.getParameter("Password");
+                String requestType = request.getParameter("Request");
+                File f = new File("/homes/dr411/planA/Request.txt");
+                FileWriter fw = new FileWriter(f.getAbsoluteFile());
+                BufferedWriter bw = new BufferedWriter(fw);
+                bw.write("connected");
+                bw.close();
+		/*String password = request.getParameter("Password");
 		String requestType = request.getParameter("Request");
+                File f = new File("/homes/dr411/planA/Request.txt");
+                FileWriter fw = new FileWriter(f.getAbsoluteFile());
+                BufferedWriter bw = new BufferedWriter(fw);
+                bw.write(requestType);
+                bw.close();*/
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		Method user_method = new Method();
