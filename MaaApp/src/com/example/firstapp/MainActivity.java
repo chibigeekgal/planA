@@ -55,12 +55,12 @@ public class MainActivity extends Activity {
 		// For textFont Purpose
 		TextView loginName = (TextView) findViewById(R.id.loginName);
 		Typeface loginNamefont = Typeface.createFromAsset(getAssets(),
-				"Bigfish.ttf");
+				"Top_Secret.ttf");
 		loginName.setTypeface(loginNamefont);
 
 		TextView userName = (TextView) findViewById(R.id.userName);
 		Typeface userNamefont = Typeface.createFromAsset(getAssets(),
-				"Bigfish.ttf");
+				"Top_Secret.ttf");
 		userName.setTypeface(userNamefont);
 
 		// end
