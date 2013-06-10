@@ -69,8 +69,7 @@ public class RegisterScreenActivity extends Activity {
 			public void onClick(View v) {
 				EditText password = (EditText) findViewById(R.id.editPassword);
 				EditText confirmP = (EditText) findViewById(R.id.editConfirmPassword);
-		
-					String stringUrl = "http://146.169.53.93:59999/reg";
+					String stringUrl = "localhost:59999/person";
 					ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 					NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 					if (networkInfo != null && networkInfo.isConnected()) {
@@ -118,8 +117,7 @@ public class RegisterScreenActivity extends Activity {
 				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 				pairs.add(new BasicNameValuePair("Login", username));
 				pairs.add(new BasicNameValuePair("Password", pass_word));
-				//Log.d("username", username);
-				//Log.d("password", pass_word);
+				pairs.add(new BasicNameValuePair("Request","register"));
 				post.setEntity(new UrlEncodedFormEntity(pairs));
 				HttpResponse hresponse = client.execute(post);
 				InputStream i = hresponse.getEntity().getContent();

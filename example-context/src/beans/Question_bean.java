@@ -1,29 +1,23 @@
 package beans;
-import java.util.LinkedList;
 
 public class Question_bean {
 
-	private User_bean owner;
+	private String owner;
 	private int index;
-	private int best_answer;
+	private int bestAnswer;
 	private String title;
 	private String content;
-	private LinkedList<answer_bean> answers;
 
-	public Question_bean(User_bean owner, String title, String content,
+	public Question_bean(String owner, String title, String content,
 			int index) {
 		this.index = index;
-		answers = new LinkedList<answer_bean>();
 		this.title = title;
 		this.content = content;
+		this.owner=owner;
 	}
 
-	public User_bean getOwner() {
+	public String getOwner() {
 		return owner;
-	}
-
-	public LinkedList<answer_bean> getAnswers() {
-		return answers;
 	}
 
 	public String getContent() {
@@ -37,8 +31,14 @@ public class Question_bean {
 	public int getIndex() {
 		return index;
 	}
-
-	public void addAnswer(answer_bean answer) {
-		answers.add(answer);
+	
+	public int getBestAnswer(){
+		return bestAnswer;
 	}
+
+	@Override
+	public String toString() {
+		return null;
+	}
+	
 }

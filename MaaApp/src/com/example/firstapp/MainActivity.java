@@ -8,6 +8,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.HttpHost;
+import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -15,6 +17,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -46,22 +49,22 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		//For textFont Purpose
-	    TextView loginName = (TextView) findViewById(R.id.loginName);  
-		Typeface loginNamefont = Typeface.createFromAsset(getAssets(), "Bigfish.ttf");  
+		// For textFont Purpose
+		TextView loginName = (TextView) findViewById(R.id.loginName);
+		Typeface loginNamefont = Typeface.createFromAsset(getAssets(),
+				"Bigfish.ttf");
 		loginName.setTypeface(loginNamefont);
-		 
-	
-		TextView userName = (TextView) findViewById(R.id.userName);  
-		Typeface userNamefont = Typeface.createFromAsset(getAssets(), "Bigfish.ttf");  
-		userName.setTypeface(userNamefont);  
-		
-		
-		//end
+
+		TextView userName = (TextView) findViewById(R.id.userName);
+		Typeface userNamefont = Typeface.createFromAsset(getAssets(),
+				"Bigfish.ttf");
+		userName.setTypeface(userNamefont);
+
+		// end
 		Button registerButton = (Button) findViewById(R.id.Register_button);
 		Button loginButton = (Button) findViewById(R.id.Login_button);
 		Button TempButton = (Button) findViewById(R.id.Tempbutton);
-		
+
 		loginButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -70,7 +73,7 @@ public class MainActivity extends Activity {
 				username = user.getText().toString();
 				EditText pass = (EditText) findViewById(R.id.passText);
 				password = pass.getText().toString();
-				String stringUrl = "http://146.169.53.103:59999/login";
+				String stringUrl = "localhost:59999/person";
 				ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 				NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 				if (networkInfo != null && networkInfo.isConnected()) {
@@ -87,7 +90,7 @@ public class MainActivity extends Activity {
 						RegisterScreenActivity.class));
 			}
 		});
-		
+
 		TempButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -95,8 +98,7 @@ public class MainActivity extends Activity {
 						HomePageActivity.class));
 			}
 		});
-		
-		
+
 	}
 
 	@Override
@@ -106,20 +108,20 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
-	public static String readIt(InputStream stream, int len) throws IOException,
-			UnsupportedEncodingException {
+	public static String readIt(InputStream stream, int len)
+			throws IOException, UnsupportedEncodingException {
 		Reader reader = null;
 		reader = new InputStreamReader(stream, "UTF-8");
 		char[] buffer = new char[len];
 		reader.read(buffer);
 		return new String(buffer);
 	}
-	
+
 	public void showDialog() {
 		Builder b = new AlertDialog.Builder(this);
 		b.setMessage(error);
 		b.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-			
+
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				dialog.cancel();
@@ -129,8 +131,7 @@ public class MainActivity extends Activity {
 		d.show();
 	}
 
-	
-	//handler class for DataBase
+	// handler class for DataBase
 	private class LoginPageTask extends AsyncTask<String, Void, String> {
 		@Override
 		protected String doInBackground(String... urls) {
@@ -142,31 +143,33 @@ public class MainActivity extends Activity {
 				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 				pairs.add(new BasicNameValuePair("Login", username));
 				pairs.add(new BasicNameValuePair("Password", password));
+				pairs.add(new BasicNameValuePair("Request","login"));
 				post.setEntity(new UrlEncodedFormEntity(pairs));
 				HttpResponse hresponse = client.execute(post);
 				InputStream i = hresponse.getEntity().getContent();
-				Integer points=post.getParams().getIntParameter("Points", 0);
-				Log.d("Servlet points",points.toString());
+				Integer points = post.getParams().getIntParameter("Points", 0);
+				Log.d("Servlet points", points.toString());
 				String results = MainActivity.readIt(i, 100);
+				//Integer sev_points=(Integer)post.getParams().getParameter("Points");
+				//Log.d("SERVER POINTS",sev_points.toString());
 				return results;
 			} catch (IOException e) {
 				Log.d("Error:", e.getMessage());
 				return "Unable to retrieve web page. URL may be invalid.";
-			} 
+			}
 		}
 
 		protected void onPostExecute(String result) {
-			Log.d("postexecute",result);
-			if(result.equals(error)){
+			Log.d("postexecute", result);
+			if (result.equals(error)) {
 				showDialog();
 			} else {
 				Intent login = new Intent(getApplicationContext(),
-					ProfileActivity.class);
+						ProfileActivity.class);
 				login.putExtra("Points", result);
 				login.putExtra("Username", username);
 				startActivity(login);
 			}
 		}
-
 	}
 }

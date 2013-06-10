@@ -1,15 +1,14 @@
 package beans;
-import java.util.LinkedList;
 
 public class User_bean {
-	private LinkedList<Question_bean> questions_asked;
 	private int points;
 	private String username;
+	private String password;
 
-	public User_bean(String username, int points) {
+	public User_bean(String username,String password, int points) {
 		this.username = username;
 		this.points = points;
-		questions_asked = new LinkedList<Question_bean>();
+		this.password=password;
 	}
 
 	public int getPoints() {
@@ -18,6 +17,10 @@ public class User_bean {
 
 	public String getUserName() {
 		return username;
+	}
+	
+	public String getPassword(){
+		return password;
 	}
 
 	public void setPoints(int pt) {
