@@ -1,52 +1,91 @@
-/* This is a servelet to display the webpage for the database*/
-import java.io.*;
-import java.text.*;
-import java.util.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import java.sql.*;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.LinkedList;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import beans.Method;
+import beans.QuestionMethod;
+import beans.Question_bean;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
+/**
+ * Servlet implementation class Question_Servlet
+ */
 public class Question_Servlet extends HttpServlet {
- 
-    public void doGet(HttpServletRequest request,
-                      HttpServletResponse response)
-        throws IOException, ServletException
-    {
-        response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
-        
-        out.println("<html>");
-        out.println("<head>");
-	out.println("<title> Database of MaaApp </title>");
-        out.println("</head>");
-        out.println("<body bgcolor=\"white\">");
+	private static final long serialVersionUID = 1L;
+	private QuestionMethod question_method;
 
-        try {
- 	    Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException e) {
-            out.println("<h1>Driver not found: " + e + e.getMessage() + "</h1>" );
-        }
-	try { 
-	    Connection conn = DriverManager.getConnection (
-							   "jdbc:postgresql://db.doc.ic.ac.uk/g1227111_u",
-							   "g1227111_u", "sHg5fr0Alb" );
-	    
-            Statement stmt = conn.createStatement();
-            ResultSet rs;
-	    rs = stmt.executeQuery("SELECT * FROM Question;");
-	    out.println( "<table>" );
-            while ( rs.next() ) {
-                int index = rs.getInt("question_index");
-                String login = rs.getString("login");
-                String content = rs.getString("content");
-                out.println("<tr><td>"+index+"</td><td>"+login+"</td><td>"+content+"</td></tr>" );
-            }
-	    out.println( "</table>" );
-            conn.close();
-        } catch (Exception e) {
-            out.println( "<h1>exception: "+e+e.getMessage()+"</h1>" );
-        }
-        out.println("</body>");
-        out.println("</html>");
-    }
+	public Question_Servlet() {
+		super();
+		try {
+			question_method = new QuestionMethod();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		out.println("<html>");
+		out.println("<head>");
+		out.println("<title> Database of Questions </title>");
+		out.println("</head>");
+		out.println("<body bgcolor=\"white\">");
+		out.println("<table>");
+		LinkedList<Question_bean> questions = question_method.getAllQuestions();
+		for (Question_bean question : questions) {
+			out.println("<tr><td>" + question.getIndex() + "</td><td>"
+					+ question.getOwner() + "</td><td>" + question.getTitle()
+					+ "</td><td>" + question.getContent() + "</td><td>"
+					+ question.getBestAnswer() + "</td></tr>");
+		}
+		out.println("</table>");
+		out.println("</body>");
+		out.println("</html>");
+	}
+
+	@Override
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String query = request.getParameter("request");
+		int index = Integer.parseInt(request.getParameter("index"));
+		String owner = request.getParameter("username");
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		String substring = request.getParameter("substring");
+		int bestAnswer = Integer.parseInt(request.getParameter("best_answer"));
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		if (query.equals("ask")) {
+			question_method.ask_question(owner, title, content);
+		}
+		if (query.equals("get_all")) {
+			LinkedList<Question_bean> questions = question_method
+					.getAllQuestions();
+			JsonArray qjsons = question_method.toJsonArray(questions);
+			out.println(qjsons);
+		}
+		if (query.equals("choose_best")) {
+			question_method.chooseBestAnswer(index, bestAnswer);
+		}
+		if (query.equals("get_unanswered")) {
+			LinkedList<Question_bean> questions = question_method
+					.get_unanswered_questions(owner);
+			out.println(question_method.toJsonArray(questions));
+		}
+		
+	}
 }

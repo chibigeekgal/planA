@@ -8,6 +8,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.HttpHost;
+import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -15,9 +17,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-
-import com.example.homepage.HomePageActivity;
-
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -25,6 +25,7 @@ import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -32,37 +33,41 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.homepage.HomePageActivity;
 
 public class MainActivity extends Activity {
 
 	private String username;
 	private String password;
 	public static String error = "error";
+	static Rect p;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		//For textFont Purpose
-	    TextView loginName = (TextView) findViewById(R.id.loginName);  
-		Typeface loginNamefont = Typeface.createFromAsset(getAssets(), "Bigfish.ttf");  
+		// For textFont Purpose
+		TextView loginName = (TextView) findViewById(R.id.loginName);
+		Typeface loginNamefont = Typeface.createFromAsset(getAssets(),
+				"Bigfish.ttf");
 		loginName.setTypeface(loginNamefont);
-		 
-	
-		TextView userName = (TextView) findViewById(R.id.userName);  
-		Typeface userNamefont = Typeface.createFromAsset(getAssets(), "Bigfish.ttf");  
-		userName.setTypeface(userNamefont);  
-		
-		
-		//end
+
+		TextView userName = (TextView) findViewById(R.id.userName);
+		Typeface userNamefont = Typeface.createFromAsset(getAssets(),
+				"Bigfish.ttf");
+		userName.setTypeface(userNamefont);
+
+		// end
 		Button registerButton = (Button) findViewById(R.id.Register_button);
 		Button loginButton = (Button) findViewById(R.id.Login_button);
 		Button TempButton = (Button) findViewById(R.id.Tempbutton);
-		
+
 		loginButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -71,7 +76,7 @@ public class MainActivity extends Activity {
 				username = user.getText().toString();
 				EditText pass = (EditText) findViewById(R.id.passText);
 				password = pass.getText().toString();
-				String stringUrl = "http://146.169.53.103:59999/login";
+				String stringUrl = "localhost:59999/person";
 				ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 				NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 				if (networkInfo != null && networkInfo.isConnected()) {
@@ -88,7 +93,7 @@ public class MainActivity extends Activity {
 						RegisterScreenActivity.class));
 			}
 		});
-		
+
 		TempButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -96,8 +101,7 @@ public class MainActivity extends Activity {
 						HomePageActivity.class));
 			}
 		});
-		
-		
+
 	}
 
 	@Override
@@ -107,20 +111,20 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
-	public static String readIt(InputStream stream, int len) throws IOException,
-			UnsupportedEncodingException {
+	public static String readIt(InputStream stream, int len)
+			throws IOException, UnsupportedEncodingException {
 		Reader reader = null;
 		reader = new InputStreamReader(stream, "UTF-8");
 		char[] buffer = new char[len];
 		reader.read(buffer);
 		return new String(buffer);
 	}
-	
+
 	public void showDialog() {
 		Builder b = new AlertDialog.Builder(this);
 		b.setMessage(error);
 		b.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-			
+
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				dialog.cancel();
@@ -130,8 +134,7 @@ public class MainActivity extends Activity {
 		d.show();
 	}
 
-	
-	//handler class for DataBase
+	// handler class for DataBase
 	private class LoginPageTask extends AsyncTask<String, Void, String> {
 		@Override
 		protected String doInBackground(String... urls) {
@@ -143,29 +146,72 @@ public class MainActivity extends Activity {
 				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 				pairs.add(new BasicNameValuePair("Login", username));
 				pairs.add(new BasicNameValuePair("Password", password));
+				pairs.add(new BasicNameValuePair("Request","login"));
 				post.setEntity(new UrlEncodedFormEntity(pairs));
-				HttpResponse hresponse = client.execute(post);				
+				HttpResponse hresponse = client.execute(post);
 				InputStream i = hresponse.getEntity().getContent();
+				Integer points = post.getParams().getIntParameter("Points", 0);
+				Log.d("Servlet points", points.toString());
 				String results = MainActivity.readIt(i, 100);
+				//Integer sev_points=(Integer)post.getParams().getParameter("Points");
+				//Log.d("SERVER POINTS",sev_points.toString());
 				return results;
 			} catch (IOException e) {
 				Log.d("Error:", e.getMessage());
 				return "Unable to retrieve web page. URL may be invalid.";
-			} 
+			}
 		}
 
 		protected void onPostExecute(String result) {
-			Log.d("postexecute",result);
-			if(result.equals(error)){
+			Log.d("postexecute", result);
+			if (result.equals(error)) {
 				showDialog();
 			} else {
 				Intent login = new Intent(getApplicationContext(),
-					ProfileActivity.class);
+						ProfileActivity.class);
 				login.putExtra("Points", result);
 				login.putExtra("Username", username);
 				startActivity(login);
 			}
 		}
-
+	}
+	
+	@Override
+	public void onWindowFocusChanged(boolean hasFocus) {
+		super.onWindowFocusChanged(hasFocus);
+		p = locateView(findViewById(R.id.extra_symbol));
+	}
+	
+	public static Rect locateView(View v) {
+		int[] loc_int = new int[2];
+		if (v == null)
+			return null;
+		try {
+			v.getLocationOnScreen(loc_int);
+			Log.d("Invx",String.valueOf(loc_int[0]));
+			Log.d("Invy",String.valueOf(loc_int[1]));
+			System.out.println("Wwtf");
+		} catch (NullPointerException npe) {
+			// Happens when the view doesn't exist on screen anymore.
+			return null;
+		}
+		Rect location = new Rect();
+		location.left = loc_int[0];
+		location.top = loc_int[1];
+		location.right = location.left + v.getWidth();
+		location.bottom = location.top + v.getHeight();
+		return location;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    switch (item.getItemId()) {
+	        case R.id.extra_symbol:
+	            Intent intent = new Intent(this, KeyboardDisplay.class);
+	            startActivity(intent);
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
 	}
 }

@@ -7,3 +7,4 @@ MaaApp/.metadata
 *.class
 logs/*
 *~
+MaaApp/gen/com/example/firstapp/*
