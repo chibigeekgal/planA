@@ -16,10 +16,10 @@ public class HomePageFragment extends Fragment{
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.homepage_structure, container, false);
+        View homePageView = inflater.inflate(R.layout.homepage_structure, container, false);
 
         //select a picture 
-        rootView.findViewById(R.id.demo_external_activity)
+        homePageView.findViewById(R.id.selecting_picture)
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -31,7 +31,11 @@ public class HomePageFragment extends Fragment{
                     }
                 });
 
-        return rootView;
+        
+        
+        
+        
+        return homePageView;
     }
 
 }

@@ -1,17 +1,24 @@
- <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent" >
 
-    <LinearLayout android:orientation="vertical"
+    <QuickContactBadge
+        android:id="@+id/quickContactBadge1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="centerCrop" />
 
-    
-        <Button android:id="@+id/demo_external_activity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Select picture for Youself" />
-    </LinearLayout>
+    <Button
+        android:id="@+id/selecting_picture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/quickContactBadge1"
+        android:layout_marginLeft="27dp"
+        android:layout_marginTop="53dp"
+        android:text="Select picture !" />
 
-</FrameLayout>
+</RelativeLayout>
