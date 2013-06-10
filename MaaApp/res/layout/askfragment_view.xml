@@ -8,17 +8,41 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff" >
+        
 
+        
+
+        <EditText
+            android:id="@+id/q_content"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/q_title"
+            android:ems="10"
+            android:hint="Ask Your Question Here"
+            android:imeActionLabel="launch" />
+
+        <EditText
+            android:id="@+id/q_title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:ems="10"
+            android:hint="Question Title"
+            android:imeActionLabel="launch" />
+        
         <Button
             android:id="@+id/button1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_marginBottom="108dp"
-            android:layout_marginRight="51dp"
+            android:layout_marginBottom="70dp"
+            android:layout_marginRight="16dp"
             android:text="Ask" />
 
     </RelativeLayout>
+     
 
 </ScrollView>
