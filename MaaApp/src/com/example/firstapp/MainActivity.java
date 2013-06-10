@@ -25,6 +25,7 @@ import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -32,6 +33,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -44,6 +46,7 @@ public class MainActivity extends Activity {
 	private String username;
 	private String password;
 	public static String error = "error";
+	static Rect p;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -171,5 +174,44 @@ public class MainActivity extends Activity {
 				startActivity(login);
 			}
 		}
+	}
+	
+	@Override
+	public void onWindowFocusChanged(boolean hasFocus) {
+		super.onWindowFocusChanged(hasFocus);
+		p = locateView(findViewById(R.id.extra_symbol));
+	}
+	
+	public static Rect locateView(View v) {
+		int[] loc_int = new int[2];
+		if (v == null)
+			return null;
+		try {
+			v.getLocationOnScreen(loc_int);
+			Log.d("Invx",String.valueOf(loc_int[0]));
+			Log.d("Invy",String.valueOf(loc_int[1]));
+			System.out.println("Wwtf");
+		} catch (NullPointerException npe) {
+			// Happens when the view doesn't exist on screen anymore.
+			return null;
+		}
+		Rect location = new Rect();
+		location.left = loc_int[0];
+		location.top = loc_int[1];
+		location.right = location.left + v.getWidth();
+		location.bottom = location.top + v.getHeight();
+		return location;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    switch (item.getItemId()) {
+	        case R.id.extra_symbol:
+	            Intent intent = new Intent(this, KeyboardDisplay.class);
+	            startActivity(intent);
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
 	}
 }

@@ -24,6 +24,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value=".SearchableActivity" />
         </activity>
         <activity android:name="com.example.firstapp.RegisterScreenActivity" >
         </activity>
@@ -35,10 +39,20 @@
         </activity>
         <activity android:name="com.example.firstapp.ProfileActivity" >
         </activity>
-        
-         <activity android:name="com.example.homepage.HomePageActivity" >
+        <activity android:name="com.example.homepage.HomePageActivity" >
         </activity>
-         
+        <activity android:name="come.example.firstapp.SearchActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <activity android:name="com.example.firstapp.KeyboardDisplay"
+            	  android:theme="@android:style/Theme.Dialog" >
+        </activity>
     </application>
 
 </manifest>

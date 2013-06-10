@@ -13,5 +13,7 @@
     <string name="register">Register!</string>
     <string name="PasswordError">Please make sure that the Password and the Confirm password are the same!</string>
     <string name="Points">Points</string>
-
+    <string name="maaApp">maaApp</string>
+	<string name="hinthint">hint hint</string>
+    
 </resources>
