@@ -1,22 +1,28 @@
 package com.example.homepage;
 
-import com.example.firstapp.R;
-
+import keyboard.ExpressionKeyboardDisplay;
+import keyboard.SymbolKeyboardDisplay;
 import android.app.ActionBar;
-
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.ImageView;
+
+import com.example.firstapp.R;
 
 public class HomePageActivity extends FragmentActivity implements
 		ActionBar.TabListener {
 
 	private FrameAdapter adapter;
 	private ViewPager viewPagerControl;
-
+	public static String string = "";
+	public static ImageView image;
+	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.homepage_view);
@@ -35,7 +41,8 @@ public class HomePageActivity extends FragmentActivity implements
 
 		viewPagerControl = (ViewPager) findViewById(R.id.pager);
 		viewPagerControl.setAdapter(adapter);
-		viewPagerControl.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+		viewPagerControl
+				.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 					@Override
 					public void onPageSelected(int position) {
 						actionBar.setSelectedNavigationItem(position);
@@ -47,6 +54,7 @@ public class HomePageActivity extends FragmentActivity implements
 			actionBar.addTab(actionBar.newTab()
 					.setText(adapter.getPageTitle(i)).setTabListener(this));
 		}
+		
 	}
 
 	@Override
@@ -71,8 +79,50 @@ public class HomePageActivity extends FragmentActivity implements
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
+		return super.onCreateOptionsMenu(menu);
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		HomePageActivity.string = ((EditText)findViewById(R.id.q_content)).getText().toString();
+		switch (item.getItemId()) {
+		case R.id.Symbol:
+			Intent i = new Intent(getApplicationContext(),
+					SymbolKeyboardDisplay.class);
+			startActivity(i);
+			postString();
+			return true;
+		case R.id.Expression:
+			Intent i2 = new Intent(getApplicationContext(),
+					ExpressionKeyboardDisplay.class);
+			startActivity(i2);
+			postString();
+			return true;
+		case R.id.setting:
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		postString();
+	}
+	
+	@Override
+	public void onAttachedToWindow() {
+		super.onAttachedToWindow();
+	}
+	
+	public void postString() {
+		EditText e = (EditText) findViewById(R.id.q_content);
+		if(e != null) {
+		e.setText(string);
+		System.out.println("postsymbol" + string);
+		}
+	}
+
+	
 	
 }

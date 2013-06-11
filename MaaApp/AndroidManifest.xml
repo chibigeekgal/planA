@@ -51,7 +51,11 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity
-            android:name="com.example.firstapp.KeyboardDisplay"
+            android:name="keyboard.SymbolKeyboardDisplay"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
+         <activity
+            android:name="keyboard.ExpressionKeyboardDisplay"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
         <activity android:name="com.example.homepage.PersonalProfile" >
