@@ -30,7 +30,7 @@ public class AskFragment extends Fragment {
 			@Override
 			public void onClick(View arg0) {
 				HomePageActivity.string = ((TextView) subFragmentView.findViewById(R.id.q_content)).getText().toString();
-				new Page().execute("http://146.169.52.3:59999/image");
+				new Page(HomePageActivity.string).execute("http://146.169.52.3:59999/image");
 			}
 			
 		});
