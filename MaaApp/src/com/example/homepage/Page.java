@@ -21,6 +21,12 @@ import android.widget.ImageView;
 
 public class Page extends AsyncTask<String, Void, Bitmap> {
 
+	private String argument;
+	
+	public Page(String argument) {
+		this.argument = argument;
+	}
+	
 	@Override
 	protected Bitmap doInBackground(String... urls) {
 		try {
@@ -30,7 +36,7 @@ public class Page extends AsyncTask<String, Void, Bitmap> {
 			System.out.println("post...");
 			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 			pairs.add(new BasicNameValuePair("Argument",
-					HomePageActivity.string));
+					this.argument));
 			post.setEntity(new UrlEncodedFormEntity(pairs));
 			System.out.println("post added....");
 			HttpResponse response = client.execute(post);

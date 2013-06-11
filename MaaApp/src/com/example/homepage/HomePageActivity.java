@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.example.firstapp.IndividualQuestion;
 import com.example.firstapp.R;
 
 public class HomePageActivity extends FragmentActivity implements
@@ -55,13 +56,7 @@ public class HomePageActivity extends FragmentActivity implements
 			actionBar.addTab(actionBar.newTab()
 					.setText(adapter.getPageTitle(i)).setTabListener(this));
 		}
-
-	}
-
-	@Override
-	public void onStart() {
-		super.onStart();
-		Log.d("Onstart", "onstart");
+		
 	}
 
 	@Override
@@ -74,18 +69,7 @@ public class HomePageActivity extends FragmentActivity implements
 			FragmentTransaction fragmentTransaction) {
 		// When the given tab is selected, switch to the corresponding page in
 		// the ViewPager.
-		int position = tab.getPosition();
 		viewPagerControl.setCurrentItem(tab.getPosition());
-		Log.d("position", "Position "+position);
-		if (position > 0) {
-			if(adapter.getFragment(position)==null){
-				Log.d("null1", "fragment is null");
-			}
-			else{
-				Log.d("not null","fragment is not null");
-			}
-		}
-		Log.d("onTab", "onTab");
 	}
 
 	@Override
@@ -102,8 +86,7 @@ public class HomePageActivity extends FragmentActivity implements
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		HomePageActivity.string = ((EditText) findViewById(R.id.q_content))
-				.getText().toString();
+		HomePageActivity.string = ((EditText)findViewById(R.id.q_content)).getText().toString();
 		switch (item.getItemId()) {
 		case R.id.Symbol:
 			Intent i = new Intent(getApplicationContext(),
@@ -118,6 +101,9 @@ public class HomePageActivity extends FragmentActivity implements
 			postString();
 			return true;
 		case R.id.setting:
+			Intent i3 = new Intent(getApplicationContext(),
+					IndividualQuestion.class);
+			startActivity(i3);
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -128,17 +114,17 @@ public class HomePageActivity extends FragmentActivity implements
 		super.onResume();
 		postString();
 	}
-
+	
 	@Override
 	public void onAttachedToWindow() {
 		super.onAttachedToWindow();
 	}
-
+	
 	public void postString() {
 		EditText e = (EditText) findViewById(R.id.q_content);
-		if (e != null) {
-			e.setText(string);
-			System.out.println("postsymbol" + string);
+		if(e != null) {
+		e.setText(string);
+		System.out.println("postsymbol" + string);
 		}
 	}
 

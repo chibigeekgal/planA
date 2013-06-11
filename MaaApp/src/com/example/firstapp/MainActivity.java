@@ -15,6 +15,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -42,14 +43,15 @@ public class MainActivity extends Activity {
 		// For textFont Purpose
 		TextView loginName = (TextView) findViewById(R.id.loginName);
 		Typeface loginNamefont = Typeface.createFromAsset(getAssets(),
-				"Top_Secret.ttf");
+				"Chunkfive.otf");
 		loginName.setTypeface(loginNamefont);
+		loginName.setTextColor(Color.WHITE);
 
 		TextView userName = (TextView) findViewById(R.id.userName);
 		Typeface userNamefont = Typeface.createFromAsset(getAssets(),
-				"Top_Secret.ttf");
+				"Chunkfive.otf");
 		userName.setTypeface(userNamefont);
-
+        userName.setTextColor(Color.WHITE);
 		// end
 		Button registerButton = (Button) findViewById(R.id.Register_button);
 		Button loginButton = (Button) findViewById(R.id.Login_button);
@@ -60,6 +62,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				EditText user = (EditText) findViewById(R.id.idText);
+				user.setSelection(0);
 				username = user.getText().toString();
 				EditText pass = (EditText) findViewById(R.id.passText);
 				password = pass.getText().toString();
@@ -113,15 +116,15 @@ public class MainActivity extends Activity {
 		super.onWindowFocusChanged(hasFocus);
 		p = locateView(findViewById(R.id.extra_symbol));
 	}
-
+	
 	public static Rect locateView(View v) {
 		int[] loc_int = new int[2];
 		if (v == null)
 			return null;
 		try {
 			v.getLocationOnScreen(loc_int);
-			Log.d("Invx", String.valueOf(loc_int[0]));
-			Log.d("Invy", String.valueOf(loc_int[1]));
+			Log.d("Invx",String.valueOf(loc_int[0]));
+			Log.d("Invy",String.valueOf(loc_int[1]));
 			System.out.println("Wwtf");
 		} catch (NullPointerException npe) {
 			// Happens when the view doesn't exist on screen anymore.
