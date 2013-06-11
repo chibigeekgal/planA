@@ -107,13 +107,6 @@ public class MainActivity extends Activity {
 
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
 	public static String readIt(InputStream stream, int len)
 			throws IOException, UnsupportedEncodingException {
 		Reader reader = null;
@@ -203,17 +196,5 @@ public class MainActivity extends Activity {
 		location.right = location.left + v.getWidth();
 		location.bottom = location.top + v.getHeight();
 		return location;
-	}
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-	    switch (item.getItemId()) {
-	        case R.id.extra_symbol:
-	            Intent intent = new Intent(this, KeyboardDisplay.class);
-	            startActivity(intent);
-	            return true;
-	        default:
-	            return super.onOptionsItemSelected(item);
-	    }
 	}
 }

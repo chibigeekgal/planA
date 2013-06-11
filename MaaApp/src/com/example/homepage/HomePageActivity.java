@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.example.firstapp.IndividualQuestion;
 import com.example.firstapp.R;
 import com.example.firstapp.UserInfo;
 
@@ -101,6 +102,9 @@ public class HomePageActivity extends FragmentActivity implements
 			postString();
 			return true;
 		case R.id.setting:
+			Intent i3 = new Intent(getApplicationContext(),
+					IndividualQuestion.class);
+			startActivity(i3);
 		default:
 			return super.onOptionsItemSelected(item);
 		}
