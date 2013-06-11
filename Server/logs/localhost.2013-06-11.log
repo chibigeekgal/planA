@@ -1,0 +1,6 @@
+11-Jun-2013 10:08:13 org.apache.catalina.core.StandardContext listenerStart
+FINE: Sending application start events
+11-Jun-2013 10:08:13 org.apache.catalina.core.StandardContext filterStart
+FINE: Starting filters
+11-Jun-2013 10:09:03 org.apache.catalina.core.StandardContext filterStop
+FINE: Stopping filters

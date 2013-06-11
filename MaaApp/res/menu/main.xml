@@ -1,17 +1,28 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/extra_symbol"
-        android:showAsAction="ifRoom|withText"
-        android:title="formula symbol"/>
-    <item
         android:id="@+id/menu_search"
         android:actionViewClass="android.widget.SearchView"
         android:showAsAction="ifRoom|collapseActionView"
-        android:title="menu_search"/>
+        android:title="Search"/>
+    <item
+        android:id="@+id/extra_symbol"
+        android:showAsAction="ifRoom|withText"
+        android:title="Symbols + Expressions">
+        <menu>
+            <item
+                android:id="@+id/Symbol"
+                android:title="Symbols"/>
+            <item
+                android:id="@+id/Expression"
+                android:title="Expression"/>
+        </menu>
+    </item>
     <item
         android:id="@+id/setting"
         android:showAsAction="ifRoom|withText"
-        android:title="setting"/>
+        android:title="Settings"/>
+    <item>
+    </item>
 
 </menu>

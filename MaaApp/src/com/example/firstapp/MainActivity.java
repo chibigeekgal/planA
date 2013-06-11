@@ -8,8 +8,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.HttpHost;
-import org.apache.http.HttpRequest;
+import keyboard.KeyboardDisplay;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -17,7 +17,6 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -79,7 +78,7 @@ public class MainActivity extends Activity {
 				username = user.getText().toString();
 				EditText pass = (EditText) findViewById(R.id.passText);
 				password = pass.getText().toString();
-				String stringUrl = "localhost:59999/person";
+				String stringUrl = "http://10.0.2.2:59999/person";
 				ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 				NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 				if (networkInfo != null && networkInfo.isConnected()) {
@@ -154,8 +153,7 @@ public class MainActivity extends Activity {
 				HttpResponse hresponse = client.execute(post);
 				InputStream i = hresponse.getEntity().getContent();
 				Integer points = post.getParams().getIntParameter("Points", 0);
-				Log.d("Servlet points", points.toString());
-				String results = MainActivity.readIt(i, 100);
+				String results = MainActivity.readIt(i, 5);
 				//Integer sev_points=(Integer)post.getParams().getParameter("Points");
 				//Log.d("SERVER POINTS",sev_points.toString());
 				return results;
@@ -171,9 +169,9 @@ public class MainActivity extends Activity {
 				showDialog();
 			} else {
 				Intent login = new Intent(getApplicationContext(),
-						ProfileActivity.class);
-				login.putExtra("Points", result);
-				login.putExtra("Username", username);
+						HomePageActivity.class);
+				int point=Integer.parseInt(result);
+				login.putExtra("User",new UserInfo(username,point));
 				startActivity(login);
 			}
 		}
