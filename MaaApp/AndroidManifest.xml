@@ -60,6 +60,10 @@
         </activity>
         <activity android:name="com.example.homepage.PersonalProfile" >
         </activity>
+        <activity 
+            android:name="com.example.firstapp.IndividualQuestion"
+            android:theme="@android:style/Theme.Dialog">            
+        </activity>
     </application>
 
 </manifest>
