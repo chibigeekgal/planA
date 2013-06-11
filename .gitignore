@@ -5,7 +5,9 @@ MaaApp/.project
 MaaApp/.settings/org.eclipse.jdt.core.prefs
 MaaApp/.metadata
 *.class
-logs/*
+*.log
+*.out
 *~
 MaaApp/gen/*
 *.orig
+

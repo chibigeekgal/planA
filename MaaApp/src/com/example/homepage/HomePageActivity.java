@@ -8,13 +8,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.example.firstapp.R;
-import com.example.firstapp.UserInfo;
 
 public class HomePageActivity extends FragmentActivity implements
 		ActionBar.TabListener {
@@ -23,12 +23,11 @@ public class HomePageActivity extends FragmentActivity implements
 	private ViewPager viewPagerControl;
 	public static String string = "";
 	public static ImageView image;
-	private UserInfo user;
+
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.homepage_view);
-		user=(UserInfo) getIntent().getExtras().getSerializable("User");
 		// adapter that return a fragment for the sections
 		adapter = new FrameAdapter(getSupportFragmentManager());
 
@@ -56,7 +55,13 @@ public class HomePageActivity extends FragmentActivity implements
 			actionBar.addTab(actionBar.newTab()
 					.setText(adapter.getPageTitle(i)).setTabListener(this));
 		}
-		
+
+	}
+
+	@Override
+	public void onStart() {
+		super.onStart();
+		Log.d("Onstart", "onstart");
 	}
 
 	@Override
@@ -69,7 +74,18 @@ public class HomePageActivity extends FragmentActivity implements
 			FragmentTransaction fragmentTransaction) {
 		// When the given tab is selected, switch to the corresponding page in
 		// the ViewPager.
+		int position = tab.getPosition();
 		viewPagerControl.setCurrentItem(tab.getPosition());
+		Log.d("position", "Position "+position);
+		if (position > 0) {
+			if(adapter.getFragment(position)==null){
+				Log.d("null1", "fragment is null");
+			}
+			else{
+				Log.d("not null","fragment is not null");
+			}
+		}
+		Log.d("onTab", "onTab");
 	}
 
 	@Override
@@ -86,7 +102,8 @@ public class HomePageActivity extends FragmentActivity implements
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		HomePageActivity.string = ((EditText)findViewById(R.id.q_content)).getText().toString();
+		HomePageActivity.string = ((EditText) findViewById(R.id.q_content))
+				.getText().toString();
 		switch (item.getItemId()) {
 		case R.id.Symbol:
 			Intent i = new Intent(getApplicationContext(),
@@ -111,20 +128,18 @@ public class HomePageActivity extends FragmentActivity implements
 		super.onResume();
 		postString();
 	}
-	
+
 	@Override
 	public void onAttachedToWindow() {
 		super.onAttachedToWindow();
 	}
-	
+
 	public void postString() {
 		EditText e = (EditText) findViewById(R.id.q_content);
-		if(e != null) {
-		e.setText(string);
-		System.out.println("postsymbol" + string);
+		if (e != null) {
+			e.setText(string);
+			System.out.println("postsymbol" + string);
 		}
 	}
 
-	
-	
 }

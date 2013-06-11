@@ -10,25 +10,13 @@ import java.util.List;
 
 import keyboard.KeyboardDisplay;
 
-import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.graphics.Typeface;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -44,8 +32,8 @@ public class MainActivity extends Activity {
 
 	private String username;
 	private String password;
-	public static String error = "error";
 	static Rect p;
+	private Button main;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +53,8 @@ public class MainActivity extends Activity {
 		// end
 		Button registerButton = (Button) findViewById(R.id.Register_button);
 		Button loginButton = (Button) findViewById(R.id.Login_button);
-		Button TempButton = (Button) findViewById(R.id.Tempbutton);
-
+		main = (Button) findViewById(R.id.Tempbutton);
+		main.setVisibility(View.INVISIBLE);
 		loginButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -75,14 +63,15 @@ public class MainActivity extends Activity {
 				username = user.getText().toString();
 				EditText pass = (EditText) findViewById(R.id.passText);
 				password = pass.getText().toString();
-				String stringUrl = "http://10.0.2.2:59999/person";
-				ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-				NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-				if (networkInfo != null && networkInfo.isConnected()) {
-					new LoginPageTask().execute(stringUrl);
-				} else {
-					Log.d("Not connected", "oh no...");
-				}
+				String stringUrl = "/person";
+				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+				pairs.add(new BasicNameValuePair("Login", username));
+				pairs.add(new BasicNameValuePair("Password", password));
+				pairs.add(new BasicNameValuePair("Request", "login"));
+				ServerConnector connector = new ServerConnector(
+						MainActivity.this, stringUrl, pairs,
+						new LoginResultProceccer());
+				connector.connect();
 			};
 		});
 		registerButton.setOnClickListener(new View.OnClickListener() {
@@ -93,7 +82,7 @@ public class MainActivity extends Activity {
 			}
 		});
 
-		TempButton.setOnClickListener(new View.OnClickListener() {
+		main.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				startActivity(new Intent(getApplicationContext(),
@@ -119,75 +108,20 @@ public class MainActivity extends Activity {
 		return new String(buffer);
 	}
 
-	public void showDialog() {
-		Builder b = new AlertDialog.Builder(this);
-		b.setMessage(error);
-		b.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				dialog.cancel();
-			}
-		});
-		AlertDialog d = b.create();
-		d.show();
-	}
-
-	// handler class for DataBase
-	private class LoginPageTask extends AsyncTask<String, Void, String> {
-		@Override
-		protected String doInBackground(String... urls) {
-
-			// params comes from the execute() call: params[0] is the url.
-			try {
-				HttpClient client = new DefaultHttpClient();
-				HttpPost post = new HttpPost(urls[0]);
-				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-				pairs.add(new BasicNameValuePair("Login", username));
-				pairs.add(new BasicNameValuePair("Password", password));
-				pairs.add(new BasicNameValuePair("Request","login"));
-				post.setEntity(new UrlEncodedFormEntity(pairs));
-				HttpResponse hresponse = client.execute(post);
-				InputStream i = hresponse.getEntity().getContent();
-				Integer points = post.getParams().getIntParameter("Points", 0);
-				String results = MainActivity.readIt(i, 5);
-				//Integer sev_points=(Integer)post.getParams().getParameter("Points");
-				//Log.d("SERVER POINTS",sev_points.toString());
-				return results;
-			} catch (IOException e) {
-				Log.d("Error:", e.getMessage());
-				return "Unable to retrieve web page. URL may be invalid.";
-			}
-		}
-
-		protected void onPostExecute(String result) {
-			Log.d("postexecute", result);
-			if (result.equals(error)) {
-				showDialog();
-			} else {
-				Intent login = new Intent(getApplicationContext(),
-						HomePageActivity.class);
-				int point=Integer.parseInt(result);
-				login.putExtra("User",new UserInfo(username,point));
-				startActivity(login);
-			}
-		}
-	}
-	
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {
 		super.onWindowFocusChanged(hasFocus);
 		p = locateView(findViewById(R.id.extra_symbol));
 	}
-	
+
 	public static Rect locateView(View v) {
 		int[] loc_int = new int[2];
 		if (v == null)
 			return null;
 		try {
 			v.getLocationOnScreen(loc_int);
-			Log.d("Invx",String.valueOf(loc_int[0]));
-			Log.d("Invy",String.valueOf(loc_int[1]));
+			Log.d("Invx", String.valueOf(loc_int[0]));
+			Log.d("Invy", String.valueOf(loc_int[1]));
 			System.out.println("Wwtf");
 		} catch (NullPointerException npe) {
 			// Happens when the view doesn't exist on screen anymore.
@@ -200,16 +134,41 @@ public class MainActivity extends Activity {
 		location.bottom = location.top + v.getHeight();
 		return location;
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-	    switch (item.getItemId()) {
-	        case R.id.extra_symbol:
-	            Intent intent = new Intent(this, KeyboardDisplay.class);
-	            startActivity(intent);
-	            return true;
-	        default:
-	            return super.onOptionsItemSelected(item);
-	    }
+		switch (item.getItemId()) {
+		case R.id.extra_symbol:
+			Intent intent = new Intent(this, KeyboardDisplay.class);
+			startActivity(intent);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
+	private class LoginResultProceccer implements ResultProcessStrategy {
+
+		@Override
+		public void ProcessResults(String results) {
+			int index = 0;
+			String message = results.substring(0, 5);
+			while (results.charAt(index) >= '0' && results.charAt(index) <= '9') {
+				index++;
+			}
+			String output = results.substring(0, index);
+			if (message.equals(Library.ERROR)) {
+				Library.showAlert(MainActivity.this,
+						"Invalid username/password combination");
+			} else {
+				Intent login = new Intent(getApplicationContext(),
+						HomePageActivity.class);
+				int point = Integer.parseInt(output);
+				login.putExtra("User", new UserInfo(username, point));
+				Library.showAlert(MainActivity.this, "login successful");
+				startActivity(login);
+			}
+		}
+
 	}
 }
