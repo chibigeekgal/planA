@@ -15,7 +15,7 @@ import android.widget.ImageView;
 
 public class PersonalProfile extends Activity {
 
-	private static int RESULT_LOAD_IMAGE = 1;
+	private static int RESULT_ACT = 1;
 
 
 	@Override
@@ -33,7 +33,7 @@ public class PersonalProfile extends Activity {
 						Intent.ACTION_PICK,
 						android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
-				startActivityForResult(i, RESULT_LOAD_IMAGE);
+				startActivityForResult(i, RESULT_ACT);
 			}
 		});
 	}
@@ -42,7 +42,7 @@ public class PersonalProfile extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 
-		if (requestCode == RESULT_LOAD_IMAGE
+		if (requestCode == RESULT_ACT
 				&& resultCode == Activity.RESULT_OK && null != data) {
 			Uri selectedImage = data.getData();
 

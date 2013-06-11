@@ -25,6 +25,7 @@ import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
@@ -55,15 +56,17 @@ public class MainActivity extends Activity {
 		// For textFont Purpose
 		TextView loginName = (TextView) findViewById(R.id.loginName);
 		Typeface loginNamefont = Typeface.createFromAsset(getAssets(),
-				"Top_Secret.ttf");
+				"Chunkfive.otf");
 		loginName.setTypeface(loginNamefont);
+		loginName.setTextColor(Color.BLACK);
 
 		TextView userName = (TextView) findViewById(R.id.userName);
 		Typeface userNamefont = Typeface.createFromAsset(getAssets(),
-				"Top_Secret.ttf");
+				"Chunkfive.otf");
 		userName.setTypeface(userNamefont);
-
+        userName.setTextColor(Color.BLACK);
 		// end
+        
 		Button registerButton = (Button) findViewById(R.id.Register_button);
 		Button loginButton = (Button) findViewById(R.id.Login_button);
 		Button TempButton = (Button) findViewById(R.id.Tempbutton);

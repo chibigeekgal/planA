@@ -13,41 +13,25 @@
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="5dip"
-            android:paddingTop="5dip"
             android:background="#33b5e5" >
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dip"
-                android:src="@drawable/ic_launcher" />
-        </LinearLayout>
-        
-   
-
-        <LinearLayout
-            android:id="@+id/footer"
-            android:layout_width="fill_parent"
-            android:layout_height="90dip"
-            android:layout_alignParentBottom="true"
-            android:background="@layout/footer_repeat"
-            android:orientation="vertical" >
+                android:src="@drawable/icon" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_below="@id/header"
-            
+            android:background="@drawable/maths"
             android:orientation="vertical"
             android:padding="10dip" >
 
-            <!-- Email Label -->
-
             <TextView
                 android:id="@+id/loginName"
-                style="@style/CodeFont"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -63,13 +47,11 @@
                 android:layout_marginLeft="100dp"
                 android:layout_marginRight="100dp"
                 android:layout_marginTop="20dp"
-                android:ems="10"
                 android:gravity="center"
                 android:inputType="textEmailAddress|textPassword" />
 
             <TextView
                 android:id="@+id/userName"
-                style="@style/CodeFont"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -114,8 +96,6 @@
                 android:layout_marginTop="10dip"
                 android:text="MainPage" />
         </LinearLayout>
-        
-
     </RelativeLayout>
 
 </ScrollView>
