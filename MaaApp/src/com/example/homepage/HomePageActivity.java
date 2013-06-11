@@ -23,7 +23,7 @@ public class HomePageActivity extends FragmentActivity implements
 	private ViewPager viewPagerControl;
 	public static String string = "";
 	public static ImageView image;
-	private UserInfo user;
+	//private UserInfo user;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
