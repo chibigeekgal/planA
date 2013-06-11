@@ -14,88 +14,118 @@ import beans.Question_bean;
 
 import com.google.gson.JsonArray;
 
+import javax.swing.ImageIcon;
+import java.awt.image.*;
+import java.awt.Graphics;
+import javax.imageio.*;
+import java.net.URL;
+import java.awt.Image;
+
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Insets;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+
+import javax.imageio.ImageIO;
+import javax.swing.JLabel;
+
+import org.scilab.forge.jlatexmath.TeXConstants;
+import org.scilab.forge.jlatexmath.TeXFormula;
+import org.scilab.forge.jlatexmath.TeXIcon;
+
 /**
  * Servlet implementation class Question_Servlet
  */
 @WebServlet("/question")
 public class Question_Servlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	private QuestionMethod question_method;
+    private static final long serialVersionUID = 1L;
+    private QuestionMethod question_method;
 
-	public Question_Servlet() {
-		super();
-		try {
-			question_method = new QuestionMethod();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    public Question_Servlet() {
+	super();
+	try {
+	    question_method = new QuestionMethod();
+	} catch (SQLException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
 	}
+    }
 
-	@Override
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		out.println("<html>");
-		out.println("<head>");
-		out.println("<title> Database of Questions </title>");
-		out.println("</head>");
-		out.println("<body bgcolor=\"white\">");
-		out.println("<table>");
-		LinkedList<Question_bean> questions = question_method.getAllQuestions();
-		for (Question_bean question : questions) {
-			out.println("<tr><td>" + question.getIndex() + "</td><td>"
-					+ question.getOwner() + "</td><td>" + question.getTitle()
-					+ "</td><td>" + question.getContent() + "</td><td>"
-					+ question.getBestAnswer() + "</td></tr>");
-		}
-		out.println("</table>");
-		out.println("</body>");
-		out.println("</html>");
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
+	throws ServletException, IOException {
+	response.setContentType("text/html");
+	PrintWriter out = response.getWriter();
+	out.println("<html>");
+	out.println("<head>");
+	out.println("<title> Database of Questions </title>");
+	out.println("</head>");
+	out.println("<body bgcolor=\"white\">");
+	out.println("<table>");
+	LinkedList<Question_bean> questions = question_method.getAllQuestions();
+	for (Question_bean question : questions) {
+	    out.println("<tr><td>" + question.getIndex() + "</td><td>"
+			+ question.getOwner() + "</td><td>" + question.getTitle()
+			+ "</td><td>" + question.getContent() + "</td><td>"
+			+ question.getBestAnswer() + "</td></tr>");
 	}
+	out.println("</table>");
+	out.println("</body>");
+	out.println("</html>");
+    }
 
-	@Override
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		String query = request.getParameter("request");
-		//System.out.println("Query "+query);
-		String indexString = request.getParameter("index");
-		int index = 0;
-		if (indexString != null) {
-			index = Integer.parseInt(indexString);
-		}
-		String owner = request.getParameter("username");
-		String title = request.getParameter("title");
-		String content = request.getParameter("content");
-		String substring = request.getParameter("substring");
-		String bestAnswerText = request.getParameter("best_answer");
-		int bestAnswer = 0;
-		if (bestAnswerText != null)
-			bestAnswer = Integer.parseInt(request.getParameter("best_answer"));
-		response.setContentType("application/json");
-		PrintWriter out = response.getWriter();
-		if (query.equals("ask")) {
-			question_method.ask_question(owner, title, content);
-		}
-		if (query.equals("get_all")) {
-			LinkedList<Question_bean> questions = question_method
-					.getAllQuestions();
-			JsonArray qjsons = question_method.toJsonArray(questions);
-			out.println(qjsons);
-		}
-		if (query.equals("choose_best")) {
-			question_method.chooseBestAnswer(index, bestAnswer);
-		}
-		if (query.equals("get_unanswered")) {
-			LinkedList<Question_bean> questions = question_method
-					.get_unanswered_questions(owner);
-			out.println(question_method.toJsonArray(questions));
-		}
-		if (query.equals("search")) {
-			LinkedList<Question_bean> questions = question_method
-					.searchSubstring(substring);
-			out.println(question_method.toJsonArray(questions));
-		}
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response)
+	throws ServletException, IOException {
+	String query = request.getParameter("request");
+	//System.out.println("Query "+query);
+	String indexString = request.getParameter("index");
+	int index = 0;
+	if (indexString != null) {
+	    index = Integer.parseInt(indexString);
 	}
+	String owner = request.getParameter("username");
+	String title = request.getParameter("title");
+	String content = request.getParameter("content");
+	String substring = request.getParameter("substring");
+	String bestAnswerText = request.getParameter("best_answer");
+	String imageArgument = request.getParameter("Argument");
+	int bestAnswer = 0;
+	if (bestAnswerText != null)
+	    bestAnswer = Integer.parseInt(request.getParameter("best_answer"));
+	response.setContentType("application/json");
+
+	PrintWriter out = response.getWriter();
+	if (query.equals("ask")) {
+	    question_method.ask_question(owner, title, content);
+	}
+	if (query.equals("get_all")) {
+	    LinkedList<Question_bean> questions = question_method
+		.getAllQuestions();
+	    JsonArray qjsons = question_method.toJsonArray(questions);
+	    out.println(qjsons);
+	}
+	if (query.equals("choose_best")) {
+	    question_method.chooseBestAnswer(index, bestAnswer);
+	}
+	if (query.equals("get_unanswered")) {
+	    LinkedList<Question_bean> questions = question_method
+		.get_unanswered_questions(owner);
+	    out.println(question_method.toJsonArray(questions));
+	}
+	if (query.equals("search")) {
+	    LinkedList<Question_bean> questions = question_method
+		.searchSubstring(substring);
+	    out.println(question_method.toJsonArray(questions));
+	}
+	if(query.equals("image")) {
+	    response.setContentType("image/png");
+	    BufferedImage i = question_method.toBufferedImage(imageArgument);
+	    OutputStream o = response.getOutputStream();
+	    ImageIO.write(i, "png", o);
+	}
+    }
 }

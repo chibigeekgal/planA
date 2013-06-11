@@ -27,8 +27,8 @@ beans/Method.class:	beans/Method.java
 beans/UserMethod.class:	beans/UserMethod.java
 	javac -d . beans/UserMethod.java
 beans/QuestionMethod.class:	beans/QuestionMethod.java
-	javac -cp .:$(LIBDIR)/gson-2.2.4.jar beans/QuestionMethod.java
+	javac -cp .:$(LIBDIR)/gson-2.2.4.jar:$(LIBDIR)/jlatexmath-1.0.2.jar beans/QuestionMethod.java
 Person_Servlet.class:	Person_Servlet.java | beans.jar
 	javac -cp /usr/lib/tomcat7/tomcat-7.0.29/lib/servlet-api.jar:beans.jar Person_Servlet.java
 Question_Servlet.class:	Question_Servlet.java | beans.jar
-	javac -cp /usr/lib/tomcat7/tomcat-7.0.29/lib/servlet-api.jar:beans.jar:$(LIBDIR)/gson-2.2.4.jar Question_Servlet.java
+	javac -cp /usr/lib/tomcat7/tomcat-7.0.29/lib/servlet-api.jar:beans.jar:$(LIBDIR)/gson-2.2.4.jar:$(LIBDIR)/jlatexmath-1.0.2.jar Question_Servlet.java
