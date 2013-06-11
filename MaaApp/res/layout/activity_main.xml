@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/header"
-            android:background="@drawable/maths"
+            android:background="@drawable/login4"
             android:orientation="vertical"
             android:padding="10dip" >
 
@@ -38,7 +38,8 @@
                 android:text="Username"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textSize="30sp"
-                android:textStyle="bold|italic" />
+                android:textStyle="bold|italic" 
+                android:layout_marginTop="200dp"/>
 
             <EditText
                 android:id="@+id/idText"
@@ -75,8 +76,8 @@
                 android:id="@+id/Login_button"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="80dp"
-                android:layout_marginRight="80dp"
+                android:layout_marginLeft="100dp"
+                android:layout_marginRight="100dp"
                 android:layout_marginTop="10dip"
                 android:text="Log In" />
 
@@ -84,8 +85,8 @@
                 android:id="@+id/Register_button"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="80dp"
-                android:layout_marginRight="80dp"
+                android:layout_marginLeft="100dp"
+                android:layout_marginRight="100dp"
                 android:layout_marginTop="10dip"
                 android:text="Create Account Now" />
 

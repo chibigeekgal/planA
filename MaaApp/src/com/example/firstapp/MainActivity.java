@@ -57,13 +57,13 @@ public class MainActivity extends Activity {
 		Typeface loginNamefont = Typeface.createFromAsset(getAssets(),
 				"Chunkfive.otf");
 		loginName.setTypeface(loginNamefont);
-		loginName.setTextColor(Color.BLACK);
+		loginName.setTextColor(Color.WHITE);
 
 		TextView userName = (TextView) findViewById(R.id.userName);
 		Typeface userNamefont = Typeface.createFromAsset(getAssets(),
 				"Chunkfive.otf");
 		userName.setTypeface(userNamefont);
-        userName.setTextColor(Color.BLACK);
+        userName.setTextColor(Color.WHITE);
 		// end
         
 		Button registerButton = (Button) findViewById(R.id.Register_button);
@@ -75,6 +75,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				EditText user = (EditText) findViewById(R.id.idText);
+				user.setSelection(0);
 				username = user.getText().toString();
 				EditText pass = (EditText) findViewById(R.id.passText);
 				password = pass.getText().toString();

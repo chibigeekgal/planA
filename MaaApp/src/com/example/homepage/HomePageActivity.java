@@ -28,7 +28,7 @@ public class HomePageActivity extends FragmentActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.homepage_view);
-		user=(UserInfo) getIntent().getExtras().getSerializable("User");
+		//user=(UserInfo) getIntent().getExtras().getSerializable("User");
 		// adapter that return a fragment for the sections
 		adapter = new FrameAdapter(getSupportFragmentManager());
 

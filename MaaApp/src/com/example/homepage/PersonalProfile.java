@@ -17,11 +17,15 @@ public class PersonalProfile extends Activity {
 
 	private static int RESULT_ACT = 1;
 
+	private ImageView personal_imageView;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.personal_profile_view);
+		// setting default picture
+		personal_imageView = (ImageView) findViewById(R.id.personal_pics);
+		personal_imageView.setImageResource(R.drawable.default_pic);
 
 		Button buttonLoadImage = (Button) findViewById(R.id.select_pic);
 		buttonLoadImage.setOnClickListener(new View.OnClickListener() {
@@ -36,14 +40,15 @@ public class PersonalProfile extends Activity {
 				startActivityForResult(i, RESULT_ACT);
 			}
 		});
+
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 
-		if (requestCode == RESULT_ACT
-				&& resultCode == Activity.RESULT_OK && null != data) {
+		if (requestCode == RESULT_ACT && resultCode == Activity.RESULT_OK
+				&& null != data) {
 			Uri selectedImage = data.getData();
 
 			String[] filePathColumn = { MediaStore.Images.Media.DATA };
@@ -58,9 +63,8 @@ public class PersonalProfile extends Activity {
 
 			cursor.close();
 
-			ImageView imageView = (ImageView) findViewById(R.id.personal_pics);
-			imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-
+			personal_imageView.setImageBitmap(BitmapFactory
+					.decodeFile(picturePath));
 		}
 
 	}
