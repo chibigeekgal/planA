@@ -69,7 +69,7 @@ public class RegisterScreenActivity extends Activity {
 			public void onClick(View v) {
 				EditText password = (EditText) findViewById(R.id.editPassword);
 				EditText confirmP = (EditText) findViewById(R.id.editConfirmPassword);
-					String stringUrl = "localhost:59999/person";
+					String stringUrl = "http://10.0.2.2:59999/person";
 					ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 					NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 					if (networkInfo != null && networkInfo.isConnected()) {

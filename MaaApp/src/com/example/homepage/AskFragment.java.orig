@@ -1,0 +1,72 @@
+package com.example.homepage;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+<<<<<<< Updated upstream
+import android.view.View.OnClickListener;
+import android.webkit.WebView.FindListener;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+=======
+import android.widget.EditText;
+>>>>>>> Stashed changes
+
+import com.example.firstapp.R;
+
+public class AskFragment extends Fragment {
+
+<<<<<<< Updated upstream
+	public static Button re;
+	
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+    	//setting up the view 
+        final View subFragmentView = inflater.inflate(R.layout.askfragment_view, container, false);
+        Bundle args = getArguments();
+
+        re = (Button) subFragmentView.findViewById(R.id.reAsk);
+		re.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) {
+				HomePageActivity.string = ((TextView) subFragmentView.findViewById(R.id.q_content)).getText().toString();
+				new Page().execute("http://146.169.52.3:59999/image");
+			}
+			
+		});
+    	HomePageActivity.image = (ImageView) subFragmentView.findViewById(R.id.imageView1);
+        return subFragmentView;
+    }
+=======
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		// setting up the view
+		final View askView = inflater.inflate(R.layout.askfragment_view, container,
+				false);
+		Bundle args = getArguments();
+		
+		askView.findViewById(R.id.ask_button).setOnClickListener(
+				new View.OnClickListener() {
+					@Override
+					public void onClick(View view) {
+						EditText title_text=(EditText) askView.findViewById(R.id.q_title);
+						String questionTitle=title_text.getText().toString();
+						EditText content_text= (EditText) askView.findViewById(R.id.q_content);
+						String questionContent = content_text.getText().toString();
+						
+						/*Intent intent = new Intent(getActivity(),
+								PersonalProfile.class);
+						startActivity(intent);*/
+					}
+				});
+
+		return askView;
+	}
+>>>>>>> Stashed changes
+}

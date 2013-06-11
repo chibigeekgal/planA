@@ -1,7 +1,13 @@
 package com.example.homepage;
 
+<<<<<<< Updated upstream
 import keyboard.ExpressionKeyboardDisplay;
 import keyboard.SymbolKeyboardDisplay;
+=======
+import com.example.firstapp.R;
+import com.example.firstapp.UserInfo;
+
+>>>>>>> Stashed changes
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -14,17 +20,20 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.example.firstapp.R;
-import com.example.firstapp.UserInfo;
 
 public class HomePageActivity extends FragmentActivity implements
 		ActionBar.TabListener {
 
 	private FrameAdapter adapter;
 	private ViewPager viewPagerControl;
+<<<<<<< Updated upstream
 	public static String string = "";
 	public static ImageView image;
+	
+=======
 	private UserInfo user;
 
+>>>>>>> Stashed changes
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.homepage_view);
@@ -35,7 +44,7 @@ public class HomePageActivity extends FragmentActivity implements
 		final ActionBar actionBar = getActionBar();
 
 		actionBar.setHomeButtonEnabled(false);
-
+		
 		// Specify that we will be displaying tabs in the action bar.
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 

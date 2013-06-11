@@ -8,8 +8,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.HttpHost;
-import org.apache.http.HttpRequest;
+import keyboard.KeyboardDisplay;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -17,7 +17,6 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -76,7 +75,7 @@ public class MainActivity extends Activity {
 				username = user.getText().toString();
 				EditText pass = (EditText) findViewById(R.id.passText);
 				password = pass.getText().toString();
-				String stringUrl = "localhost:59999/person";
+				String stringUrl = "http://10.0.2.2:59999/person";
 				ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 				NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 				if (networkInfo != null && networkInfo.isConnected()) {
@@ -102,6 +101,13 @@ public class MainActivity extends Activity {
 			}
 		});
 
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
 	}
 
 	public static String readIt(InputStream stream, int len)
@@ -139,16 +145,14 @@ public class MainActivity extends Activity {
 				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 				pairs.add(new BasicNameValuePair("Login", username));
 				pairs.add(new BasicNameValuePair("Password", password));
-				pairs.add(new BasicNameValuePair("Request", "login"));
+				pairs.add(new BasicNameValuePair("Request","login"));
 				post.setEntity(new UrlEncodedFormEntity(pairs));
 				HttpResponse hresponse = client.execute(post);
 				InputStream i = hresponse.getEntity().getContent();
 				Integer points = post.getParams().getIntParameter("Points", 0);
-				Log.d("Servlet points", points.toString());
-				String results = MainActivity.readIt(i, 100);
-				// Integer
-				// sev_points=(Integer)post.getParams().getParameter("Points");
-				// Log.d("SERVER POINTS",sev_points.toString());
+				String results = MainActivity.readIt(i, 5);
+				//Integer sev_points=(Integer)post.getParams().getParameter("Points");
+				//Log.d("SERVER POINTS",sev_points.toString());
 				return results;
 			} catch (IOException e) {
 				Log.d("Error:", e.getMessage());
@@ -162,28 +166,28 @@ public class MainActivity extends Activity {
 				showDialog();
 			} else {
 				Intent login = new Intent(getApplicationContext(),
-						ProfileActivity.class);
-				login.putExtra("Points", result);
-				login.putExtra("Username", username);
+						HomePageActivity.class);
+				int point=Integer.parseInt(result);
+				login.putExtra("User",new UserInfo(username,point));
 				startActivity(login);
 			}
 		}
 	}
-
+	
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {
 		super.onWindowFocusChanged(hasFocus);
 		p = locateView(findViewById(R.id.extra_symbol));
 	}
-
+	
 	public static Rect locateView(View v) {
 		int[] loc_int = new int[2];
 		if (v == null)
 			return null;
 		try {
 			v.getLocationOnScreen(loc_int);
-			Log.d("Invx", String.valueOf(loc_int[0]));
-			Log.d("Invy", String.valueOf(loc_int[1]));
+			Log.d("Invx",String.valueOf(loc_int[0]));
+			Log.d("Invy",String.valueOf(loc_int[1]));
 			System.out.println("Wwtf");
 		} catch (NullPointerException npe) {
 			// Happens when the view doesn't exist on screen anymore.
@@ -196,5 +200,16 @@ public class MainActivity extends Activity {
 		location.bottom = location.top + v.getHeight();
 		return location;
 	}
-
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    switch (item.getItemId()) {
+	        case R.id.extra_symbol:
+	            Intent intent = new Intent(this, KeyboardDisplay.class);
+	            startActivity(intent);
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
 }

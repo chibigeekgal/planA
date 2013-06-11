@@ -9,7 +9,6 @@ public class FrameAdapter extends FragmentPagerAdapter {
 
 	public FrameAdapter(FragmentManager fm) {
 		super(fm);
-
 	}
 
 	@Override

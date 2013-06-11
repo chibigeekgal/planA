@@ -8,3 +8,4 @@ MaaApp/.metadata
 logs/*
 *~
 MaaApp/gen/*
+*.orig
