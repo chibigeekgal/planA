@@ -10,4 +10,5 @@ MaaApp/.metadata
 *~
 MaaApp/gen/*
 *.orig
+Server/logs/*
 
