@@ -24,12 +24,12 @@ import android.util.Log;
 public class ServerConnector {
 	private String url;
 	List<NameValuePair> pairs;
-	ResultProcessStrategy proceccer;
+	ResultHandlerStrategy proceccer;
 	private Activity activity;
 	private String serverError = "Unable to retrieve web page. URL may be invalid.";
 
 	public ServerConnector(Activity activity, String url,
-			List<NameValuePair> pairs, ResultProcessStrategy proceccer) {
+			List<NameValuePair> pairs, ResultHandlerStrategy proceccer) {
 		this.url = Library.serverUrl + url;
 		this.pairs = pairs;
 		this.proceccer = proceccer;

@@ -73,7 +73,7 @@ public class MainActivity extends Activity {
 				pairs.add(new BasicNameValuePair("Request", "login"));
 				ServerConnector connector = new ServerConnector(
 						MainActivity.this, stringUrl, pairs,
-						new LoginResultProceccer());
+						new LoginResultHandler());
 				connector.connect();
 			};
 		});
@@ -150,7 +150,7 @@ public class MainActivity extends Activity {
 		}
 	}
 
-	private class LoginResultProceccer implements ResultProcessStrategy {
+	private class LoginResultHandler implements ResultHandlerStrategy {
 
 		@Override
 		public void ProcessResults(String results) {

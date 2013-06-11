@@ -15,7 +15,9 @@ public class QuestionMethod extends Method {
 
 	public Question_bean ask_question(String user, String title, String content) {
 		try {
+
 			int index = get_max_index() + 1;
+			// System.out.println("index");
 			getStatement().executeUpdate(
 					"Insert INTO Question VALUES (" + index + ", '" + title
 							+ "', '" + user + "', '" + content + "', 0);");
@@ -29,9 +31,12 @@ public class QuestionMethod extends Method {
 	private int get_max_index() throws SQLException {
 		ResultSet rs;
 		rs = getStatement().executeQuery(
-				"SELECT COUNT(Question_index) FROM Question;");
-		return rs.getInt(1);
+				"SELECT COUNT (Question_index) FROM Question;");
 
+		if (rs.next()) {
+			return rs.getInt(1);
+		}
+		return 0;
 	}
 
 	public Question_bean getQuestionByIndex(int index) {

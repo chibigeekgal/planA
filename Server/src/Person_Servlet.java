@@ -72,19 +72,21 @@ public class Person_Servlet extends HttpServlet {
 		try {
 			if (requestType.equals("login")) {
 				user = user_method.get_user(username, password);
+				if (user == null)
+					out.println("error");
+				else
+					out.println(user.getPoints());
 			}
 			if (requestType.equals("register")) {
 				user = user_method.register_user(username, password);
+				if (user == null)
+					out.println("exist");
+				else
+					out.println(user.getPoints());
 			}
 		} catch (SQLException e) {
-			user = null;
-		}
-		if (user == null) {
-			out.println("error");
-		} else {
-			out.println(user.getPoints());
+			out.println("SQL Exception");
 		}
 	}
 
 }
-

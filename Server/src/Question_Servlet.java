@@ -59,12 +59,20 @@ public class Question_Servlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String query = request.getParameter("request");
-		int index = Integer.parseInt(request.getParameter("index"));
+		//System.out.println("Query "+query);
+		String indexString = request.getParameter("index");
+		int index = 0;
+		if (indexString != null) {
+			index = Integer.parseInt(indexString);
+		}
 		String owner = request.getParameter("username");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		String substring = request.getParameter("substring");
-		int bestAnswer = Integer.parseInt(request.getParameter("best_answer"));
+		String bestAnswerText = request.getParameter("best_answer");
+		int bestAnswer = 0;
+		if (bestAnswerText != null)
+			bestAnswer = Integer.parseInt(request.getParameter("best_answer"));
 		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();
 		if (query.equals("ask")) {

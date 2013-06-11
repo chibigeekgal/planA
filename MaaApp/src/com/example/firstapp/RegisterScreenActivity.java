@@ -78,7 +78,7 @@ public class RegisterScreenActivity extends Activity {
 						pairs.add(new BasicNameValuePair("Request", "register"));
 						ServerConnector connector = new ServerConnector(
 								RegisterScreenActivity.this, stringUrl, pairs,
-								new RegisterResultProceccer());
+								new RegisterResultHanler());
 						connector.connect();
 					}
 				}
@@ -99,7 +99,7 @@ public class RegisterScreenActivity extends Activity {
 		super.onStart();
 	}
 
-	private class RegisterResultProceccer implements ResultProcessStrategy {
+	private class RegisterResultHanler implements ResultHandlerStrategy {
 
 		@Override
 		public void ProcessResults(String results) {
