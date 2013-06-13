@@ -9,6 +9,8 @@ import java.util.Map.Entry;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -21,7 +23,6 @@ public abstract class KeyboardDisplay extends Activity {
 
 
 	protected HashMap<String, String> latexMap;
-	protected static Activity current_activity;
 	protected EditText e;
 
 	public KeyboardDisplay() {
@@ -51,26 +52,28 @@ public abstract class KeyboardDisplay extends Activity {
 		ArrayAdapter<String> aa = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, items);
 		g.setAdapter(aa);
-		OnItemClickListener stc = putListener();
-		g.setOnItemClickListener(stc);
+		g.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				generateListener(arg0, arg1, arg2, arg3);
+			}
+			
+		});
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		current_activity = this;
 	}
 
-	public abstract OnItemClickListener putListener();
+	public abstract void generateListener(AdapterView<?> arg0, View arg1, int arg2, long arg3);
 
 	public HashMap<String, String> getLatexMap() {
 		return latexMap;
 	}
 
-	public static Activity getCurrentActivity() {
-		return current_activity;
-	}
-	
 	public void addText(String s){
 		e.setText(e.getText().toString()+ s);
 	}

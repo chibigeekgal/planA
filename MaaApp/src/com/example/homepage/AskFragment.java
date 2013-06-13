@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -37,21 +38,6 @@ public class AskFragment extends Fragment {
 		final View askPageView = inflater.inflate(R.layout.askfragment_view,
 				container, false);
 
-		re = (Button) askPageView.findViewById(R.id.reAsk);
-		re.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				HomePageActivity.string = ((TextView) askPageView
-						.findViewById(R.id.q_content)).getText().toString();
-				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-				pairs.add(new BasicNameValuePair("Argument",
-						HomePageActivity.string));
-				new ServerConnector(getActivity(), "/image", pairs,
-						new ImageResultProcesser());
-			}
-
-		});
 		askPageView.findViewById(R.id.ask).setOnClickListener(
 				new OnClickListener() {
 
@@ -68,18 +54,14 @@ public class AskFragment extends Fragment {
 						pairs.add(new BasicNameValuePair("username", user
 								.getUsername()));
 						pairs.add(new BasicNameValuePair("content", content));
-						pairs.add(new BasicNameValuePair("request","ask"));
+						pairs.add(new BasicNameValuePair("request", "ask"));
 						new ServerConnector(getActivity(), url, pairs,
 								new AskResultProcesser()).connect();
-						
-						
+
 					}
 
 				});
 
-		HomePageActivity.image = (ImageView) askPageView
-				.findViewById(R.id.imageView1);
-		HomePageActivity.currentActivity = getActivity();
 		return askPageView;
 	}
 
@@ -98,6 +80,5 @@ public class AskFragment extends Fragment {
 		public void ProcessResults(String results) {
 			Library.showAlert(getActivity(), "Your question has been posted");
 		}
-
 	}
 }

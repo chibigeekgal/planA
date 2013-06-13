@@ -1,6 +1,7 @@
 package com.example.homepage;
 
 import keyboard.ExpressionKeyboardDisplay;
+import keyboard.KeyboardEntry;
 import keyboard.SymbolKeyboardDisplay;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -24,7 +25,6 @@ public class HomePageActivity extends FragmentActivity implements
 	private ViewPager viewPagerControl;
 	public static String string = "";
 	public static ImageView image;
-	public static Activity currentActivity;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -56,7 +56,6 @@ public class HomePageActivity extends FragmentActivity implements
 			actionBar.addTab(actionBar.newTab()
 					.setText(adapter.getPageTitle(i)).setTabListener(this));
 		}
-		currentActivity = this;
 	}
 
 	@Override
@@ -87,17 +86,9 @@ public class HomePageActivity extends FragmentActivity implements
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.Symbol:
-			Intent i = new Intent(getApplicationContext(),
-					SymbolKeyboardDisplay.class);
+		case R.id.extra_symbol:
+			Intent i = new Intent(getApplicationContext(), KeyboardEntry.class);
 			startActivityForResult(i, 1);
-			// postString();
-			return true;
-		case R.id.Expression:
-			Intent i2 = new Intent(getApplicationContext(),
-					ExpressionKeyboardDisplay.class);
-			startActivityForResult(i2, 1);
-			// postString();
 			return true;
 		case R.id.setting:
 			Intent i3 = new Intent(getApplicationContext(),
@@ -121,10 +112,11 @@ public class HomePageActivity extends FragmentActivity implements
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (requestCode) {
 		case (1): {
-				String newText = data.getStringExtra("Expr");
-				EditText result = (EditText) findViewById(R.id.q_content);
-				// result.setText(result.getText().toString() + ree + " ");
+			if(resultCode == RESULT_OK) {
+				String newText = data.getStringExtra("Argument");
+				EditText result = (EditText) findViewById(R.id.content);
 				result.setText(result.getText().toString() + "  " + newText);
+			}
 			break;
 		}
 		}

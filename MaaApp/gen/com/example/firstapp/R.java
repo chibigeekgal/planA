@@ -36,8 +36,7 @@ public final class R {
         public static final int maths=0x7f020009;
     }
     public static final class id {
-        public static final int Expression=0x7f0a003e;
-        public static final int Expression_button=0x7f0a001a;
+        public static final int Expression_button=0x7f0a0018;
         public static final int LinearLayout1=0x7f0a000a;
         public static final int LinearLayout2=0x7f0a000d;
         public static final int LinearLayout4=0x7f0a0028;
@@ -48,8 +47,7 @@ public final class R {
         public static final int Register_button=0x7f0a0006;
         public static final int RelativeLayout1=0x7f0a0012;
         public static final int RelativeLayout2=0x7f0a0021;
-        public static final int Symbol=0x7f0a003d;
-        public static final int Symbol_button=0x7f0a0019;
+        public static final int Symbol_button=0x7f0a001a;
         public static final int Tempbutton=0x7f0a0007;
         public static final int add=0x7f0a0039;
         public static final int answer_list=0x7f0a0016;
@@ -62,7 +60,7 @@ public final class R {
         public static final int editText1=0x7f0a0025;
         public static final int editText2=0x7f0a0027;
         public static final int editText3=0x7f0a002a;
-        public static final int enter_button=0x7f0a0018;
+        public static final int enter_button=0x7f0a0019;
         public static final int extra_symbol=0x7f0a003c;
         public static final int footer=0x7f0a003a;
         public static final int gridView1=0x7f0a0011;
@@ -91,7 +89,7 @@ public final class R {
         public static final int question=0x7f0a0015;
         public static final int reAsk=0x7f0a000f;
         public static final int select_pic=0x7f0a0022;
-        public static final int setting=0x7f0a003f;
+        public static final int setting=0x7f0a003d;
         public static final int text=0x7f0a001e;
         public static final int text1=0x7f0a002f;
         public static final int textView1=0x7f0a0024;

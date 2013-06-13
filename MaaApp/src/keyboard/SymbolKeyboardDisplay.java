@@ -2,7 +2,13 @@ package keyboard;
 
 import java.util.HashMap;
 
-import android.widget.EditText;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.TextView;
+
+import com.example.homepage.HomePageActivity;
 
 public class SymbolKeyboardDisplay extends KeyboardDisplay {
 
@@ -55,9 +61,14 @@ public class SymbolKeyboardDisplay extends KeyboardDisplay {
 	}
 
 	@Override
-	public SymbolTableClicker putListener(){
-		SymbolTableClicker stc = new SymbolTableClicker();
-		return stc;
+	public void generateListener(AdapterView<?> arg0, View arg1, int arg2,
+			long arg3) {
+		Bundle bundle = new Bundle();
+		bundle.putString("Argument",(latexMap.get(((TextView) arg1).getText().toString())));
+		Intent myIntent = new Intent();
+		myIntent.putExtras(bundle);
+		setResult(RESULT_OK, myIntent);
+		finish();
 	}
 
 }
