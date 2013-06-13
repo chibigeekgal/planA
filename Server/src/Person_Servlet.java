@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import beans.Method;
+import beans.UserMethod;
 import beans.User_bean;
 
 /**
@@ -19,7 +19,7 @@ import beans.User_bean;
 public class Person_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private User_bean user;
-	private Method user_method;
+	private UserMethod user_method;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -27,7 +27,7 @@ public class Person_Servlet extends HttpServlet {
 	public Person_Servlet() {
 		super();
 		try {
-			user_method = new Method();
+			user_method = new UserMethod();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -72,19 +72,20 @@ public class Person_Servlet extends HttpServlet {
 		try {
 			if (requestType.equals("login")) {
 				user = user_method.get_user(username, password);
-
+				if (user == null)
+					out.println("error");
+				else
+					out.println(user.getPoints());
 			}
 			if (requestType.equals("register")) {
-
 				user = user_method.register_user(username, password);
+				if (user == null)
+					out.println("exist");
+				else
+					out.println(user.getPoints());
 			}
 		} catch (SQLException e) {
-			user = null;
-		}
-		if (user == null) {
-			out.println("error");
-		} else {
-			out.println(user.getPoints());
+			out.println("SQL Exception");
 		}
 	}
 

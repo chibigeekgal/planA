@@ -20,7 +20,6 @@ public class SearchActivity extends Activity{
 		
 		l = (ListView) findViewById(R.id.list);
 		t = (TextView) findViewById(R.id.text);
-		
 		handleIntent(getIntent());
 		
 	}

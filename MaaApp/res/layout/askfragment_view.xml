@@ -20,7 +20,7 @@
             android:imeActionLabel="launch" />
 
         <EditText
-            android:id="@+id/q_content"
+            android:id="@+id/content"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -68,7 +68,7 @@
             android:layout_marginTop="42dp" >
 
             <Button
-                android:id="@+id/button1"
+                android:id="@+id/ask"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="44dp"

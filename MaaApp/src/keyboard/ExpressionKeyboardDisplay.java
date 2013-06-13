@@ -2,17 +2,13 @@ package keyboard;
 
 import java.util.HashMap;
 
-import com.example.firstapp.R;
-import com.example.homepage.HomePageActivity;
-
 import android.text.Html;
 import android.widget.EditText;
 
 
-
-
 public class ExpressionKeyboardDisplay extends KeyboardDisplay{
 	
+
 	@Override
 	public ExpressionTableClicker putListener() {
 		//EditText e = (EditText) findViewById(R.id.q_content);
