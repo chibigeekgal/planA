@@ -99,10 +99,10 @@ public class RegisterScreenActivity extends Activity {
 		super.onStart();
 	}
 
-	private class RegisterResultHanler implements ResultHandlerStrategy {
+	private class RegisterResultHanler extends StringResultHandler {
 
 		@Override
-		public void ProcessResults(String results) {
+		public void processStringResults(String results) {
 			String message = results.substring(0, 5);
 			if (message.equals(Library.EXIST)) {
 				Library.showAlert(RegisterScreenActivity.this,

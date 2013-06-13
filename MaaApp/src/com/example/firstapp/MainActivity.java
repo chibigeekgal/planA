@@ -51,7 +51,7 @@ public class MainActivity extends Activity {
 		Typeface userNamefont = Typeface.createFromAsset(getAssets(),
 				"Chunkfive.otf");
 		userName.setTypeface(userNamefont);
-        userName.setTextColor(Color.WHITE);
+		userName.setTextColor(Color.WHITE);
 		// end
 		Button registerButton = (Button) findViewById(R.id.Register_button);
 		Button loginButton = (Button) findViewById(R.id.Login_button);
@@ -116,15 +116,15 @@ public class MainActivity extends Activity {
 		super.onWindowFocusChanged(hasFocus);
 		p = locateView(findViewById(R.id.extra_symbol));
 	}
-	
+
 	public static Rect locateView(View v) {
 		int[] loc_int = new int[2];
 		if (v == null)
 			return null;
 		try {
 			v.getLocationOnScreen(loc_int);
-			Log.d("Invx",String.valueOf(loc_int[0]));
-			Log.d("Invy",String.valueOf(loc_int[1]));
+			Log.d("Invx", String.valueOf(loc_int[0]));
+			Log.d("Invy", String.valueOf(loc_int[1]));
 			System.out.println("Wwtf");
 		} catch (NullPointerException npe) {
 			// Happens when the view doesn't exist on screen anymore.
@@ -150,10 +150,10 @@ public class MainActivity extends Activity {
 		}
 	}
 
-	private class LoginResultHandler implements ResultHandlerStrategy {
+	private class LoginResultHandler extends StringResultHandler {
 
 		@Override
-		public void ProcessResults(String results) {
+		public void processStringResults(String results) {
 			int index = 0;
 			String message = results.substring(0, 5);
 			while (results.charAt(index) >= '0' && results.charAt(index) <= '9') {

@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -17,9 +18,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.firstapp.BitmapResultHandler;
 import com.example.firstapp.Library;
 import com.example.firstapp.R;
-import com.example.firstapp.ResultHandlerStrategy;
+import com.example.firstapp.ResultHandler;
 import com.example.firstapp.ServerConnector;
 import com.example.firstapp.UserInfo;
 
@@ -48,7 +50,7 @@ public class AskFragment extends Fragment {
 				pairs.add(new BasicNameValuePair("Argument",
 						HomePageActivity.string));
 				new ServerConnector(getActivity(), "/image", pairs,
-						new ImageResultProcesser());
+						new LatexResultProcesser());
 			}
 
 		});
@@ -70,7 +72,7 @@ public class AskFragment extends Fragment {
 						pairs.add(new BasicNameValuePair("content", content));
 						pairs.add(new BasicNameValuePair("request","ask"));
 						new ServerConnector(getActivity(), url, pairs,
-								new AskResultProcesser()).connect();
+								new LatexResultProcesser()).connect();
 						
 						
 					}
@@ -82,22 +84,15 @@ public class AskFragment extends Fragment {
 		return askPageView;
 	}
 
-	private class ImageResultProcesser implements ResultHandlerStrategy {
+	private class LatexResultProcesser extends BitmapResultHandler {
 
 		@Override
-		public void ProcessResults(String results) {
+		protected void processBitmapResults(Bitmap results) {
 			// TODO Auto-generated method stub
-
+			
 		}
 
 	}
 
-	private class AskResultProcesser implements ResultHandlerStrategy {
 
-		@Override
-		public void ProcessResults(String results) {
-			Library.showAlert(getActivity(), "Your question has been posted");
-		}
-
-	}
 }

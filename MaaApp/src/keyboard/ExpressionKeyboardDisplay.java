@@ -2,11 +2,7 @@ package keyboard;
 
 import java.util.HashMap;
 
-import com.example.firstapp.R;
-import com.example.homepage.HomePageActivity;
-
 import android.text.Html;
-import android.widget.EditText;
 
 
 
