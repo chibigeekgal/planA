@@ -9,11 +9,15 @@ BEANSJAR =	build/beans.jar
 CLASSPATH =	$(BEANSJAR):/usr/lib/tomcat7/tomcat-7.0.29/lib/servlet-api.jar:$(LIBDIR)/gson-2.2.4.jar:$(LIBDIR)/jlatexmath-1.0.2.jar
 
 
+all:	install
+
+clean:	/bin/rm -f $(JARS) $(CLASSES) $(BEANSCLASSES) $(CLSDIR)/* $(LIBDIR)/*
+
 install:	$(JARS)
 	install -m600 $(JARS) $(LIBDIR)
 	install -m600 $(CLASSES) $(CLSDIR)
 
-$(BEANSJAR):
+$(BEANSJAR):	$(BEANSCLASSES)
 	javac -d build -cp $(CLASSPATH) $(BEANS)	
 	jar cfm $(BEANSJAR) src/beans.mf $(BEANSCLASSES) -C build/ beans
 
