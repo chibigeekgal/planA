@@ -2,13 +2,10 @@ package keyboard;
 
 import java.util.HashMap;
 
+import android.widget.EditText;
+
 public class SymbolKeyboardDisplay extends KeyboardDisplay {
 
-	public SymbolKeyboardDisplay() {
-		super();
-		fillInHashMap();
-	}
-	
 	public void fillInHashMap() {
 		latexMap = new HashMap<String, String>();
 		latexMap.put("\u03AC", "\\\\alpha");

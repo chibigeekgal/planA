@@ -15,8 +15,10 @@ import android.widget.EditText;
 import android.widget.GridView;
 
 import com.example.firstapp.R;
+import com.example.homepage.HomePageActivity;
 
 public abstract class KeyboardDisplay extends Activity {
+
 
 	protected HashMap<String, String> latexMap;
 	protected static Activity current_activity;
@@ -68,4 +70,13 @@ public abstract class KeyboardDisplay extends Activity {
 	public static Activity getCurrentActivity() {
 		return current_activity;
 	}
+	
+	public void addText(String s){
+		e.setText(e.getText().toString()+ s);
+	}
+	
+	public EditText getEditable(){
+		return this.e;
+	}
+	
 }

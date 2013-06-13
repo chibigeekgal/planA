@@ -60,7 +60,7 @@ public class AskFragment extends Fragment {
 						EditText q_title = (EditText) askPageView
 								.findViewById(R.id.q_title);
 						EditText q_content = (EditText) askPageView
-								.findViewById(R.id.q_content);
+								.findViewById(R.id.content);
 						String title = q_title.getText().toString();
 						String content = q_content.getText().toString();
 						List<NameValuePair> pairs = new ArrayList<NameValuePair>();
@@ -79,6 +79,7 @@ public class AskFragment extends Fragment {
 
 		HomePageActivity.image = (ImageView) askPageView
 				.findViewById(R.id.imageView1);
+		HomePageActivity.currentActivity = getActivity();
 		return askPageView;
 	}
 
@@ -86,7 +87,6 @@ public class AskFragment extends Fragment {
 
 		@Override
 		public void ProcessResults(String results) {
-			// TODO Auto-generated method stub
 
 		}
 

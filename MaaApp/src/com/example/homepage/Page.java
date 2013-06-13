@@ -31,23 +31,17 @@ public class Page extends AsyncTask<String, Void, Bitmap> {
 	protected Bitmap doInBackground(String... urls) {
 		try {
 			HttpClient client = new DefaultHttpClient();
-			System.out.println("client...");
-			HttpPost post = new HttpPost(urls[0]);
-			System.out.println("post...");
+			HttpPost post = new HttpPost("http://146.169.53.91:59999/image");
 			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 			pairs.add(new BasicNameValuePair("Argument",
 					this.argument));
 			post.setEntity(new UrlEncodedFormEntity(pairs));
-			System.out.println("post added....");
 			HttpResponse response = client.execute(post);
-			System.out.println("executed");
 			InputStream i = response.getEntity().getContent();
-			System.out.println("input stream...");
 			BufferedInputStream bis = new BufferedInputStream(i);
 			Bitmap bm = BitmapFactory.decodeStream(bis);
 			bis.close();
 			i.close();
-			System.out.println("I got here...");
 			return bm;
 
 		} catch (IOException e) {

@@ -95,13 +95,6 @@ public class MainActivity extends Activity {
 
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
 	public static String readIt(InputStream stream, int len)
 			throws IOException, UnsupportedEncodingException {
 		Reader reader = null;
@@ -111,50 +104,13 @@ public class MainActivity extends Activity {
 		return new String(buffer);
 	}
 
-	@Override
-	public void onWindowFocusChanged(boolean hasFocus) {
-		super.onWindowFocusChanged(hasFocus);
-		p = locateView(findViewById(R.id.extra_symbol));
-	}
-	
-	public static Rect locateView(View v) {
-		int[] loc_int = new int[2];
-		if (v == null)
-			return null;
-		try {
-			v.getLocationOnScreen(loc_int);
-			Log.d("Invx",String.valueOf(loc_int[0]));
-			Log.d("Invy",String.valueOf(loc_int[1]));
-			System.out.println("Wwtf");
-		} catch (NullPointerException npe) {
-			// Happens when the view doesn't exist on screen anymore.
-			return null;
-		}
-		Rect location = new Rect();
-		location.left = loc_int[0];
-		location.top = loc_int[1];
-		location.right = location.left + v.getWidth();
-		location.bottom = location.top + v.getHeight();
-		return location;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.extra_symbol:
-			Intent intent = new Intent(this, KeyboardDisplay.class);
-			startActivity(intent);
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-	}
 
 	private class LoginResultHandler implements ResultHandlerStrategy {
 
 		@Override
 		public void ProcessResults(String results) {
 			int index = 0;
+			System.out.println(results);
 			String message = results.substring(0, 5);
 			while (results.charAt(index) >= '0' && results.charAt(index) <= '9') {
 				index++;

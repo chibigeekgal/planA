@@ -64,6 +64,10 @@
             android:name="com.example.firstapp.IndividualQuestion"
             android:theme="@android:style/Theme.Dialog">            
         </activity>
+        <activity
+            android:name="keyboard.KeyboardEntry"
+            android:theme="@android:style/Theme.Dialog">
+        </activity>
     </application>
 
 </manifest>

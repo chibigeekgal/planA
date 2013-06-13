@@ -44,6 +44,7 @@ public class AnswerFragment extends ListFragment {
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
 				R.layout.row_layout_view, R.id.label, values);
 		setListAdapter(adapter);
+		HomePageActivity.currentActivity = getActivity();
 	}
 }
 
