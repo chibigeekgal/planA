@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -39,7 +40,6 @@ public class AskFragment extends Fragment {
 		final View askPageView = inflater.inflate(R.layout.askfragment_view,
 				container, false);
 
-		
 		askPageView.findViewById(R.id.ask).setOnClickListener(
 				new OnClickListener() {
 
@@ -65,9 +65,6 @@ public class AskFragment extends Fragment {
 
 				});
 
-		HomePageActivity.image = (ImageView) askPageView
-				.findViewById(R.id.imageView1);
-		HomePageActivity.currentActivity = getActivity();
 		return askPageView;
 	}
 
@@ -86,6 +83,5 @@ public class AskFragment extends Fragment {
 		public void ProcessResults(String results) {
 			Library.showAlert(getActivity(), "Your question has been posted");
 		}
-
 	}
 }

@@ -12,47 +12,31 @@ import com.example.firstapp.R;
 
 public class KeyboardEntry extends Activity {
 
+	String result = "";
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.keyboard_entry);
 		Button b = (Button) findViewById(R.id.enter_button);
 
-		final String s = getIntent().getStringExtra("Argument");
-
-		final EditText e = (EditText) findViewById(R.id.content);
+		
 		b.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
-
-				String value = e.getText().toString();
-				String[] parts = value.split(" ");
-				System.out.println("what's in the editable" + value);
-				String ree = " ";
-				if (s.equals("X<sup>2<sup>")) {
-					ree = parts[0] + "_{" + parts[1] + "}";
-				} else if (s.equals("X<sub>2<sub>")) {
-					ree = parts[0] + "^{" + parts[1] + "}";
-				} else if (s.equals("Fraction")) {
-					ree = "\\\\frac{" + parts[0] + "}{" + parts[1] + "}";
-				} else if (s.equals("NthRoot")) {
-					ree = "\\\\sqrt[" + parts[0] + "]" + "{" + parts[1] + "}";
-				} else if (s.equals("Integral")) {
-					ree = "\\\\int_{" + parts[0] + "}^{" + parts[1] + "}"
-							+ parts[2];
-				} else if (s.equals("sum")) {
-					ree = "\\\\sum_{" + parts[0] + "}^{" + parts[1] + "}"
-							+ parts[2];
-				}
-
-				Intent resultIntent = new Intent();
-				resultIntent.putExtra("Expr", ree + " ");
-				setResult(Activity.RESULT_OK, resultIntent);
+				String args = getIntent().getStringExtra("Argument");
+				final EditText e = (EditText) findViewById(R.id.content);
+				String r = e.getText().toString();
+				if(args != null)
+					r += args;
+				result = r;
+				System.out.println("This shoudl be in the textbos:" + r);
+				System.out.println("result" + result);
+				Intent i = new Intent();
+				i.putExtra("Argument", result);
+				setResult(RESULT_OK, i);
 				finish();
-				// EditText result = (EditText)
-				// getCallingActivity().findViewById(R.id.content);
-				// result.setText(result.getText().toString() + ree + " ");
 			}
 		});
 
@@ -63,7 +47,6 @@ public class KeyboardEntry extends Activity {
 			public void onClick(View arg0) {
 				Intent i = new Intent(getApplicationContext(),
 						SymbolKeyboardDisplay.class);
-				KeyboardDisplay.current_activity = (Activity) arg0.getContext();
 				startActivityForResult(i, 1);
 			}
 
@@ -75,13 +58,10 @@ public class KeyboardEntry extends Activity {
 			public void onClick(View v) {
 				Intent i2 = new Intent(getApplicationContext(),
 						ExpressionKeyboardDisplay.class);
-				KeyboardDisplay.current_activity = (Activity) v.getContext();
-				;
 				startActivityForResult(i2, 1);
 			}
 
 		});
-		// HomePageActivity.currentActivity = this;
 	}
 
 	@Override
@@ -89,20 +69,16 @@ public class KeyboardEntry extends Activity {
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (requestCode) {
 		case (1): {
-				String newText = data.getStringExtra("Expr");
-				EditText result = (EditText) findViewById(R.id.content);
-				// result.setText(result.getText().toString() + ree + " ");
-				result.setText(result.getText().toString() + "  " + newText);
+				String newText = data.getStringExtra("Argument");
+				if(newText != null) {
+				EditText content = (EditText) findViewById(R.id.content);
+				content.setText(result.toString() + "  " + newText);
+				System.out.println(newText);
+				System.out.println(content);
+				}
 			break;
 		}
 		}
-	}
-
-	public void postString() {
-		/*
-		 * EditText e = (EditText) findViewById(R.id.q_content); if(e != null) {
-		 * e.setText(string); System.out.println("postsymbol" + string); }
-		 */
 	}
 
 }
