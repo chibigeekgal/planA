@@ -1,7 +1,6 @@
 package com.example.homepage;
 
-import keyboard.ExpressionKeyboardDisplay;
-import keyboard.SymbolKeyboardDisplay;
+import keyboard.KeyboardEntry;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -23,7 +22,6 @@ public class HomePageActivity extends FragmentActivity implements
 	private ViewPager viewPagerControl;
 	public static String string = "";
 	public static ImageView image;
-
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -55,7 +53,6 @@ public class HomePageActivity extends FragmentActivity implements
 			actionBar.addTab(actionBar.newTab()
 					.setText(adapter.getPageTitle(i)).setTabListener(this));
 		}
-		
 	}
 
 	@Override
@@ -78,26 +75,17 @@ public class HomePageActivity extends FragmentActivity implements
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
+	
 		getMenuInflater().inflate(R.menu.main, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		HomePageActivity.string = ((EditText)findViewById(R.id.q_content)).getText().toString();
 		switch (item.getItemId()) {
-		case R.id.Symbol:
-			Intent i = new Intent(getApplicationContext(),
-					SymbolKeyboardDisplay.class);
-			startActivity(i);
-			postString();
-			return true;
-		case R.id.Expression:
-			Intent i2 = new Intent(getApplicationContext(),
-					ExpressionKeyboardDisplay.class);
-			startActivity(i2);
-			postString();
+		case R.id.extra_symbol:
+			Intent i = new Intent(getApplicationContext(), KeyboardEntry.class);
+			startActivityForResult(i, 1);
 			return true;
 		case R.id.setting:
 			Intent i3 = new Intent(getApplicationContext(),
@@ -108,23 +96,27 @@ public class HomePageActivity extends FragmentActivity implements
 		}
 	}
 
-	@Override
-	protected void onResume() {
-		super.onResume();
-		postString();
-	}
-	
-	@Override
-	public void onAttachedToWindow() {
-		super.onAttachedToWindow();
-	}
-	
 	public void postString() {
 		EditText e = (EditText) findViewById(R.id.q_content);
-		if(e != null) {
-		e.setText(string);
-		System.out.println("postsymbol" + string);
+		if (e != null) {
+			e.setText(string);
+			System.out.println("postsymbol" + string);
 		}
 	}
 
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		switch (requestCode) {
+		case (1): {
+			if(resultCode == RESULT_OK) {
+				String newText = data.getStringExtra("Argument");
+				EditText result = (EditText) findViewById(R.id.content);
+				result.setText(result.getText().toString() + "  " + newText);
+			}
+			break;
+		}
+		}
+
+	}
 }

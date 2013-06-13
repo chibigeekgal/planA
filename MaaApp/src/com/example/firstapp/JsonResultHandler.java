@@ -9,7 +9,7 @@ import com.google.gson.JsonElement;
 public abstract class JsonResultHandler implements ResultHandler {
 
 	@Override
-	public void ProcessResults(InputStream results) {
+	public void processResults(InputStream results) {
 		Gson gson = new Gson();
 		JsonElement element = gson.fromJson(new InputStreamReader(results),
 				JsonElement.class);

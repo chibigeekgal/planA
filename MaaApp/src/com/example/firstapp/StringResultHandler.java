@@ -9,7 +9,7 @@ import java.io.UnsupportedEncodingException;
 public abstract class StringResultHandler implements ResultHandler {
 
 	@Override
-	public void ProcessResults(InputStream results) {
+	public void processResults(InputStream results) {
 		try {
 
 			String stringResults = readIt(results, 100);

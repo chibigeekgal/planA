@@ -13,6 +13,9 @@ import com.example.firstapp.UserInfo;
 public class HomePageFragment extends Fragment {
 	private UserInfo user;
 
+	String[] qs = { "What's the definition of a Group?",
+			"What's the meaning of life?", "Is 1 + 1 actually 2?" };
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {

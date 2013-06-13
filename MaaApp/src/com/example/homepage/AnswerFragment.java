@@ -1,6 +1,7 @@
 package com.example.homepage;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -24,17 +25,17 @@ import com.google.gson.JsonObject;
 
 public class AnswerFragment extends ListFragment {
 
-	public static final String[] titles = new String[] { "Strawberry",
-			"Banana", "Orange", "Mixed" };
+	/*public static final String[] titles = new String[] { "dummy", "dummy",
+			"dummy", "dummy" };
 
-	public static final String[] descriptions = new String[] {
-			"It is an aggregate accessory fruit",
-			"It is the largest herbaceous flowering plant", "Citrus Fruit",
-			"Mixed Fruits" };
+	public static final String[] descriptions = new String[] { "It is an Q",
+			"It is an Q", "It is an Q", "It is an Q" };
 
-	public static final Integer[] images = { R.drawable.icon, R.drawable.icon,
-			R.drawable.icon, R.drawable.icon };
-	private ArrayList<Question> allQuestions;
+	public static final Integer[] images = { R.drawable.default_pic,
+			R.drawable.default_pic, R.drawable.default_pic,
+			R.drawable.default_pic };*/
+
+	private List<Question> allQuestions;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -83,54 +84,3 @@ public class AnswerFragment extends ListFragment {
 
 	}
 }
-
-/*
- * View subFragmentView; List<RowItem> rowItems;
- * 
- * @Override public View onCreateView(LayoutInflater inflater, ViewGroup
- * container, Bundle savedInstanceState) { // setting up the view View
- * subFragmentView = (View) inflater.inflate( R.layout.answerfragment_view,
- * container, false);
- * 
- * 
- * 
- * return subFragmentView;
- * 
- * }
- * 
- * 
- * @Override public void onActivityCreated(Bundle savedInstanceState) {
- * 
- * rowItems = new ArrayList<RowItem>(); for (int i = 0; i < titles.length; i++)
- * { RowItem item = new RowItem(images[i], titles[i], descriptions[i]);
- * rowItems.add(item); }
- * 
- * 
- * MyViewAdapter adapter = new MyViewAdapter(getActivity(), R.layout.list_item,
- * rowItems); setListAdapter(adapter); }
- * 
- * 
- * @Override public void onListItemClick(ListView l, View v, int position, long
- * id) { // Do something with the data
- * 
- * } }
- */
-
-/*
- * @Override public View onCreateView(LayoutInflater inflater, ViewGroup
- * container, Bundle savedInstanceState) { // setting up the view View
- * subFragmentView = inflater.inflate(R.layout.answerfragment_view, container,
- * false); Bundle args = getArguments();
- * 
- * return subFragmentView; }
- * 
- * @Override public void onActivityCreated(Bundle savedInstanceState) {
- * super.onActivityCreated(savedInstanceState); String[] values = new String[] {
- * "Android", "iPhone", "WindowsMobile", "Blackberry", "WebOS", "Ubuntu",
- * "Windows7", "Max OS X", "Linux", "OS/2" }; ArrayAdapter<String> adapter = new
- * ArrayAdapter<String>(getActivity(), R.layout.row_layout_view,R.id.label,
- * values); setListAdapter(adapter); }
- * 
- * }
- */
-

@@ -14,31 +14,43 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
+            android:layout_below="@+id/q_content"
             android:ems="10"
             android:hint="Question Title"
-            android:imeActionLabel="launch" />
+            android:inputType="textMultiLine"
+             />
 
         <EditText
-            android:id="@+id/q_content"
+            android:id="@+id/content"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/q_title"
             android:layout_marginTop="95dp"
             android:ems="10"
+            android:inputType="textMultiLine"
             android:hint="Ask Your Question Here"
-            android:imeActionLabel="launch" >
+            >
 
             <requestFocus />
         </EditText>
+
+        <LinearLayout
+            android:id="@+id/LinearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:orientation="vertical"
+            android:layout_below="@+id/q_content"
+            android:layout_marginTop="42dp" >
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/LinearLayout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/q_title"
+            android:layout_below="@+id/content"
             android:background="#33b5e5"
             android:orientation="vertical"
             android:paddingBottom="9dp"
@@ -51,7 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/q_content"
+            android:layout_below="@+id/q_title"
             android:background="#33b5e5"
             android:orientation="vertical"
             android:paddingBottom="9dp"
@@ -59,41 +71,15 @@
             android:textColor="#fff" >
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/LinearLayout2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/LinearLayout5"
-            android:layout_marginTop="42dp" >
-
-            <Button
-                android:id="@+id/ask"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="44dp"
-                android:text="Ask" />
-        </LinearLayout>
-
         <Button
-            android:id="@+id/reAsk"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
+            android:id="@+id/ask"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="64dp"
-            android:text="Button" />
+            android:text="Ask" />
 
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/LinearLayout2"
-            android:layout_alignLeft="@+id/reAsk"
-            android:layout_marginBottom="79dp"
-            android:src="@drawable/ic_launcher" />
-
+      
     </RelativeLayout>
 
 </ScrollView>

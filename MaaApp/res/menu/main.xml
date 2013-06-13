@@ -9,14 +9,6 @@
         android:id="@+id/extra_symbol"
         android:showAsAction="ifRoom|withText"
         android:title="Symbols + Expressions">
-        <menu>
-            <item
-                android:id="@+id/Symbol"
-                android:title="Symbols"/>
-            <item
-                android:id="@+id/Expression"
-                android:title="Expression"/>
-        </menu>
     </item>
     <item
         android:id="@+id/setting"

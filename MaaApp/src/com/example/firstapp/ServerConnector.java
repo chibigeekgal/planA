@@ -62,7 +62,7 @@ public class ServerConnector {
 
 		@Override
 		protected void onPostExecute(InputStream results) {
-			proceccer.ProcessResults(results);
+			proceccer.processResults(results);
 		}
 
 	}

@@ -21,9 +21,7 @@ public class Library {
 	/* Library methods */
 	/**
 	 * Converts the string starting with numbers to the number it represents
-	 * 
-	 * @param string
-	 *            A string starting with number characters
+	 * @param string A string starting with number characters
 	 * @return the integer the string represents
 	 */
 	public static int parseInt(String string) {
@@ -36,10 +34,8 @@ public class Library {
 
 	/**
 	 * Creates an alert dialog showing the message given
-	 * 
 	 * @param activity
-	 * @param message
-	 *            the message appearing on the dialog
+	 * @param message the message appearing on the dialog
 	 */
 	public static void showAlert(Activity activity, String message) {
 		Builder b = new AlertDialog.Builder(activity);
