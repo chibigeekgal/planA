@@ -4,7 +4,7 @@
     android:layout_height="fill_parent"
     android:fillViewport="true" >
 
-    <RelativeLayout
+   <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff" >
@@ -75,24 +75,7 @@
                 android:text="Ask" />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/reAsk"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="64dp"
-            android:text="Button" />
 
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/LinearLayout2"
-            android:layout_alignLeft="@+id/reAsk"
-            android:layout_marginBottom="79dp"
-            android:src="@drawable/ic_launcher" />
 
     </RelativeLayout>
 

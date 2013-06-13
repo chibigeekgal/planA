@@ -14,11 +14,10 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
+        android:label="MLC"
         android:theme="@android:style/Theme.Holo.Light.DarkActionBar" >
         <activity
-            android:name="com.example.firstapp.MainActivity"
-            android:label="@string/app_name" >
+            android:name="com.example.firstapp.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

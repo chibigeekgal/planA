@@ -23,18 +23,7 @@ public class AskFragment extends Fragment {
     	//setting up the view 
         final View subFragmentView = inflater.inflate(R.layout.askfragment_view, container, false);
         Bundle args = getArguments();
-
-        re = (Button) subFragmentView.findViewById(R.id.reAsk);
-		re.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View arg0) {
-				HomePageActivity.string = ((TextView) subFragmentView.findViewById(R.id.q_content)).getText().toString();
-				new Page(HomePageActivity.string).execute("http://146.169.52.3:59999/image");
-			}
-			
-		});
-    	HomePageActivity.image = (ImageView) subFragmentView.findViewById(R.id.imageView1);
+        
         return subFragmentView;
     }
 }
