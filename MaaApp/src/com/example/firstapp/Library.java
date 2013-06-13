@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 
+import com.google.gson.JsonElement;
+
 /**
  * 
  * The class of global constants and commonly used methods in the project
@@ -19,7 +21,9 @@ public class Library {
 	/* Library methods */
 	/**
 	 * Converts the string starting with numbers to the number it represents
-	 * @param string A string starting with number characters
+	 * 
+	 * @param string
+	 *            A string starting with number characters
 	 * @return the integer the string represents
 	 */
 	public static int parseInt(String string) {
@@ -29,10 +33,13 @@ public class Library {
 		}
 		return Integer.parseInt(string.substring(0, index));
 	}
+
 	/**
 	 * Creates an alert dialog showing the message given
+	 * 
 	 * @param activity
-	 * @param message the message appearing on the dialog
+	 * @param message
+	 *            the message appearing on the dialog
 	 */
 	public static void showAlert(Activity activity, String message) {
 		Builder b = new AlertDialog.Builder(activity);
@@ -45,5 +52,9 @@ public class Library {
 		});
 		AlertDialog d = b.create();
 		d.show();
+	}
+
+	public static String convertToString(JsonElement e) {
+		return e.getAsString().replaceAll("\"", "");
 	}
 }

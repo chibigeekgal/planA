@@ -11,6 +11,7 @@ public abstract class StringResultHandler implements ResultHandler {
 	@Override
 	public void ProcessResults(InputStream results) {
 		try {
+
 			String stringResults = readIt(results, 100);
 			processStringResults(stringResults);
 		} catch (IOException e) {
@@ -23,11 +24,9 @@ public abstract class StringResultHandler implements ResultHandler {
 
 	private String readIt(InputStream stream, int len) throws IOException,
 			UnsupportedEncodingException {
-		Reader reader = null;
-		reader = new InputStreamReader(stream, "UTF-8");
+		Reader reader = new InputStreamReader(stream);
 		char[] buffer = new char[len];
 		reader.read(buffer);
 		return new String(buffer);
 	}
-
 }
