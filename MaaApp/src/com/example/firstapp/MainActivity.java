@@ -19,6 +19,7 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,6 +41,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
 		// For textFont Purpose
 		TextView loginName = (TextView) findViewById(R.id.loginName);
 		Typeface loginNamefont = Typeface.createFromAsset(getAssets(),
@@ -51,7 +53,7 @@ public class MainActivity extends Activity {
 		Typeface userNamefont = Typeface.createFromAsset(getAssets(),
 				"Chunkfive.otf");
 		userName.setTypeface(userNamefont);
-        userName.setTextColor(Color.WHITE);
+		userName.setTextColor(Color.WHITE);
 		// end
 		Button registerButton = (Button) findViewById(R.id.Register_button);
 		Button loginButton = (Button) findViewById(R.id.Login_button);
@@ -103,7 +105,6 @@ public class MainActivity extends Activity {
 		reader.read(buffer);
 		return new String(buffer);
 	}
-
 
 	private class LoginResultHandler implements ResultHandlerStrategy {
 

@@ -13,42 +13,43 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class MyViewAdapter extends ArrayAdapter<RowItem> {
+public class MyViewAdapter extends ArrayAdapter<QuestionWrap> {
 
 	Context context;
 
-	public MyViewAdapter(Context context, int resourceId, List<RowItem> items) {
+	public MyViewAdapter(Context context, int resourceId,
+			List<QuestionWrap> items) {
 		super(context, resourceId, items);
 		this.context = context;
 	}
 
-	
-	private class ViewStruct {
-		ImageView imageView;
-		TextView txtTitle;
-		TextView txtDesc;
-	}
-
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewStruct holder = null;
-		RowItem rowItem = getItem(position);
+		QuestionWrap QuestionItem = getItem(position);
 
 		LayoutInflater mInflater = (LayoutInflater) context
 				.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 		if (convertView == null) {
-			convertView = mInflater.inflate(R.layout.list_item, null);
+			convertView = mInflater.inflate(R.layout.question_item, null);
 			holder = new ViewStruct();
-			holder.txtDesc = (TextView) convertView.findViewById(R.id.desc);
-			holder.txtTitle = (TextView) convertView.findViewById(R.id.title);
-			holder.imageView = (ImageView) convertView.findViewById(R.id.icon);
+			holder.usename = (TextView) convertView.findViewById(R.id.username);
+			holder.title = (TextView) convertView.findViewById(R.id.title);
+			holder.personal_pic = (ImageView) convertView
+					.findViewById(R.id.icon);
 			convertView.setTag(holder);
 		} else
 			holder = (ViewStruct) convertView.getTag();
 
-		holder.txtDesc.setText(rowItem.getDesc());
-		holder.txtTitle.setText(rowItem.getTitle());
-		holder.imageView.setImageResource(rowItem.getImageId());
+		holder.usename.setText(QuestionItem.getUsername());
+		holder.title.setText(QuestionItem.getTitle());
+		holder.personal_pic.setImageResource(QuestionItem.getpersonalPic());
 
 		return convertView;
+	}
+
+	private class ViewStruct {
+		ImageView personal_pic;
+		TextView title;
+		TextView usename;
 	}
 }
