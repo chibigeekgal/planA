@@ -1,14 +1,20 @@
 package com.example.homepage;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import keyboard.ExpressionKeyboardDisplay;
 import keyboard.SymbolKeyboardDisplay;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuItem;
@@ -22,7 +28,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.firstapp.BitmapResultHandler;
+import com.example.firstapp.Question;
 import com.example.firstapp.R;
+import com.example.firstapp.ServerConnector;
+import com.example.firstapp.UserInfo;
 
 public class IndividualQuestion extends Activity {
 
@@ -32,15 +42,26 @@ public class IndividualQuestion extends Activity {
 	public static final Integer[] answersImage = { R.drawable.temp_answer_pic,
 			R.drawable.temp_answer_pic, R.drawable.temp_answer_pic,
 			R.drawable.temp_answer_pic };
+	private Question question;
+	private UserInfo user;
+	private ImageView questionView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.individual_question);
-
-		ImageView question = (ImageView) findViewById(R.id.question);
-		question.setImageResource(R.drawable.temp_question_pic);
-		
+		question = (Question) getIntent().getSerializableExtra("Question");
+		user = (UserInfo) getIntent().getSerializableExtra("User");
+		List<NameValuePair> pairs = new LinkedList<NameValuePair>();
+		Log.d("Index", ((Integer) question.getIndex()).toString());
+		pairs.add(new BasicNameValuePair("request", "get_content"));
+		pairs.add(new BasicNameValuePair("index", ((Integer) question
+				.getIndex()).toString()));
+		questionView = (ImageView) findViewById(R.id.question);
+		questionView.setImageResource(R.drawable.temp_question_pic);
+		ServerConnector connector = new ServerConnector(this, "/question",
+				pairs, new QuestionContentResultHandler());
+		connector.connect();
 		Button sym = (Button) findViewById(R.id.Symbol);
 		sym.setOnClickListener(new OnClickListener() {
 
@@ -82,15 +103,10 @@ public class IndividualQuestion extends Activity {
 			}
 
 		});
-
-		String title = getIntent().getStringExtra("Title");
-		String author = getIntent().getStringExtra("Author");
 		TextView t = (TextView) findViewById(R.id.question_title);
 		TextView q = (TextView) findViewById(R.id.author);
-		//System.out.println(title);
-		//System.out.println(author);
-		t.setText(title);
-		q.setText(author);
+		t.setText(question.getTitle());
+		q.setText(question.getUser());
 
 		List<Answer> answers = new ArrayList<Answer>();
 		for (int i = 0; i < usernames.length; i++) {
@@ -102,7 +118,7 @@ public class IndividualQuestion extends Activity {
 		AnswerAdapter adapter = new AnswerAdapter(this,
 				R.layout.individual_answer, answers);
 		answer_list.setAdapter(adapter);
-		
+
 		answer_list.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -110,7 +126,9 @@ public class IndividualQuestion extends Activity {
 					long arg3) {
 				Answer a = (Answer) arg0.getItemAtPosition(arg2);
 				int i  = a.getAnswer();
-				System.out.println(i);
+				Intent fullImage = new Intent(IndividualQuestion.this, FullImage.class);
+				fullImage.putExtra("Image", i);
+				startActivity(fullImage);
 			}
 		});
 		/* For the answer lists */
@@ -154,5 +172,14 @@ public class IndividualQuestion extends Activity {
 			return true;
 		}
 		return super.onContextItemSelected(item);
+	}
+
+	private class QuestionContentResultHandler extends BitmapResultHandler {
+
+		@Override
+		protected void processBitmapResults(Bitmap results) {
+			questionView.setImageBitmap(results);
+		}
+
 	}
 }

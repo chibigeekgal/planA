@@ -130,7 +130,8 @@ public class QuestionMethod extends Method {
 					"SELECT Content FROM Question WHERE Question_index = "
 							+ index + ";");
 			if (rs.next()) {
-				String content = rs.getString("Question_index");
+				String content = rs.getString("content");
+				System.out.println(content);
 				return toBufferedImage(content);
 			}
 		} catch (SQLException e) {

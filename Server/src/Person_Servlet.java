@@ -44,16 +44,19 @@ public class Person_Servlet extends HttpServlet {
 		out.println("<title> Database of Users </title>");
 		out.println("</head>");
 		out.println("<body bgcolor=\"white\">");
-		/*
-		 * out.println("<table>"); LinkedList<User_bean> users; try { users =
-		 * user_method.get_all_user();
-		 * 
-		 * for (User_bean user : users) { out.println("<tr><td>" +
-		 * user.getUserName() + "</td><td>" + user.getPassword() + "</td><td>" +
-		 * user.getPoints() + "</td></tr>"); } } catch (SQLException e) {
-		 * e.printStackTrace(); } out.println("</table>");
-		 */
-		out.println(getServletContext().getRealPath("../../"));
+
+		out.println("<table>");
+		LinkedList<User_bean> users;
+		users = user_method.get_all_user();
+
+		for (User_bean user : users) {
+			out.println("<tr><td>" + user.getUserName() + "</td><td>"
+					+ user.getPassword() + "</td><td>" + user.getPoints()
+					+ "</td></tr>");
+		}
+		out.println("</table>");
+
+		out.println(getServletContext().getRealPath(File.separator));
 		out.println();
 		out.println("</body>");
 		out.println("</html>");
@@ -66,6 +69,7 @@ public class Person_Servlet extends HttpServlet {
 		String username = request.getParameter("Login");
 		String password = request.getParameter("Password");
 		String requestType = request.getParameter("Request");
+		System.out.println(request);
 		response.setContentType("text/html");
 		try {
 			if (requestType.equals("login")) {

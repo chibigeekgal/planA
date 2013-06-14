@@ -1,5 +1,7 @@
 package beans;
 
+import com.google.gson.JsonObject;
+
 public class Question_bean {
 
 	private String owner;
@@ -40,6 +42,15 @@ public class Question_bean {
 	@Override
 	public String toString() {
 		return null;
+	}
+	
+	public JsonObject toJsonObject(){
+		JsonObject j=new JsonObject();
+		j.addProperty("index", index);
+		j.addProperty("username",owner);
+		j.addProperty("title", title);
+		j.addProperty("best_answer", bestAnswer);
+		return j;
 	}
 
 }

@@ -8,7 +8,6 @@ MaaApp/.metadata
 *.log
 *.out
 *~
-**/R.java
 MaaApp/gen/*
 *.orig
 Server/logs/*
