@@ -1,6 +1,5 @@
-package com.example.homepage;
+package com.example.firstapp;
 
-import com.example.firstapp.MainActivity;
 import com.example.firstapp.R;
 
 import android.app.Activity;

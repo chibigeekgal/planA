@@ -12,10 +12,11 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.example.firstapp.IndividualQuestion;
+import com.example.firstapp.MainActivity;
 import com.example.firstapp.R;
 
 public class HomePageActivity extends FragmentActivity implements
@@ -56,6 +57,9 @@ public class HomePageActivity extends FragmentActivity implements
 			actionBar.addTab(actionBar.newTab()
 					.setText(adapter.getPageTitle(i)).setTabListener(this));
 		}
+		
+		getWindow().setSoftInputMode(
+			      WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 	}
 
 	@Override
@@ -88,22 +92,14 @@ public class HomePageActivity extends FragmentActivity implements
 		switch (item.getItemId()) {
 		case R.id.extra_symbol:
 			Intent i = new Intent(getApplicationContext(), KeyboardEntry.class);
+			i.putExtra("Extra", "Please enter the Maths expression!");
 			startActivityForResult(i, 1);
 			return true;
-		case R.id.setting:
-			Intent i3 = new Intent(getApplicationContext(),
-					IndividualQuestion.class);
+		case R.id.LogOut:
+			Intent i3 = new Intent(getApplicationContext(), MainActivity.class);
 			startActivity(i3);
 		default:
 			return super.onOptionsItemSelected(item);
-		}
-	}
-
-	public void postString() {
-		EditText e = (EditText) findViewById(R.id.q_content);
-		if (e != null) {
-			e.setText(string);
-			System.out.println("postsymbol" + string);
 		}
 	}
 
@@ -112,14 +108,18 @@ public class HomePageActivity extends FragmentActivity implements
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (requestCode) {
 		case (1): {
-			if(resultCode == RESULT_OK) {
-				String newText = data.getStringExtra("Argument");
+			if (resultCode == RESULT_OK) {
 				EditText result = (EditText) findViewById(R.id.content);
-				result.setText(result.getText().toString() + "  " + newText);
+				String newText = result.getText().toString() + " " + data.getStringExtra("Argument");
+				result.setText("");
+				result.append(newText);
 			}
 			break;
 		}
 		}
-
+	}
+	
+	@Override
+	public void onBackPressed() {
 	}
 }
