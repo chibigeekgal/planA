@@ -1,7 +1,12 @@
 package com.example.homepage;
 
+import com.example.firstapp.R;
+
+import android.app.Activity;
 import android.content.Intent;
+
 import android.os.Bundle;
+
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,14 +38,14 @@ public class HomePageFragment extends Fragment {
 						startActivity(intent);
 					}
 				});
-
-		/*System.out.println(user.getUsername() + " " + user.getPoints());
+/*
+		System.out.println(user.getUsername() + " " + user.getPoints());
 		TextView username = (TextView) homePageView.findViewById(R.id.username);
 		username.setText("Username:   " + user.getUsername());
 		
 		TextView points = (TextView) homePageView.findViewById(R.id.points);
 		points.setText("Points:       " + String.valueOf(user.getPoints()));
-		*/
+	*/	
 		return homePageView;
 	}
 	

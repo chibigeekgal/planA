@@ -6,10 +6,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.animation.Animation;
 
 public class StartUp extends Activity {
 
-    private final int SPLASH_DISPLAY_LENGHT = 2000;
+    private final int SPLASH_DISPLAY_LENGHT = 1500;
 
     /** Called when the activity is first created. */
     @Override
@@ -26,6 +27,9 @@ public class StartUp extends Activity {
                 Intent mainIntent = new Intent(StartUp.this,MainActivity.class);
                 StartUp.this.startActivity(mainIntent);
                 StartUp.this.finish();
+                
+                overridePendingTransition(android.R.anim.fade_in,
+                        android.R.anim.fade_out);
             }
         }, SPLASH_DISPLAY_LENGHT);
     }

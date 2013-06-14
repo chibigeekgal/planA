@@ -32,22 +32,22 @@ public class RegisterScreenActivity extends Activity {
 		// For textFont purpose
 		TextView RegisterTitle = (TextView) findViewById(R.id.RegisterTitle);
 		Typeface RegisterTitlefont = Typeface.createFromAsset(getAssets(),
-				"Bigfish.ttf");
+				"Chunkfive.otf");
 		RegisterTitle.setTypeface(RegisterTitlefont);
 
 		TextView userName = (TextView) findViewById(R.id.profilelogintext);
 		Typeface userNamefont = Typeface.createFromAsset(getAssets(),
-				"Bigfish.ttf");
+				"Chunkfive.otf");
 		userName.setTypeface(userNamefont);
 
 		TextView loginName = (TextView) findViewById(R.id.loginName);
 		Typeface loginNamefont = Typeface.createFromAsset(getAssets(),
-				"Bigfish.ttf");
+				"Chunkfive.otf");
 		loginName.setTypeface(loginNamefont);
 
 		TextView Points = (TextView) findViewById(R.id.Points);
 		Typeface Pointsfont = Typeface.createFromAsset(getAssets(),
-				"Bigfish.ttf");
+				"Chunkfive.otf");
 		Points.setTypeface(Pointsfont);
 
 		// end

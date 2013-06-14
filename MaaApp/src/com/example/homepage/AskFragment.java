@@ -34,7 +34,6 @@ public class AskFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		user = (UserInfo) getActivity().getIntent().getExtras().get("User");
-		Log.d("User", user.getUsername());
 		// setting up the view
 		final View askPageView = inflater.inflate(R.layout.askfragment_view,
 				container, false);

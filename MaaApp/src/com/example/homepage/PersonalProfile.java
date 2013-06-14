@@ -72,5 +72,10 @@ public class PersonalProfile extends Activity {
 		}
 
 	}
+	
+	private void updatepersonalPic(String path)
+	{
+		
+	}
 
 }
