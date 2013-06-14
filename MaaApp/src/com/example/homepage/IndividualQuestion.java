@@ -110,7 +110,9 @@ public class IndividualQuestion extends Activity {
 					long arg3) {
 				Answer a = (Answer) arg0.getItemAtPosition(arg2);
 				int i  = a.getAnswer();
-				System.out.println(i);
+				Intent fullImage = new Intent(IndividualQuestion.this, FullImage.class);
+				fullImage.putExtra("Image", i);
+				startActivity(fullImage);
 			}
 		});
 		/* For the answer lists */
