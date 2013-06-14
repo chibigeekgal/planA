@@ -23,5 +23,6 @@
     <string name="demo_collection">Demo Collection</string>
     <string name="Answer">Answer</string>
     <string name="best_answer">Choose best answer</string>
+    <string name="questionTitle">Title</string>
 
 </resources>
