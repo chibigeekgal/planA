@@ -2,8 +2,6 @@ package com.example.homepage;
 
 import java.util.List;
 
-import com.example.firstapp.R;
-
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,19 +11,22 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class MyViewAdapter extends ArrayAdapter<QuestionWrap> {
+import com.example.firstapp.Question;
+import com.example.firstapp.R;
+
+public class MyViewAdapter extends ArrayAdapter<Question> {
 
 	Context context;
 
 	public MyViewAdapter(Context context, int resourceId,
-			List<QuestionWrap> items) {
+			List<Question> items) {
 		super(context, resourceId, items);
 		this.context = context;
 	}
 
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewStruct holder = null;
-		QuestionWrap QuestionItem = getItem(position);
+		Question QuestionItem = getItem(position);
 
 		LayoutInflater mInflater = (LayoutInflater) context
 				.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
@@ -40,9 +41,9 @@ public class MyViewAdapter extends ArrayAdapter<QuestionWrap> {
 		} else
 			holder = (ViewStruct) convertView.getTag();
 
-		holder.usename.setText(QuestionItem.getUsername());
+		holder.usename.setText(QuestionItem.getUser());
 		holder.title.setText(QuestionItem.getTitle());
-		holder.personal_pic.setImageResource(QuestionItem.getpersonalPic());
+		holder.personal_pic.setImageBitmap(QuestionItem.getPersonalIcon());
 
 		return convertView;
 	}

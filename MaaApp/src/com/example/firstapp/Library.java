@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 
+import com.google.gson.JsonElement;
+
 /**
  * 
  * The class of global constants and commonly used methods in the project
@@ -14,7 +16,7 @@ public class Library {
 	/* Library constants */
 	public static String ERROR = "error";
 	public static String EXIST = "exist";
-	public static String serverUrl = "http://146.169.53.101:59999";
+	public static String serverUrl = "http://10.0.2.2:8080/MaaServer/";
 
 	/* Library methods */
 	/**
@@ -29,7 +31,8 @@ public class Library {
 		}
 		return Integer.parseInt(string.substring(0, index));
 	}
-	/**33333333333333333333333333333333333333333333333333333
+
+	/**
 	 * Creates an alert dialog showing the message given
 	 * @param activity
 	 * @param message the message appearing on the dialog
@@ -45,5 +48,9 @@ public class Library {
 		});
 		AlertDialog d = b.create();
 		d.show();
+	}
+
+	public static String convertToString(JsonElement e) {
+		return e.getAsString().replaceAll("\"", "");
 	}
 }

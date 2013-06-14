@@ -14,14 +14,17 @@ public class UserMethod extends Method {
 		super();
 	}
 
-	public User_bean get_user(String login, String password)
-			throws SQLException, IOException {
-		ResultSet rs = getStatement().executeQuery(
-				"SELECT Points FROM Person WHERE Login='" + login + "'"
-						+ "AND Pass_word='" + password + "';");
+	public User_bean get_user(String login, String password) throws IOException {
+		try {
+			ResultSet rs = getStatement().executeQuery(
+					"SELECT Points FROM Person WHERE Login='" + login + "'"
+							+ "AND Pass_word='" + password + "';");
 
-		if (rs.next()) {
-			return new User_bean(login, password, rs.getInt("Points"));
+			if (rs.next()) {
+				return new User_bean(login, password, rs.getInt("Points"));
+			}
+		} catch (SQLException e) {
+
 		}
 		File f = new File("/homes/dz1611/planA/elog.txt");
 		FileWriter fw = new FileWriter(f.getAbsoluteFile());
@@ -47,14 +50,18 @@ public class UserMethod extends Method {
 		return new User_bean(username, password, 10);
 	}
 
-	public LinkedList<User_bean> get_all_user() throws SQLException {
+	public LinkedList<User_bean> get_all_user() {
 		LinkedList<User_bean> users = new LinkedList<User_bean>();
-		ResultSet rs = getStatement().executeQuery("SELECT * FROM Person;");
-		while (rs.next()) {
-			String username = rs.getString("Login");
-			String password = rs.getString("Pass_word");
-			int points = rs.getInt("Points");
-			users.add(new User_bean(username, password, points));
+		try {
+			ResultSet rs = getStatement().executeQuery("SELECT * FROM Person;");
+			while (rs.next()) {
+				String username = rs.getString("Login");
+				String password = rs.getString("Pass_word");
+				int points = rs.getInt("Points");
+				users.add(new User_bean(username, password, points));
+			}
+		} catch (SQLException e) {
+
 		}
 		return users;
 	}

@@ -34,3 +34,5 @@ public class Method {
 				+ " WHERE Login='" + user.getUserName() + "';");
 	}
 }
+	
+	

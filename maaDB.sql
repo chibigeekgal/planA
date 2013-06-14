@@ -6,7 +6,8 @@ DROP TABLE Answer;
 CREATE TABLE Person (
   Login text not null Primary Key,
   Pass_word text not null,
-  Points integer not null 
+  Points integer not null,
+  Icon text not null
 );
 
 /*The table contains the questions asked by each user*/

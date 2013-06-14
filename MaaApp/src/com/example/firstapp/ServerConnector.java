@@ -2,9 +2,6 @@ package com.example.firstapp;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import org.apache.http.HttpResponse;
@@ -24,12 +21,11 @@ import android.util.Log;
 public class ServerConnector {
 	private String url;
 	List<NameValuePair> pairs;
-	ResultHandlerStrategy proceccer;
+	ResultHandler proceccer;
 	private Activity activity;
-	private String serverError = "Unable to retrieve web page. URL may be invalid.";
 
 	public ServerConnector(Activity activity, String url,
-			List<NameValuePair> pairs, ResultHandlerStrategy proceccer) {
+			List<NameValuePair> pairs, ResultHandler proceccer) {
 		this.url = Library.serverUrl + url;
 		this.pairs = pairs;
 		this.proceccer = proceccer;
@@ -48,36 +44,28 @@ public class ServerConnector {
 		}
 	}
 
-	private class PageTask extends AsyncTask<String, Void, String> {
+	private class PageTask extends AsyncTask<String, Void, InputStream> {
 
 		@Override
-		protected String doInBackground(String... urls) {
+		protected InputStream doInBackground(String... urls) {
 			try {
 				HttpClient client = new DefaultHttpClient();
 				HttpPost post = new HttpPost(urls[0]);
 				post.setEntity(new UrlEncodedFormEntity(pairs));
 				HttpResponse response = client.execute(post);
-				InputStream i = response.getEntity().getContent();
-				String results = readIt(i, 100);
+				InputStream results= response.getEntity().getContent();
 				return results;
 			} catch (IOException e) {
-				return serverError;
+				return null;
 			}
 		}
 
 		@Override
-		protected void onPostExecute(String results) {
-			proceccer.ProcessResults(results);
+		protected void onPostExecute(InputStream results) {
+			proceccer.processResults(results);
 		}
 
 	}
 
-	private String readIt(InputStream stream, int len) throws IOException,
-			UnsupportedEncodingException {
-		Reader reader = null;
-		reader = new InputStreamReader(stream, "UTF-8");
-		char[] buffer = new char[len];
-		reader.read(buffer);
-		return new String(buffer);
-	}
+	
 }

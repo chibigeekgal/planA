@@ -36,7 +36,6 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
 		// For textFont Purpose
 		TextView loginName = (TextView) findViewById(R.id.loginName);
 		Typeface loginNamefont = Typeface.createFromAsset(getAssets(),
@@ -104,12 +103,11 @@ public class MainActivity extends Activity {
 		return new String(buffer);
 	}
 
-	private class LoginResultHandler implements ResultHandlerStrategy {
+	private class LoginResultHandler extends StringResultHandler {
 
 		@Override
-		public void ProcessResults(String results) {
+		public void processStringResults(String results) {
 			int index = 0;
-			System.out.println(results);
 			String message = results.substring(0, 5);
 			while (results.charAt(index) >= '0' && results.charAt(index) <= '9') {
 				index++;

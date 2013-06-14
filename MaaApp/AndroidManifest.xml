@@ -16,7 +16,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="MLC"
         android:theme="@android:style/Theme.Holo.Light.DarkActionBar" >
-        <activity android:name="com.example.homepage.StartUp" >
+        <activity android:name="com.example.firstapp.StartUp" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
