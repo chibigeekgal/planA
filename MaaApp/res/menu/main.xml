@@ -11,9 +11,9 @@
         android:title="Symbols + Expressions">
     </item>
     <item
-        android:id="@+id/setting"
+        android:id="@+id/LogOut"
         android:showAsAction="ifRoom|withText"
-        android:title="Settings"/>
+        android:title="LogOut"/>
     <item>
     </item>
 

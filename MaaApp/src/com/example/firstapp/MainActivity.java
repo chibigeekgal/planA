@@ -8,8 +8,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-import keyboard.KeyboardDisplay;
-
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
@@ -19,11 +17,8 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -58,7 +53,7 @@ public class MainActivity extends Activity {
 		Button registerButton = (Button) findViewById(R.id.Register_button);
 		Button loginButton = (Button) findViewById(R.id.Login_button);
 		main = (Button) findViewById(R.id.Tempbutton);
-		main.setVisibility(View.INVISIBLE);
+		//main.setVisibility(View.INVISIBLE);
 		loginButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -94,6 +89,9 @@ public class MainActivity extends Activity {
 						HomePageActivity.class));
 			}
 		});
+		
+		getWindow().setSoftInputMode(
+			      WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
 	}
 

@@ -12,17 +12,16 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.firstapp.R;
 
 public class AnswerFragment extends ListFragment {
 
-	public static final String[] titles = new String[] { "dummy", "dummy",
-			"dummy", "dummy" };
+	public static final String[] titles = new String[] { "groups", "algebra",
+			"analysis", "mike" };
 
-	public static final String[] descriptions = new String[] { "It is an Q",
-			"It is an Q", "It is an Q", "It is an Q" };
+	public static final String[] descriptions = new String[] { "dr411",
+			"xs1511", "dz1611", "hs2711" };
 
 	public static final Integer[] images = { R.drawable.default_pic,
 			R.drawable.default_pic, R.drawable.default_pic,
@@ -36,7 +35,6 @@ public class AnswerFragment extends ListFragment {
 			Bundle savedInstanceState) {
 		View subFragmentView = inflater.inflate(R.layout.answerfragment_view,
 				container, false);
-
 		return subFragmentView;
 	}
 
@@ -61,10 +59,11 @@ public class AnswerFragment extends ListFragment {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				
-				
+				QuestionWrap q = (QuestionWrap) parent.getItemAtPosition(position);
 				Intent intent = new Intent(getActivity(),
 						IndividualQuestion.class);
-
+				intent.putExtra("Title", q.getTitle());
+				intent.putExtra("Author", q.getUsername());
 				startActivity(intent);
 
 			}

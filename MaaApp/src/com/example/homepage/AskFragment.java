@@ -6,19 +6,14 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
-import android.webkit.WebView.FindListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.firstapp.Library;
 import com.example.firstapp.R;
@@ -35,7 +30,7 @@ public class AskFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		user = (UserInfo) getActivity().getIntent().getExtras().get("User");
+		//user = (UserInfo) getActivity().getIntent().getExtras().get("User");
 		// setting up the view
 		final View askPageView = inflater.inflate(R.layout.askfragment_view,
 				container, false);
@@ -59,8 +54,6 @@ public class AskFragment extends Fragment {
 						pairs.add(new BasicNameValuePair("request","ask"));
 						new ServerConnector(getActivity(), url, pairs,
 								new AskResultProcesser()).connect();
-						
-						
 					}
 
 				});
@@ -68,20 +61,22 @@ public class AskFragment extends Fragment {
 		return askPageView;
 	}
 
-	private class ImageResultProcesser implements ResultHandlerStrategy {
+	/*private class ImageResultProcesser implements ResultHandlerStrategy {
 
 		@Override
 		public void ProcessResults(String results) {
 
 		}
 
-	}
+	}*/
 
 	private class AskResultProcesser implements ResultHandlerStrategy {
 
 		@Override
 		public void ProcessResults(String results) {
 			Library.showAlert(getActivity(), "Your question has been posted");
+			
+			/* Perhaps show the question or switch to the answer fragment and show it?*/
 		}
 	}
 }
