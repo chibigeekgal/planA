@@ -6,13 +6,17 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.example.firstapp.JsonResultHandler;
 import com.example.firstapp.Library;
@@ -25,15 +29,16 @@ import com.google.gson.JsonObject;
 
 public class AnswerFragment extends ListFragment {
 
-	/*public static final String[] titles = new String[] { "dummy", "dummy",
-			"dummy", "dummy" };
-
-	public static final String[] descriptions = new String[] { "It is an Q",
-			"It is an Q", "It is an Q", "It is an Q" };
-
-	public static final Integer[] images = { R.drawable.default_pic,
-			R.drawable.default_pic, R.drawable.default_pic,
-			R.drawable.default_pic };*/
+	/*
+	 * public static final String[] titles = new String[] { "dummy", "dummy",
+	 * "dummy", "dummy" };
+	 * 
+	 * public static final String[] descriptions = new String[] { "It is an Q",
+	 * "It is an Q", "It is an Q", "It is an Q" };
+	 * 
+	 * public static final Integer[] images = { R.drawable.default_pic,
+	 * R.drawable.default_pic, R.drawable.default_pic, R.drawable.default_pic };
+	 */
 
 	private List<Question> allQuestions;
 
@@ -79,7 +84,25 @@ public class AnswerFragment extends ListFragment {
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(
 					getActivity(), R.layout.row_layout_view, R.id.label, values);
 			setListAdapter(adapter);
-			Log.d("size1", ((Integer) allQuestions.size()).toString());
+			ListView question_list_view = (ListView) getView().findViewById(
+					android.R.id.list);
+			MyViewAdapter questionAdapter = new MyViewAdapter(getActivity(),
+					R.layout.question_item, allQuestions);
+			question_list_view.setAdapter(questionAdapter);
+			question_list_view
+					.setOnItemClickListener(new OnItemClickListener() {
+
+						public void onItemClick(AdapterView<?> parent,
+								View view, int position, long id) {
+							Question question = allQuestions.get(position - 1);
+							Intent intent = new Intent(getActivity(),
+									IndividualQuestion.class);
+							intent.putExtra("Question", question);
+							startActivity(intent);
+
+						}
+
+					});
 		}
 
 	}

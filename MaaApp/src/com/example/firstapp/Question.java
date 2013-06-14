@@ -4,14 +4,12 @@ import java.io.Serializable;
 
 import android.graphics.Bitmap;
 
-public class Question implements Serializable{
-	/**
-	 * 
-	 */
+public class Question implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int index, bestAnswer;
 	private String user, title;
 	private Bitmap content;
+	private Bitmap icon;
 
 	public Question(int index, int bestAnswer, String user, String title) {
 		super();
@@ -19,11 +17,11 @@ public class Question implements Serializable{
 		this.bestAnswer = bestAnswer;
 		this.user = user;
 		this.title = title;
-		content=getContentFromServer();
+		getIconFromServer();
 	}
 
-	private Bitmap getContentFromServer() {
-		return null;
+	public void getContentFromServer() {
+
 	}
 
 	public int getIndex() {
@@ -44,5 +42,13 @@ public class Question implements Serializable{
 
 	public Bitmap getContent() {
 		return content;
+	}
+
+	public Bitmap getPersonalIcon() {
+		return icon;
+	}
+
+	private void getIconFromServer() {
+
 	}
 }

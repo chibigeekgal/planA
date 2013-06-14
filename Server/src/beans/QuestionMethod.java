@@ -73,9 +73,9 @@ public class QuestionMethod extends Method {
 		String SqlQuery = "SELECT * FROM Question;";
 		return getQuestionsFromSQLQuery(SqlQuery);
 	}
-	
-	public LinkedList<Question_bean> getAllUnansweredQuestions(){
-		String SqlQuery= "SELECT * FROM Question WHERE Best_answer = 0;";
+
+	public LinkedList<Question_bean> getAllUnansweredQuestions() {
+		String SqlQuery = "SELECT * FROM Question NATURAL JOIN Person WHERE Best_answer = 0 ORDER BY Points DESC;";
 		return getQuestionsFromSQLQuery(SqlQuery);
 	}
 
@@ -89,7 +89,7 @@ public class QuestionMethod extends Method {
 				String content = rs.getString("Content");
 				String title = rs.getString("Question_title");
 				int index = rs.getInt("Question_index");
-				int best_answer = rs.getInt("best_answer");
+				int best_answer = rs.getInt("Best_answer");
 				questions.add(new Question_bean(owner, title, content, index,
 						best_answer));
 			}
@@ -123,12 +123,14 @@ public class QuestionMethod extends Method {
 		return getQuestionsFromSQLQuery(query);
 
 	}
-	
-	public BufferedImage get_question_content(int index){
+
+	public BufferedImage get_question_content(int index) {
 		try {
-			ResultSet rs=getStatement().executeQuery("SELECT Content FROM Question WHERE Question_index = "+index+";");
-			if(rs.next()){
-				String content=rs.getString("Question_index");
+			ResultSet rs = getStatement().executeQuery(
+					"SELECT Content FROM Question WHERE Question_index = "
+							+ index + ";");
+			if (rs.next()) {
+				String content = rs.getString("Question_index");
 				return toBufferedImage(content);
 			}
 		} catch (SQLException e) {
@@ -149,7 +151,7 @@ public class QuestionMethod extends Method {
 		}
 		return qjsons;
 	}
-	
+
 	private BufferedImage toBufferedImage(String s) {
 		s = process(s);
 		TeXFormula t = new TeXFormula(s);
