@@ -24,21 +24,6 @@
             android:textColor="#fff" >
         </LinearLayout>
 
-        <Button
-            android:id="@+id/select_pic"
-            android:layout_width="205sp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/personal_pics"
-            android:layout_centerInParent="true"
-            android:text="select Pic" />
-
-        <ImageView
-            android:id="@+id/personal_pics"
-            android:layout_width="200sp"
-            android:layout_height="200sp"
-            android:layout_below="@+id/LinearLayout5"
-            android:layout_centerInParent="true" />
-
         <LinearLayout
             android:id="@+id/LinearLayout1"
             android:layout_width="match_parent"
@@ -135,6 +120,30 @@
 
             <requestFocus />
         </EditText>
+        
+          <Button
+              android:id="@+id/save_button"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_alignParentBottom="true"
+                android:layout_marginTop="95dp"               
+              android:text="Save" />
+
+          <ImageView
+              android:id="@+id/personal_pics"
+              android:layout_width="200sp"
+              android:layout_height="200sp"
+              android:layout_alignLeft="@+id/select_pic"
+              android:layout_below="@+id/LinearLayout5" />
+
+          <Button
+              android:id="@+id/select_pic"
+              android:layout_width="205sp"
+              android:layout_height="wrap_content"
+              android:layout_below="@+id/personal_pics"
+              android:layout_centerHorizontal="true"
+              android:text="select Pic" />
+
     </RelativeLayout>
 
 </ScrollView>
