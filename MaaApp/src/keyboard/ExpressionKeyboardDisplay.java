@@ -2,6 +2,8 @@ package keyboard;
 
 import java.util.HashMap;
 
+import com.example.firstapp.Library;
+
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,8 +27,9 @@ public class ExpressionKeyboardDisplay extends KeyboardDisplay {
 				"Please enter the number and the root number separated by a space. Cube root of 5 would be 5 3");
 		latexMap.put("Integral",
 				"Please enter the limits separated by a space, and then the expression");
-		latexMap.put("Sum",
-				"Please enter the base, the limit and the expression separated by a space.");
+		latexMap.put(
+				"Sum",
+				"Please enter the variable, the base, the limit and the expression separated by a space.");
 		// latexMap.put("limit", "");
 	}
 
@@ -47,30 +50,60 @@ public class ExpressionKeyboardDisplay extends KeyboardDisplay {
 			if (resultCode == RESULT_OK) {
 				String value = data.getStringExtra("Argument");
 				String[] parts = value.split("\\s+");
+				int size = parts.length;
 				String result = "";
 				if (s.equals("Powers")) {
-					result = parts[0] + "_{" + parts[1] + "}";
+					if (size != 2) {
+						showError();
+						return;
+					}
+					result = parts[0] + "<sup align=right>" + parts[1]
+							+ "</sup>";
 				} else if (s.equals("Subscripts")) {
-					result = parts[0] + "^{" + parts[1] + "}";
+					if (size != 2) {
+						showError();
+						return;
+					}
+					result = parts[0] + "<sub align=right>" + parts[1]
+							+ "</sub>";
 				} else if (s.equals("Fraction")) {
-					result = "\\" + "\\" + "frac{" + parts[0] + "}{" + parts[1]
-							+ "}";
+					if (size != 2) {
+						showError();
+						return;
+					}
+					result = parts[0] + "<over>" + parts[1] + "}";
 				} else if (s.equals("NthRoot")) {
-					result = "\\\\\\sqrt[" + parts[0] + "]" + "{" + parts[1]
-							+ "}";
+					if (size != 2) {
+						showError();
+						return;
+					}
+					result = "<root>" + parts[0] + "<of>" + parts[1]
+							+ "</root>";
 				} else if (s.equals("Integral")) {
-					result = "\\\\\\int_{" + parts[0] + "}^{" + parts[1] + "}"
-							+ parts[2];
+					if (size != 3) {
+						showError();
+						return;
+					}
+					result = "<MATH>&int;_" + parts[0] + "_^" + parts[1] + "^{"
+							+ parts[2] + "}</MATH>";
 				} else if (s.equals("Sum")) {
-					result = "\\\\\\sum_{" + parts[0] + "}^{" + parts[1] + "}"
-							+ parts[2];
+					if (size != 4) {
+						showError();
+						return;
+					}
+					result = "&sum;<sub>" + parts[0] + " = " + parts[1]
+							+ "</sub><sup>" + parts[2] + "</sup>" + parts[3];
 				}
 				Intent i = new Intent();
-				System.out.println("result: " + result);
 				i.putExtra("Argument", result);
 				setResult(RESULT_OK, i);
 				finish();
 			}
 		}
+	}
+
+	private void showError() {
+		Library.showAlert(getParent(),
+				"Please enter correct number of arguments");
 	}
 }

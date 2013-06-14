@@ -1,10 +1,8 @@
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
-import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
@@ -72,7 +70,8 @@ public class Question_Servlet extends HttpServlet {
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		String substring = request.getParameter("substring");
-		System.out.println(content);
+		System.out.println(query);
+		System.out.println(index);
 		String bestAnswerText = request.getParameter("best_answer");
 		int bestAnswer = 0;
 		if (bestAnswerText != null)
@@ -88,10 +87,7 @@ public class Question_Servlet extends HttpServlet {
 			out.println(qjsons.toString());
 		}
 		if (query.equals("get_content")) {
-			System.out.println("ok");
-			response.setContentType("image/png");
-			OutputStream o = response.getOutputStream();
-			ImageIO.write(question_method.get_question_content(index), "png", o);
+			out.println(question_method.get_question_content(index));
 		}
 		if (query.equals("choose_best")) {
 			question_method.chooseBestAnswer(index, bestAnswer);

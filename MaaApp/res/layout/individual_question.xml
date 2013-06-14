@@ -13,7 +13,7 @@
         android:layout_marginTop="1dp"
         android:text="TextView" />
 
-    <ImageView
+    <TextView android:text="TextView"
         android:id="@+id/question"
         android:layout_width="100dp"
         android:layout_height="200dp"

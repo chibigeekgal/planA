@@ -8,8 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
-import javax.swing.JLabel;
-
 import org.scilab.forge.jlatexmath.TeXConstants;
 import org.scilab.forge.jlatexmath.TeXFormula;
 import org.scilab.forge.jlatexmath.TeXIcon;
@@ -124,7 +122,7 @@ public class QuestionMethod extends Method {
 
 	}
 
-	public BufferedImage get_question_content(int index) {
+	public String get_question_content(int index) {
 		try {
 			ResultSet rs = getStatement().executeQuery(
 					"SELECT Content FROM Question WHERE Question_index = "
@@ -132,7 +130,7 @@ public class QuestionMethod extends Method {
 			if (rs.next()) {
 				String content = rs.getString("content");
 				System.out.println(content);
-				return toBufferedImage(content);
+				return content;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -153,11 +151,12 @@ public class QuestionMethod extends Method {
 		return qjsons;
 	}
 
-	private BufferedImage toBufferedImage(String s) {
+	/*private BufferedImage toBufferedImage(String s) {
 		s = process(s);
 		TeXFormula t = new TeXFormula(s);
 		TeXIcon icon = t.new TeXIconBuilder()
 				.setStyle(TeXConstants.STYLE_DISPLAY).setSize(20).build();
+		
 		icon.setInsets(new Insets(5, 5, 5, 5));
 
 		BufferedImage i = new BufferedImage(icon.getIconWidth(),
@@ -165,9 +164,6 @@ public class QuestionMethod extends Method {
 		Graphics2D g2 = i.createGraphics();
 		g2.setColor(Color.white);
 		g2.fillRect(0, 0, icon.getIconWidth(), icon.getIconHeight());
-		JLabel jl = new JLabel();
-		jl.setForeground(new Color(0, 0, 0));
-		icon.paintIcon(jl, g2, 0, 0);
 		return i;
 	}
 
@@ -181,6 +177,6 @@ public class QuestionMethod extends Method {
 			result += String.valueOf(s2.charAt(i));
 		}
 		return result;
-	}
+	}*/
 
 }

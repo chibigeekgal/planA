@@ -69,8 +69,6 @@ public class Person_Servlet extends HttpServlet {
 		String username = request.getParameter("Login");
 		String password = request.getParameter("Password");
 		String requestType = request.getParameter("Request");
-		System.out.println(request);
-		response.setContentType("text/html");
 		try {
 			if (requestType.equals("login")) {
 				user = user_method.get_user(username, password);
