@@ -72,6 +72,7 @@ public class Question_Servlet extends HttpServlet {
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		String substring = request.getParameter("substring");
+		System.out.println(content);
 		String bestAnswerText = request.getParameter("best_answer");
 		int bestAnswer = 0;
 		if (bestAnswerText != null)
@@ -87,6 +88,7 @@ public class Question_Servlet extends HttpServlet {
 			out.println(qjsons.toString());
 		}
 		if (query.equals("get_content")) {
+			System.out.println("ok");
 			response.setContentType("image/png");
 			OutputStream o = response.getOutputStream();
 			ImageIO.write(question_method.get_question_content(index), "png", o);

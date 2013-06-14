@@ -131,6 +131,7 @@ public class QuestionMethod extends Method {
 							+ index + ";");
 			if (rs.next()) {
 				String content = rs.getString("content");
+				System.out.println(content);
 				return toBufferedImage(content);
 			}
 		} catch (SQLException e) {
