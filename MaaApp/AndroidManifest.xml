@@ -68,15 +68,13 @@
         <activity android:name="com.example.homepage.PersonalProfile" >
         </activity>
         <activity
-            android:name="com.example.firstapp.IndividualQuestion"
+            android:name="com.example.homepage.IndividualQuestion"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
         <activity
             android:name="keyboard.KeyboardEntry"
             android:theme="@android:style/Theme.Dialog" >
-        </activity>
-        <activity android:name="com.example.homepage.IndividualQuestion" >
-        </activity>
+            </activity>
     </application>
 
 </manifest>

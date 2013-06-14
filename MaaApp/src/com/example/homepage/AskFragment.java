@@ -15,7 +15,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 
 import com.example.firstapp.Library;
 import com.example.firstapp.R;
@@ -61,8 +60,6 @@ public class AskFragment extends Fragment {
 					}
 				});
 
-		HomePageActivity.image = (ImageView) askPageView
-				.findViewById(R.id.question_content);
 		return askPageView;
 	}
 

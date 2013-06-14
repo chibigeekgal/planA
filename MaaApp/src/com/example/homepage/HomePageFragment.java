@@ -21,7 +21,7 @@ public class HomePageFragment extends Fragment {
 			Bundle savedInstanceState) {
 		View homePageView = inflater.inflate(R.layout.homepage_structure,
 				container, false);
-		user = (UserInfo) getActivity().getIntent().getExtras().get("User");
+		//user = (UserInfo) getActivity().getIntent().getExtras().get("User");
 		// select a picture
 		homePageView.findViewById(R.id.personal_profile).setOnClickListener(
 				new View.OnClickListener() {
@@ -34,7 +34,14 @@ public class HomePageFragment extends Fragment {
 					}
 				});
 
+		/*System.out.println(user.getUsername() + " " + user.getPoints());
+		TextView username = (TextView) homePageView.findViewById(R.id.username);
+		username.setText("Username:   " + user.getUsername());
+		
+		TextView points = (TextView) homePageView.findViewById(R.id.points);
+		points.setText("Points:       " + String.valueOf(user.getPoints()));
+		*/
 		return homePageView;
 	}
-
+	
 }

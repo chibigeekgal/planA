@@ -13,17 +13,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.GridView;
 
 import com.example.firstapp.R;
-import com.example.homepage.HomePageActivity;
 
 public abstract class KeyboardDisplay extends Activity {
 
 
 	protected HashMap<String, String> latexMap;
-	protected EditText e;
 
 	public KeyboardDisplay() {
 		super();
@@ -43,6 +40,7 @@ public abstract class KeyboardDisplay extends Activity {
 		while (it.hasNext()) {
 			Map.Entry<String, String> pairs = (Entry<String, String>) it.next();
 			preItems.add(pairs.getKey());
+			System.out.println(pairs.getKey());
 		}
 
 		String[] items = new String[preItems.size()];
@@ -63,23 +61,9 @@ public abstract class KeyboardDisplay extends Activity {
 		});
 	}
 
-	@Override
-	protected void onResume() {
-		super.onResume();
-	}
-
 	public abstract void generateListener(AdapterView<?> arg0, View arg1, int arg2, long arg3);
 
 	public HashMap<String, String> getLatexMap() {
 		return latexMap;
 	}
-
-	public void addText(String s){
-		e.setText(e.getText().toString()+ s);
-	}
-	
-	public EditText getEditable(){
-		return this.e;
-	}
-	
 }

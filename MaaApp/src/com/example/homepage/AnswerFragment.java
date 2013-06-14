@@ -110,4 +110,5 @@ public class AnswerFragment extends ListFragment {
 		}
 
 	}
+
 }

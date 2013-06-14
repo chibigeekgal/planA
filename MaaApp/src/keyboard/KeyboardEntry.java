@@ -7,20 +7,23 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.firstapp.R;
 
 public class KeyboardEntry extends Activity {
 
 	String result = "";
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.keyboard_entry);
+		String s = getIntent().getStringExtra("Extra");
+		TextView t = (TextView) findViewById(R.id.dialog_message);
+		t.setText(s);
 		Button b = (Button) findViewById(R.id.enter_button);
 
-		
 		b.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -28,11 +31,9 @@ public class KeyboardEntry extends Activity {
 				String args = getIntent().getStringExtra("Argument");
 				final EditText e = (EditText) findViewById(R.id.content);
 				String r = e.getText().toString();
-				if(args != null)
+				if (args != null)
 					r += args;
 				result = r;
-				System.out.println("This shoudl be in the textbos:" + r);
-				System.out.println("result" + result);
 				Intent i = new Intent();
 				i.putExtra("Argument", result);
 				setResult(RESULT_OK, i);
@@ -69,13 +70,15 @@ public class KeyboardEntry extends Activity {
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (requestCode) {
 		case (1): {
+			if (data != null) {
 				String newText = data.getStringExtra("Argument");
-				if(newText != null) {
-				EditText content = (EditText) findViewById(R.id.content);
-				content.setText(result.toString() + "  " + newText);
-				System.out.println(newText);
-				System.out.println(content);
+				if (newText != null) {
+					EditText content = (EditText) findViewById(R.id.content);
+					String nt = content.getText().toString() + "  " + newText;
+					content.setText("");
+					content.append(nt);
 				}
+			}
 			break;
 		}
 		}
