@@ -97,7 +97,7 @@ public class HomePageActivity extends FragmentActivity implements
 	}
 
 	public void postString() {
-		EditText e = (EditText) findViewById(R.id.q_content);
+		EditText e = (EditText) findViewById(R.id.content);
 		if (e != null) {
 			e.setText(string);
 			System.out.println("postsymbol" + string);

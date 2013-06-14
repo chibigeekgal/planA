@@ -9,52 +9,14 @@
         android:layout_height="wrap_content"
         android:background="#ffffff" >
 
-        <EditText
-            android:id="@+id/q_title"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/q_content"
-            android:ems="10"
-            android:hint="Question Title"
-            android:inputType="textMultiLine"
-             />
-
-        <EditText
-            android:id="@+id/content"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/q_title"
-            android:layout_marginTop="95dp"
-            android:ems="10"
-            android:hint="Ask Your Question Here"
-            android:inputType="textMultiLine" >
-
-            <requestFocus />
-        </EditText>
-
         <LinearLayout
             android:id="@+id/LinearLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:orientation="vertical"
-            android:layout_below="@+id/q_content"
+            android:layout_below="@+id/content"
             android:layout_marginTop="42dp" >
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/LinearLayout5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/q_title"
-            android:background="#33b5e5"
-            android:orientation="vertical"
-            android:paddingBottom="9dp"
-            android:paddingTop="10dp"
-            android:textColor="#fff" >
         </LinearLayout>
 
         <Button
@@ -65,6 +27,39 @@
             android:layout_alignParentLeft="true"
             android:text="Ask" />
 
+        <EditText
+            android:id="@+id/q_title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:ems="10"
+            android:hint="Question Title"
+            android:inputType="textMultiLine" />
+
+        <LinearLayout
+            android:id="@+id/LinearLayout5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/content"
+            android:background="#33b5e5"
+            android:orientation="vertical"
+            android:paddingBottom="9dp"
+            android:paddingTop="10dp"
+            android:textColor="#fff" >
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/content"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/q_title"
+            android:layout_marginTop="38dp"
+            android:ems="10"
+            android:hint="Ask Your Question Here"
+            android:inputType="textMultiLine" />
       
     </RelativeLayout>
 
