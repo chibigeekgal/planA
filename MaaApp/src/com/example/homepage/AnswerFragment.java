@@ -24,6 +24,7 @@ import com.example.firstapp.Library;
 import com.example.firstapp.Question;
 import com.example.firstapp.R;
 import com.example.firstapp.ServerConnector;
+import com.example.firstapp.UserInfo;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -42,6 +43,7 @@ public class AnswerFragment extends ListFragment {
 	 */
 
 	private List<Question> allQuestions;
+	private UserInfo user;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,6 +58,7 @@ public class AnswerFragment extends ListFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		allQuestions = new ArrayList<Question>();
+		user = (UserInfo) getActivity().getIntent().getExtras().get("User");
 		ArrayList<NameValuePair> pairs = new ArrayList<NameValuePair>();
 		pairs.add(new BasicNameValuePair("request", "get_all"));
 		ServerConnector connector = new ServerConnector(getActivity(),
@@ -82,10 +85,9 @@ public class AnswerFragment extends ListFragment {
 				allQuestions.add(i, new Question(index, bestAnswer, username,
 						title));
 			}
-
-			// ArrayAdapter<String> /adapter = new ArrayAdapter<String>(
-			// getActivity(), R.layout.row_layout_view, R.id.label, values);
-			// setListAdapter(adapter);
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+					getActivity(), R.layout.row_layout_view, R.id.label, values);
+			setListAdapter(adapter);
 			ListView question_list_view = (ListView) getView().findViewById(
 					android.R.id.list);
 			MyViewAdapter questionAdapter = new MyViewAdapter(getActivity(),
@@ -96,11 +98,11 @@ public class AnswerFragment extends ListFragment {
 
 						public void onItemClick(AdapterView<?> parent,
 								View view, int position, long id) {
-							Question question = (Question) parent
-									.getItemAtPosition(position);
+							Question question = allQuestions.get(position);
 							Intent intent = new Intent(getActivity(),
 									IndividualQuestion.class);
 							intent.putExtra("Question", question);
+							intent.putExtra("User", user);
 							startActivity(intent);
 
 						}

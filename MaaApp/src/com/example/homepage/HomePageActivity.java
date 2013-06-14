@@ -1,10 +1,7 @@
 package com.example.homepage;
 
-import keyboard.ExpressionKeyboardDisplay;
 import keyboard.KeyboardEntry;
-import keyboard.SymbolKeyboardDisplay;
 import android.app.ActionBar;
-import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;

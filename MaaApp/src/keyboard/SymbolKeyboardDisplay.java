@@ -8,8 +8,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
-import com.example.homepage.HomePageActivity;
-
 public class SymbolKeyboardDisplay extends KeyboardDisplay {
 
 	public void fillInHashMap() {
