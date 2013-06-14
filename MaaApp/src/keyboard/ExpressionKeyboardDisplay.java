@@ -54,45 +54,39 @@ public class ExpressionKeyboardDisplay extends KeyboardDisplay {
 				String result = "";
 				if (s.equals("Powers")) {
 					if (size != 2) {
-						showError();
 						return;
 					}
 					result = parts[0] + "<sup align=right>" + parts[1]
 							+ "</sup>";
 				} else if (s.equals("Subscripts")) {
 					if (size != 2) {
-						showError();
 						return;
 					}
 					result = parts[0] + "<sub align=right>" + parts[1]
 							+ "</sub>";
 				} else if (s.equals("Fraction")) {
 					if (size != 2) {
-						showError();
 						return;
 					}
-					result = parts[0] + "<over>" + parts[1] + "}";
+					result = "<math>{" + parts[0] + "<over>" + parts[1] + "}</math>";
 				} else if (s.equals("NthRoot")) {
 					if (size != 2) {
-						showError();
 						return;
 					}
 					result = "<root>" + parts[0] + "<of>" + parts[1]
 							+ "</root>";
 				} else if (s.equals("Integral")) {
 					if (size != 3) {
-						showError();
 						return;
 					}
-					result = "<MATH>&int;_" + parts[0] + "_^" + parts[1] + "^{"
-							+ parts[2] + "}</MATH>";
+					result = "&int;_" + parts[0] + "_^" + parts[1] + "^{"
+							+ parts[2] + "}";
 				} else if (s.equals("Sum")) {
 					if (size != 4) {
-						showError();
 						return;
 					}
-					result = "&sum;<sub>" + parts[0] + " = " + parts[1]
-							+ "</sub><sup>" + parts[2] + "</sup>" + parts[3];
+					result = "<MATH>&sum;<sub>" + parts[0] + " = " + parts[1]
+							+ "</sub><sup>" + parts[2] + "</sup>" + parts[3]+"</MATH>";
 				}
 				Intent i = new Intent();
 				i.putExtra("Argument", result);
@@ -100,10 +94,5 @@ public class ExpressionKeyboardDisplay extends KeyboardDisplay {
 				finish();
 			}
 		}
-	}
-
-	private void showError() {
-		Library.showAlert(getParent(),
-				"Please enter correct number of arguments");
 	}
 }

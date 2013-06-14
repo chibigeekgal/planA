@@ -123,8 +123,10 @@ public class IndividualQuestion extends Activity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				Answer a = (Answer) arg0.getItemAtPosition(arg2);
-				int i = a.getAnswer();
-				System.out.println(i);
+				int i  = a.getAnswer();
+				Intent fullImage = new Intent(IndividualQuestion.this, FullImage.class);
+				fullImage.putExtra("Image", i);
+				startActivity(fullImage);
 			}
 		});
 		/* For the answer lists */

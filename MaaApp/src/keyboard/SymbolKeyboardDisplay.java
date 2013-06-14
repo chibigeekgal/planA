@@ -45,8 +45,8 @@ public class SymbolKeyboardDisplay extends KeyboardDisplay {
 		latexMap.put("\u00B1", "&plusmn;");
 		latexMap.put("\u2260", "&ne;");
 		latexMap.put("\u2209", "&notin;");
-		latexMap.put("\u2200", "&forall");
-		latexMap.put("\u221E", "&infin");
+		latexMap.put("\u2200", "&forall;");
+		latexMap.put("\u221E", "&infin;");
 		latexMap.put("sin", "sin");
 		latexMap.put("cos", "cos");
 		latexMap.put("tan", "tan");

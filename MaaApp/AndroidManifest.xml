@@ -74,7 +74,9 @@
         <activity
             android:name="keyboard.KeyboardEntry"
             android:theme="@android:style/Theme.Dialog" >
-            </activity>
+        </activity>
+        <activity android:name="com.example.homepage.FullImage" >
+        </activity>
     </application>
 
 </manifest>
