@@ -16,6 +16,7 @@ import com.example.firstapp.UserInfo;
 
 public class HomePageFragment extends Fragment {
 	private UserInfo user;
+	private String personalPicPath;
 
 	String[] qs = { "What's the definition of a Group?",
 			"What's the meaning of life?", "Is 1 + 1 actually 2?" };
@@ -41,4 +42,13 @@ public class HomePageFragment extends Fragment {
 		return homePageView;
 	}
 
+	//setting the personal picture
+	
+	
+	
+	
+	
+	
+	
+	
 }
