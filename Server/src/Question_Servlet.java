@@ -6,6 +6,7 @@ import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -76,29 +77,32 @@ public class Question_Servlet extends HttpServlet {
 		if (bestAnswerText != null)
 			bestAnswer = Integer.parseInt(request.getParameter("best_answer"));
 		response.setContentType("application/json");
-
-		PrintWriter out = response.getWriter();
+		ServletOutputStream out = response.getOutputStream();
 		if (query.equals("ask")) {
 			question_method.ask_question(owner, title, content);
 		}
-		if(query.equals("get_all")){
-			JsonArray qjsons = question_method.toJsonArray(question_method.getAllUnansweredQuestions());
-			out.println(qjsons);
+		if (query.equals("get_all")) {
+			JsonArray qjsons = question_method.toJsonArray(question_method
+					.getAllUnansweredQuestions());
+			out.println(qjsons.toString());
 		}
-		if(query.equals("get_content")){
+		if (query.equals("get_content")) {
 			response.setContentType("image/png");
-			
+			OutputStream o = response.getOutputStream();
+			ImageIO.write(question_method.get_question_content(index), "png", o);
 		}
 		if (query.equals("choose_best")) {
 			question_method.chooseBestAnswer(index, bestAnswer);
 		}
 		if (query.equals("get_question_info")) {
-			out.println(question_method.get_questions_by_username(owner));
+			JsonArray questions = question_method.toJsonArray(question_method
+					.get_questions_by_username(owner));
+			out.println(questions.toString());
 		}
 		if (query.equals("search")) {
-			out.println(question_method.searchSubstring(substring));
-			OutputStream o=response.getOutputStream();
-			ImageIO.write(question_method.get_question_content(index), "png", o);
+			JsonArray questions = question_method.toJsonArray(question_method
+					.searchSubstring(substring));
+			out.println(questions.toString());
 		}
 	}
 }

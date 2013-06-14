@@ -15,7 +15,7 @@
       
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/question_content"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_alignParentLeft="true"
@@ -29,7 +29,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="24dp"
         android:layout_marginTop="22dp"
-        android:layout_toRightOf="@+id/imageView1"
+        android:layout_toRightOf="@+id/question_content"
         android:text="dr411"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -37,7 +37,7 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView1"
+        android:layout_alignBottom="@+id/question_content"
         android:layout_alignLeft="@+id/textView1"
         android:text="Points:10"
         android:textAppearance="?android:attr/textAppearanceLarge" />
@@ -46,7 +46,7 @@
         android:id="@+id/textView3"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView1"
+        android:layout_below="@+id/question_content"
         android:layout_marginTop="32dp"
         android:gravity="center"
         android:text="How mathematics drives Computing was amazing!"

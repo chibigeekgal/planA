@@ -17,6 +17,7 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -56,6 +57,7 @@ public class MainActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
+				Log.d("login","login");
 				EditText user = (EditText) findViewById(R.id.idText);
 				user.setSelection(0);
 				username = user.getText().toString();

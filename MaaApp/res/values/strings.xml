@@ -24,5 +24,7 @@
     <string name="Answer">Answer</string>
     <string name="best_answer">Choose best answer</string>
     <string name="questionTitle">Title</string>
+    <string name="question">Question</string>
+    <string name="answers">Answers</string>
 
 </resources>

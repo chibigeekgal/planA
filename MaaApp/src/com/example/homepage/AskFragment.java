@@ -62,7 +62,7 @@ public class AskFragment extends Fragment {
 				});
 
 		HomePageActivity.image = (ImageView) askPageView
-				.findViewById(R.id.imageView1);
+				.findViewById(R.id.question_content);
 		return askPageView;
 	}
 
