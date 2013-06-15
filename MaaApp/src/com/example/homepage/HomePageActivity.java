@@ -3,6 +3,8 @@ package com.example.homepage;
 import keyboard.KeyboardEntry;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -12,6 +14,7 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.SearchView;
 
 import com.example.firstapp.MainActivity;
 import com.example.firstapp.R;
@@ -79,9 +82,14 @@ public class HomePageActivity extends FragmentActivity implements
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-	
 		getMenuInflater().inflate(R.menu.main, menu);
-		return super.onCreateOptionsMenu(menu);
+		SearchManager searchManager =
+		           (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+		    SearchView searchView =
+		            (SearchView) menu.findItem(R.id.menu_search).getActionView();
+		    searchView.setSearchableInfo(
+		            searchManager.getSearchableInfo(getComponentName()));
+		return true;
 	}
 
 	@Override
@@ -91,7 +99,7 @@ public class HomePageActivity extends FragmentActivity implements
 			Intent i = new Intent(getApplicationContext(), KeyboardEntry.class);
 			i.putExtra("Extra", "Please enter the Maths expression!");
 			startActivityForResult(i, 1);
-			return true;
+			return true;			
 		case R.id.LogOut:
 			Intent i3 = new Intent(getApplicationContext(), MainActivity.class);
 			startActivity(i3);
