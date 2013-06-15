@@ -8,6 +8,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
@@ -34,21 +35,25 @@ public class RegisterScreenActivity extends Activity {
 		Typeface RegisterTitlefont = Typeface.createFromAsset(getAssets(),
 				"Chunkfive.otf");
 		RegisterTitle.setTypeface(RegisterTitlefont);
+		RegisterTitle.setTextColor(Color.WHITE );
 
 		TextView userName = (TextView) findViewById(R.id.profilelogintext);
 		Typeface userNamefont = Typeface.createFromAsset(getAssets(),
 				"Chunkfive.otf");
 		userName.setTypeface(userNamefont);
-
+		userName.setTextColor(Color.WHITE );
+		
 		TextView loginName = (TextView) findViewById(R.id.loginName);
 		Typeface loginNamefont = Typeface.createFromAsset(getAssets(),
 				"Chunkfive.otf");
 		loginName.setTypeface(loginNamefont);
+		loginName.setTextColor(Color.WHITE );
 
 		TextView Points = (TextView) findViewById(R.id.Points);
 		Typeface Pointsfont = Typeface.createFromAsset(getAssets(),
 				"Chunkfive.otf");
 		Points.setTypeface(Pointsfont);
+		Points.setTextColor(Color.WHITE );
 
 		// end
 

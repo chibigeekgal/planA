@@ -1,20 +1,22 @@
 package com.example.homepage;
 
+import android.graphics.Bitmap;
+
 public class Answer {
 
-	private int answer;
+	private Bitmap answer;
 	private String username;
 	
-	public Answer(int answer, String username){
+	public Answer(Bitmap answer, String username){
 		this.setAnswer(answer);
 		this.setUsername(username);
 	}
 
-	public int getAnswer() {
+	public Bitmap getAnswer() {
 		return answer;
 	}
 
-	public void setAnswer( int answer) {
+	public void setAnswer(Bitmap answer) {
 		this.answer = answer;
 	}
 

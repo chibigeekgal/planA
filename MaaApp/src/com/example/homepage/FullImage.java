@@ -13,9 +13,9 @@ public class FullImage extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.enlarge_image);
 		
-		int imgid = getIntent().getIntExtra("Image", 0);
-		ImageView img = (ImageView) findViewById(R.id.answer_image);
-		img.setImageResource(imgid);
+	//	int imgid = getIntent().getBitmap("Image", 0);
+	//	ImageView img = (ImageView) findViewById(R.id.answer_image);
+	//	img.setImageResource(imgid);
 		
 	}
 }

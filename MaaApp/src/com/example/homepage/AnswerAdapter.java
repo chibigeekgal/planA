@@ -40,7 +40,7 @@ public class AnswerAdapter extends ArrayAdapter<Answer> {
 			answer = (AnswerStruct) convertView.getTag();
 		}
 		
-		answer.answer.setImageResource(a.getAnswer());
+		//answer.answer.setImageResource(a.getAnswer());
 		answer.username.setText(a.getUsername());
 		return convertView;
 	}

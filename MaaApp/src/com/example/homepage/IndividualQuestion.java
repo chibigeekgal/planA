@@ -29,10 +29,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.firstapp.BitmapResultHandler;
+import com.example.firstapp.JsonResultHandler;
 import com.example.firstapp.Question;
 import com.example.firstapp.R;
 import com.example.firstapp.ServerConnector;
 import com.example.firstapp.UserInfo;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 
 public class IndividualQuestion extends Activity {
 
@@ -57,10 +60,17 @@ public class IndividualQuestion extends Activity {
 		pairs.add(new BasicNameValuePair("request", "get_content"));
 		pairs.add(new BasicNameValuePair("index", ((Integer) question
 				.getIndex()).toString()));
+		List<Answer> answers = new ArrayList<Answer>();
+		List<NameValuePair> answerPair = new LinkedList<NameValuePair>();
+		pairs.add(new BasicNameValuePair("request", "get_all_answers"));
 		questionView = (ImageView) findViewById(R.id.question);
-		ServerConnector connector = new ServerConnector(this, "/question",
-				pairs, new QuestionContentResultHandler());
-		connector.connect();
+		ServerConnector questionConnector = new ServerConnector(this,
+				"/question", pairs, new QuestionContentResultHandler());
+		questionConnector.connect();
+		//ServerConnector answersConnector = new ServerConnector(this, "/answer",
+				//answerPair, new AnswerListResultHandler());
+		//answersConnector.connect();
+		
 		Button sym = (Button) findViewById(R.id.Symbol);
 		sym.setOnClickListener(new OnClickListener() {
 
@@ -95,10 +105,13 @@ public class IndividualQuestion extends Activity {
 				if (args != null)
 					r += args;
 				String result = r;
-				Intent i = new Intent();
-				i.putExtra("Argument", result);
-				setResult(RESULT_OK, i);
-				finish();
+				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+				pairs.add(new BasicNameValuePair("username", user.getUsername()));
+				pairs.add(new BasicNameValuePair("qIndex",String.valueOf(question.getIndex())));
+				pairs.add(new BasicNameValuePair("content",result));
+				pairs.add(new BasicNameValuePair("request","answer"));
+				
+				new ServerConnector(IndividualQuestion.this,"/answer", pairs, new AnswerResultHandler()).connect();
 			}
 
 		});
@@ -106,12 +119,6 @@ public class IndividualQuestion extends Activity {
 		TextView q = (TextView) findViewById(R.id.author);
 		t.setText(question.getTitle());
 		q.setText(question.getUser());
-
-		List<Answer> answers = new ArrayList<Answer>();
-		for (int i = 0; i < usernames.length; i++) {
-			Answer item = new Answer(answersImage[i], usernames[i]);
-			answers.add(item);
-		}
 
 		ListView answer_list = (ListView) findViewById(R.id.answer_list);
 		AnswerAdapter adapter = new AnswerAdapter(this,
@@ -124,9 +131,10 @@ public class IndividualQuestion extends Activity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				Answer a = (Answer) arg0.getItemAtPosition(arg2);
-				int i  = a.getAnswer();
-				Intent fullImage = new Intent(IndividualQuestion.this, FullImage.class);
-				fullImage.putExtra("Image", i);
+				Bitmap b = a.getAnswer();
+				Intent fullImage = new Intent(IndividualQuestion.this,
+						FullImage.class);
+				fullImage.putExtra("Image", b);
 				startActivity(fullImage);
 			}
 		});
@@ -179,6 +187,17 @@ public class IndividualQuestion extends Activity {
 		protected void processBitmapResults(Bitmap results) {
 			questionView.setImageBitmap(results);
 		}
+	}
+	
+	private class AnswerListResultHandler extends JsonResultHandler {
 
+		@Override
+		public void processJsonResults(JsonElement element) {
+			JsonArray answers = element.getAsJsonArray();
+			int size = answers.size();
+			
+			
+		}
+		
 	}
 }

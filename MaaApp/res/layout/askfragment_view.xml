@@ -1,82 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:fillViewport="true" >
+    android:layout_height="wrap_content"
+    android:background="#ffffff" >
 
-    <RelativeLayout
+    <EditText
+        android:id="@+id/q_title"
+        android:layout_marginTop="100dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="#ffffff" >
+        android:layout_alignParentLeft="true"
+        android:ems="10"
+        android:hint="Question Title"
+        android:inputType="textMultiLine" />
 
-        <EditText
-            android:id="@+id/q_title"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:ems="10"
-            android:hint="Question Title"
-            android:inputType="textMultiLine"
-             />
+    <EditText
+        android:id="@+id/content"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/q_title"
+        android:layout_marginTop="95dp"
+        android:ems="10"
+        android:hint="Ask Your Question Here"
+        android:inputType="textMultiLine" >
 
-        <EditText
-            android:id="@+id/content"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/q_title"
-            android:layout_marginTop="95dp"
-            android:ems="10"
-            android:inputType="textMultiLine"
-            android:hint="Ask Your Question Here"
-            >
+        <requestFocus />
+    </EditText>
 
-            <requestFocus />
-        </EditText>
+    <LinearLayout
+        android:id="@+id/LinearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="42dp"
+        android:orientation="vertical" >
+    </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/LinearLayout2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:orientation="vertical"
-            android:layout_below="@+id/q_content"
-            android:layout_marginTop="42dp" >
-        </LinearLayout>
+    <LinearLayout
+        android:id="@+id/LinearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/content"
+        android:background="#33b5e5"
+        android:orientation="vertical"
+        android:paddingBottom="9dp"
+        android:paddingTop="10dp"
+        android:textColor="#fff" >
+    </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/LinearLayout1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/content"
-            android:background="#33b5e5"
-            android:orientation="vertical"
-            android:paddingBottom="9dp"
-            android:paddingTop="10dp"
-            android:textColor="#fff" >
-        </LinearLayout>
+    <LinearLayout
+        android:id="@+id/LinearLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/q_title"
+        android:background="#33b5e5"
+        android:orientation="vertical"
+        android:paddingBottom="9dp"
+        android:paddingTop="10dp"
+        android:textColor="#fff" >
+    </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/LinearLayout5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/q_title"
-            android:background="#33b5e5"
-            android:orientation="vertical"
-            android:paddingBottom="9dp"
-            android:paddingTop="10dp"
-            android:textColor="#fff" >
-        </LinearLayout>
+    <Button
+        android:id="@+id/ask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below ="@+id/LinearLayout1" 
+        android:text="Ask" />
 
-        <Button
-            android:id="@+id/ask"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:text="Ask" /> 
-    </RelativeLayout>
-
-</ScrollView>
+</RelativeLayout>
