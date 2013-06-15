@@ -10,7 +10,7 @@ public abstract class BitmapResultHandler implements ResultHandler {
 
 	@Override
 	public void processResults(InputStream results) {
-		byte[] bytes = new byte[1024 * 1024 * 4];
+		byte[] bytes = new byte[1024 * 1024];
 		int length = 0;
 		try {
 			length = results.read(bytes);

@@ -31,10 +31,6 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
-
-            <meta-data
-                android:name="android.app.default_searchable"
-                android:value=".SearchableActivity" />
         </activity>
         <activity android:name="com.example.firstapp.RegisterScreenActivity" >
         </activity>
@@ -47,6 +43,9 @@
         <activity android:name="com.example.firstapp.ProfileActivity" >
         </activity>
         <activity android:name="com.example.homepage.HomePageActivity" >
+               <meta-data
+                android:name="android.app.default_searchable"
+                android:value=".SearchableActivity" />
         </activity>
         <activity android:name="come.example.firstapp.SearchActivity" >
             <intent-filter>

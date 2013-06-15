@@ -4,17 +4,23 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import keyboard.KeyboardEntry;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 import android.app.Activity;
 import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.homepage.IndividualQuestion;
@@ -29,22 +35,23 @@ public class SearchActivity extends Activity {
 	private ListView l;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
+		
 		super.onCreate(savedInstanceState);
-
+		System.out.println("oh baby");
 		setContentView(R.layout.search);
-
 		l = (ListView) findViewById(R.id.searchlist);
 		t = (TextView) findViewById(R.id.serchtext);
 		handleIntent(getIntent());
 
 	}
 
-	protected void onNewIntent(Intent intent) {
+	public void onNewIntent(Intent intent) {
 		handleIntent(intent);
 	};
 
 	private void handleIntent(Intent intent) {
+		System.out.println("Hello,world!");
 		if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
 			String query = intent.getStringExtra(SearchManager.QUERY);
 			showResults(query);
@@ -86,6 +93,37 @@ public class SearchActivity extends Activity {
 				}
 
 			});
+		}
+	}
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.main, menu);
+		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+		SearchView searchView = (SearchView) menu.findItem(R.id.menu_search)
+				.getActionView();
+		searchView.setSearchableInfo(searchManager
+				.getSearchableInfo(getComponentName()));
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.extra_symbol:
+			Intent i = new Intent(getApplicationContext(), KeyboardEntry.class);
+			i.putExtra("Extra", "Please enter the Maths expression!");
+			startActivityForResult(i, 1);
+			return true;
+		case R.id.LogOut:
+			Intent i3 = new Intent(getApplicationContext(), MainActivity.class);
+			startActivity(i3);
+			return true;
+		case R.id.menu_search:
+			System.out.println("searching");
+			onSearchRequested();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
 		}
 	}
 

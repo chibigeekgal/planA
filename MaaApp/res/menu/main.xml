@@ -14,7 +14,5 @@
         android:id="@+id/LogOut"
         android:showAsAction="ifRoom|withText"
         android:title="LogOut"/>
-    <item>
-    </item>
 
 </menu>
