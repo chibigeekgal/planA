@@ -57,9 +57,9 @@ public class HomePageActivity extends FragmentActivity implements
 			actionBar.addTab(actionBar.newTab()
 					.setText(adapter.getPageTitle(i)).setTabListener(this));
 		}
-		
+
 		getWindow().setSoftInputMode(
-			      WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 	}
 
 	@Override
@@ -83,12 +83,11 @@ public class HomePageActivity extends FragmentActivity implements
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main, menu);
-		SearchManager searchManager =
-		           (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-		    SearchView searchView =
-		            (SearchView) menu.findItem(R.id.menu_search).getActionView();
-		    searchView.setSearchableInfo(
-		            searchManager.getSearchableInfo(getComponentName()));
+		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+		SearchView searchView = (SearchView) menu.findItem(R.id.menu_search)
+				.getActionView();
+		searchView.setSearchableInfo(searchManager
+				.getSearchableInfo(getComponentName()));
 		return true;
 	}
 
@@ -99,7 +98,7 @@ public class HomePageActivity extends FragmentActivity implements
 			Intent i = new Intent(getApplicationContext(), KeyboardEntry.class);
 			i.putExtra("Extra", "Please enter the Maths expression!");
 			startActivityForResult(i, 1);
-			return true;			
+			return true;
 		case R.id.LogOut:
 			Intent i3 = new Intent(getApplicationContext(), MainActivity.class);
 			startActivity(i3);
@@ -115,7 +114,8 @@ public class HomePageActivity extends FragmentActivity implements
 		case (1): {
 			if (resultCode == RESULT_OK) {
 				EditText result = (EditText) findViewById(R.id.content);
-				String newText = result.getText().toString() + " " + data.getStringExtra("Argument");
+				String newText = result.getText().toString() + " "
+						+ data.getStringExtra("Argument");
 				result.setText("");
 				result.append(newText);
 			}
@@ -123,7 +123,7 @@ public class HomePageActivity extends FragmentActivity implements
 		}
 		}
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 	}

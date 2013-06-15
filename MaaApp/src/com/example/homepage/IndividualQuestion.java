@@ -51,7 +51,7 @@ public class IndividualQuestion extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.individual_question);
 		question = (Question) getIntent().getSerializableExtra("Question");
-		user = (UserInfo) getIntent().getSerializableExtra("User"	);
+		user = (UserInfo) getIntent().getSerializableExtra("User");
 		List<NameValuePair> pairs = new LinkedList<NameValuePair>();
 		Log.d("Index", ((Integer) question.getIndex()).toString());
 		pairs.add(new BasicNameValuePair("request", "get_content"));
