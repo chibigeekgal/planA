@@ -15,11 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.firstapp.JsonResultHandler;
-import com.example.firstapp.Library;
 import com.example.firstapp.Question;
 import com.example.firstapp.R;
 import com.example.firstapp.ServerConnector;
@@ -76,21 +74,14 @@ public class AnswerFragment extends ListFragment {
 			String[] values = new String[size];
 			for (int i = 0; i < size; i++) {
 				JsonObject o = questions.get(i).getAsJsonObject();
-				String username = Library.convertToString(o.get("username"));
-				String title = Library.convertToString(o.get("title"));
-				values[i] = title;
-				int index = o.get("index").getAsInt();
-				int bestAnswer = o.get("best_answer").getAsInt();
-				allQuestions.add(i, new Question(index, bestAnswer, username,
-						title));
+				Question question = new Question(o);
+				values[i] = question.getTitle();
+				allQuestions.add(i, question);
 			}
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-					getActivity(), R.layout.row_layout_view, R.id.label, values);
-			setListAdapter(adapter);
 			ListView question_list_view = (ListView) getView().findViewById(
 					android.R.id.list);
-			MyViewAdapter questionAdapter = new MyViewAdapter(getActivity(),
-					R.layout.question_item, allQuestions);
+			QuestionViewAdapter questionAdapter = new QuestionViewAdapter(
+					getActivity(), R.layout.question_item, allQuestions);
 			question_list_view.setAdapter(questionAdapter);
 			question_list_view
 					.setOnItemClickListener(new OnItemClickListener() {

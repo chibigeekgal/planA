@@ -54,9 +54,9 @@ public class HomePageActivity extends FragmentActivity implements
 			actionBar.addTab(actionBar.newTab()
 					.setText(adapter.getPageTitle(i)).setTabListener(this));
 		}
-		
+
 		getWindow().setSoftInputMode(
-			      WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 	}
 
 	@Override
@@ -79,7 +79,7 @@ public class HomePageActivity extends FragmentActivity implements
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-	
+
 		getMenuInflater().inflate(R.menu.main, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
@@ -107,7 +107,8 @@ public class HomePageActivity extends FragmentActivity implements
 		case (1): {
 			if (resultCode == RESULT_OK) {
 				EditText result = (EditText) findViewById(R.id.content);
-				String newText = result.getText().toString() + " " + data.getStringExtra("Argument");
+				String newText = result.getText().toString() + " "
+						+ data.getStringExtra("Argument");
 				result.setText("");
 				result.append(newText);
 			}
@@ -115,8 +116,9 @@ public class HomePageActivity extends FragmentActivity implements
 		}
 		}
 	}
-	
+
 	@Override
 	public void onBackPressed() {
+		System.exit(0);
 	}
 }

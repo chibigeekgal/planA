@@ -11,7 +11,7 @@
         android:orientation="horizontal" >
 
         <EditText
-            android:id="@+id/text"
+            android:id="@+id/serchtext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="100.0"
@@ -24,7 +24,7 @@
             android:text="add" />
 
         <ListView
-            android:id="@android:id/list"
+            android:id="@+id/searchlist"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
 

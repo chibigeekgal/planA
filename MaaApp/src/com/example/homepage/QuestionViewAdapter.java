@@ -14,11 +14,11 @@ import android.widget.TextView;
 import com.example.firstapp.Question;
 import com.example.firstapp.R;
 
-public class MyViewAdapter extends ArrayAdapter<Question> {
+public class QuestionViewAdapter extends ArrayAdapter<Question> {
 
 	Context context;
 
-	public MyViewAdapter(Context context, int resourceId, List<Question> items) {
+	public QuestionViewAdapter(Context context, int resourceId, List<Question> items) {
 		super(context, resourceId, items);
 		this.context = context;
 	}
