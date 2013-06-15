@@ -12,8 +12,8 @@ import org.apache.http.message.BasicNameValuePair;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.text.Html;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -24,13 +24,14 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.firstapp.BitmapResultHandler;
 import com.example.firstapp.Question;
 import com.example.firstapp.R;
 import com.example.firstapp.ServerConnector;
-import com.example.firstapp.StringResultHandler;
 import com.example.firstapp.UserInfo;
 
 public class IndividualQuestion extends Activity {
@@ -43,7 +44,7 @@ public class IndividualQuestion extends Activity {
 			R.drawable.temp_answer_pic };
 	private Question question;
 	private UserInfo user;
-	private TextView questionView;
+	private ImageView questionView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +57,7 @@ public class IndividualQuestion extends Activity {
 		pairs.add(new BasicNameValuePair("request", "get_content"));
 		pairs.add(new BasicNameValuePair("index", ((Integer) question
 				.getIndex()).toString()));
-		questionView = (TextView) findViewById(R.id.question);
+		questionView = (ImageView) findViewById(R.id.question);
 		ServerConnector connector = new ServerConnector(this, "/question",
 				pairs, new QuestionContentResultHandler());
 		connector.connect();
@@ -172,11 +173,11 @@ public class IndividualQuestion extends Activity {
 		return super.onContextItemSelected(item);
 	}
 
-	private class QuestionContentResultHandler extends StringResultHandler {
+	private class QuestionContentResultHandler extends BitmapResultHandler {
 
 		@Override
-		protected void processStringResults(String results) {
-			questionView.setText(Html.fromHtml(results));
+		protected void processBitmapResults(Bitmap results) {
+			questionView.setImageBitmap(results);
 		}
 
 	}

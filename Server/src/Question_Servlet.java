@@ -1,8 +1,11 @@
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
@@ -70,8 +73,6 @@ public class Question_Servlet extends HttpServlet {
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		String substring = request.getParameter("substring");
-		System.out.println(query);
-		System.out.println(index);
 		String bestAnswerText = request.getParameter("best_answer");
 		int bestAnswer = 0;
 		if (bestAnswerText != null)
@@ -87,7 +88,9 @@ public class Question_Servlet extends HttpServlet {
 			out.println(qjsons.toString());
 		}
 		if (query.equals("get_content")) {
-			out.println(question_method.get_question_content(index));
+			BufferedImage i = question_method.get_question_content(index);
+			byte[] ba = question_method.EncodeImage(i);
+			out.write(ba);
 		}
 		if (query.equals("choose_best")) {
 			question_method.chooseBestAnswer(index, bestAnswer);
