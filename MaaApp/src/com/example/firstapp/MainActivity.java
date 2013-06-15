@@ -18,6 +18,7 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -128,4 +129,6 @@ public class MainActivity extends Activity {
 			}
 		}
 	}
+
+	
 }

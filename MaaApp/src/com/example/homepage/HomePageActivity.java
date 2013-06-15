@@ -94,6 +94,8 @@ public class HomePageActivity extends FragmentActivity implements
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
+		case R.id.menu_search:
+			return onSearchRequested();
 		case R.id.extra_symbol:
 			Intent i = new Intent(getApplicationContext(), KeyboardEntry.class);
 			i.putExtra("Extra", "Please enter the Maths expression!");
@@ -102,7 +104,7 @@ public class HomePageActivity extends FragmentActivity implements
 		case R.id.LogOut:
 			finish();
 		default:
-			return super.onOptionsItemSelected(item);
+			return false;
 		}
 	}
 

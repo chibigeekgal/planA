@@ -67,9 +67,9 @@ public class IndividualQuestion extends Activity {
 		ServerConnector questionConnector = new ServerConnector(this,
 				"/question", pairs, new QuestionContentResultHandler());
 		questionConnector.connect();
-		ServerConnector answersConnector = new ServerConnector(this, "/answer",
-				answerPair, new AnswerListResultHandler());
-		answersConnector.connect();
+		//ServerConnector answersConnector = new ServerConnector(this, "/answer",
+				//answerPair, new AnswerListResultHandler());
+		//answersConnector.connect();
 		
 		Button sym = (Button) findViewById(R.id.Symbol);
 		sym.setOnClickListener(new OnClickListener() {
@@ -105,10 +105,13 @@ public class IndividualQuestion extends Activity {
 				if (args != null)
 					r += args;
 				String result = r;
-				Intent i = new Intent();
-				i.putExtra("Argument", result);
-				setResult(RESULT_OK, i);
-				finish();
+				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+				pairs.add(new BasicNameValuePair("username", user.getUsername()));
+				pairs.add(new BasicNameValuePair("qIndex",String.valueOf(question.getIndex())));
+				pairs.add(new BasicNameValuePair("content",result));
+				pairs.add(new BasicNameValuePair("request","answer"));
+				
+				new ServerConnector(IndividualQuestion.this,"/answer", pairs, new AnswerResultHandler()).connect();
 			}
 
 		});
