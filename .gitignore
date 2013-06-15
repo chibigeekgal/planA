@@ -11,4 +11,6 @@ MaaApp/.metadata
 MaaApp/gen/*
 *.orig
 Server/logs/*
-
+**/R.java
+**/servlet.jar
+**/beans.jar

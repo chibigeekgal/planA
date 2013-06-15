@@ -131,7 +131,6 @@ public class QuestionMethod extends Method {
 							+ index + ";");
 			if (rs.next()) {
 				String content = rs.getString("content");
-				System.out.println(content);
 				return toBufferedImage(content);
 			}
 		} catch (SQLException e) {
@@ -154,10 +153,10 @@ public class QuestionMethod extends Method {
 	}
 
 	private BufferedImage toBufferedImage(String s) {
-		s = process(s);
-		TeXFormula t = new TeXFormula(s);
-		TeXIcon icon = t.new TeXIconBuilder()
-				.setStyle(TeXConstants.STYLE_DISPLAY).setSize(20).build();
+		System.out.println(s);
+		TeXFormula t = new TeXFormula(s.replaceAll(" ", "\\\\:"));
+		TeXIcon icon = t.createTeXIcon(TeXConstants.STYLE_DISPLAY, 20);
+
 		icon.setInsets(new Insets(5, 5, 5, 5));
 
 		BufferedImage i = new BufferedImage(icon.getIconWidth(),
@@ -171,16 +170,11 @@ public class QuestionMethod extends Method {
 		return i;
 	}
 
-	private static String process(String s2) {
-		String result = "";
-		int length = s2.length();
-		for (int i = 0; i < length - 1; i++) {
-			if (s2.charAt(i) == '\\' && s2.charAt(i + 1) == '\\') {
-				i++;
-			}
-			result += String.valueOf(s2.charAt(i));
-		}
-		return result;
-	}
+	/*
+	 * private static String process(String s2) { String result = ""; int length
+	 * = s2.length(); for (int i = 0; i < length - 1; i++) { if (s2.charAt(i) ==
+	 * '\\' && s2.charAt(i + 1) == '\\') { i++; } result +=
+	 * String.valueOf(s2.charAt(i)); } return result; }
+	 */
 
 }

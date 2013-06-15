@@ -3,6 +3,8 @@ package com.example.homepage;
 import keyboard.KeyboardEntry;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -12,6 +14,7 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.SearchView;
 
 import com.example.firstapp.MainActivity;
 import com.example.firstapp.R;
@@ -54,9 +57,9 @@ public class HomePageActivity extends FragmentActivity implements
 			actionBar.addTab(actionBar.newTab()
 					.setText(adapter.getPageTitle(i)).setTabListener(this));
 		}
-		
+
 		getWindow().setSoftInputMode(
-			      WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 	}
 
 	@Override
@@ -79,9 +82,13 @@ public class HomePageActivity extends FragmentActivity implements
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-	
 		getMenuInflater().inflate(R.menu.main, menu);
-		return super.onCreateOptionsMenu(menu);
+		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+		SearchView searchView = (SearchView) menu.findItem(R.id.menu_search)
+				.getActionView();
+		searchView.setSearchableInfo(searchManager
+				.getSearchableInfo(getComponentName()));
+		return true;
 	}
 
 	@Override
@@ -107,7 +114,8 @@ public class HomePageActivity extends FragmentActivity implements
 		case (1): {
 			if (resultCode == RESULT_OK) {
 				EditText result = (EditText) findViewById(R.id.content);
-				String newText = result.getText().toString() + " " + data.getStringExtra("Argument");
+				String newText = result.getText().toString() + " "
+						+ data.getStringExtra("Argument");
 				result.setText("");
 				result.append(newText);
 			}
@@ -115,7 +123,7 @@ public class HomePageActivity extends FragmentActivity implements
 		}
 		}
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 	}

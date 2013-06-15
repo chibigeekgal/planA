@@ -58,7 +58,6 @@ public class IndividualQuestion extends Activity {
 		pairs.add(new BasicNameValuePair("index", ((Integer) question
 				.getIndex()).toString()));
 		questionView = (ImageView) findViewById(R.id.question);
-		questionView.setImageResource(R.drawable.temp_question_pic);
 		ServerConnector connector = new ServerConnector(this, "/question",
 				pairs, new QuestionContentResultHandler());
 		connector.connect();

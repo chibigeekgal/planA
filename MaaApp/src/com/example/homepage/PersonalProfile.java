@@ -1,7 +1,5 @@
 package com.example.homepage;
 
-import com.example.firstapp.R;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -13,6 +11,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import com.example.firstapp.R;
 
 public class PersonalProfile extends Activity {
 
