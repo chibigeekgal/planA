@@ -53,12 +53,12 @@ public class MainActivity extends Activity {
 		Button registerButton = (Button) findViewById(R.id.Register_button);
 		Button loginButton = (Button) findViewById(R.id.Login_button);
 		main = (Button) findViewById(R.id.Tempbutton);
-		//main.setVisibility(View.INVISIBLE);
+		// main.setVisibility(View.INVISIBLE);
 		loginButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				Log.d("login","login");
+				Log.d("login", "login");
 				EditText user = (EditText) findViewById(R.id.idText);
 				user.setSelection(0);
 				username = user.getText().toString();
@@ -90,9 +90,9 @@ public class MainActivity extends Activity {
 						HomePageActivity.class));
 			}
 		});
-		
+
 		getWindow().setSoftInputMode(
-			      WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
 	}
 
@@ -127,6 +127,5 @@ public class MainActivity extends Activity {
 				startActivity(login);
 			}
 		}
-
 	}
 }

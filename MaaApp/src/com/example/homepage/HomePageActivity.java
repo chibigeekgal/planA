@@ -100,8 +100,7 @@ public class HomePageActivity extends FragmentActivity implements
 			startActivityForResult(i, 1);
 			return true;
 		case R.id.LogOut:
-			Intent i3 = new Intent(getApplicationContext(), MainActivity.class);
-			startActivity(i3);
+			finish();
 		default:
 			return super.onOptionsItemSelected(item);
 		}
