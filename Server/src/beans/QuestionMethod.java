@@ -18,7 +18,6 @@ public class QuestionMethod extends Method {
 		try {
 
 			int index = get_max_index() + 1;
-			// System.out.println("index");
 			getStatement().executeUpdate(
 					"Insert INTO Question VALUES (" + index + ", '" + title
 							+ "', '" + user + "', '" + content + "', 0);");

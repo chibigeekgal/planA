@@ -1,2 +1,2 @@
-Name: beans/User_bean.class beans/Question_bean.class beans/Method.class beans/UserMethod.class beans/QuestionMethod.class
+Name: beans/Answer_bean.class beans/User_bean.class beans/Question_bean.class beans/Method.class beans/UserMethod.class beans/QuestionMethod.class beans/AnswerMethod.class
 Java-Bean: True
