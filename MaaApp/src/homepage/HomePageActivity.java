@@ -39,7 +39,7 @@ public class HomePageActivity extends FragmentActivity implements
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
 		// ViewPager listeners setting up, attaching the adapter
-
+        user=(UserInfo) getIntent().getExtras().getSerializable("User");
 		viewPagerControl = (ViewPager) findViewById(R.id.pager);
 		viewPagerControl.setAdapter(adapter);
 		viewPagerControl
@@ -111,7 +111,7 @@ public class HomePageActivity extends FragmentActivity implements
 	@Override
 	public void startActivity(Intent intent) {
 
-		if (intent.getAction().equals(Intent.ACTION_SEARCH)) {
+		if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
 			intent.putExtra("User", user);
 		}
 		super.startActivity(intent);
