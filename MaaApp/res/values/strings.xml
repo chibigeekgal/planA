@@ -28,5 +28,6 @@
     <string name="pull_to_refresh_release_label">Refreshing....</string>
     <string name="pull_to_refresh_refreshing_label">Updating</string>
     <string name="pull_to_refresh_tap_label">Pull to refresh answer list</string>
+    <string name="personal_setting">Personal Setting</string>
 
 </resources>

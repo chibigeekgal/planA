@@ -9,8 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:src="@drawable/default_pic" />
+        android:layout_alignParentTop="true" />
 
     <TextView
         android:id="@+id/answer_author"

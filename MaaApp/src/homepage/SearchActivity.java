@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import keyboard.KeyboardEntry;
-
 import main.JsonResultHandler;
 import main.ServerConnector;
 import model.Question;
@@ -127,9 +125,20 @@ public class SearchActivity extends Activity {
 			return true;
 		case R.id.menu_search:
 			onSearchRequested();
+			finish();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
 	}
+	
+	@Override
+	public void startActivity(Intent intent) {
+		
+		if(intent.getAction().equals(Intent.ACTION_SEARCH)){
+			intent.putExtra("User", user);
+		}
+		super.startActivity(intent);
+	}
+
 }

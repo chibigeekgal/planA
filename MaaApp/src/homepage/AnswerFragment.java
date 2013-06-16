@@ -24,6 +24,8 @@ import com.example.firstapp.R;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.markupartist.android.widget.PullToRefreshListView;
+import com.markupartist.android.widget.PullToRefreshListView.OnRefreshListener;
 
 public class AnswerFragment extends ListFragment {
 
@@ -76,7 +78,7 @@ public class AnswerFragment extends ListFragment {
 
 					public void onItemClick(AdapterView<?> parent,
 							View view, int position, long id) {
-						Question question = allQuestions.get(position);
+						Question question = allQuestions.get(position-1);
 						Intent intent = new Intent(getActivity(),
 								IndividualQuestion.class);
 						intent.putExtra("Question", question);

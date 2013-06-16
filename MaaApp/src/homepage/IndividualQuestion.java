@@ -62,16 +62,6 @@ public class IndividualQuestion extends Activity {
 		t.setText(question.getTitle());
 		q.setText(question.getUser());
 		getAnswers();
-
-		/*
-		 * answer_list.setOnItemClickListener(new OnItemClickListener() {
-		 * 
-		 * @Override public void onItemClick(AdapterView<?> arg0, View arg1, int
-		 * arg2, long arg3) { Answer a = (Answer) arg0.getItemAtPosition(arg2);
-		 * Bitmap b = a.getAnswer(); Intent fullImage = new
-		 * Intent(IndividualQuestion.this, FullImage.class);
-		 * fullImage.putExtra("Image", b); startActivity(fullImage); } });
-		 */
 	}
 
 	private void drawContent() {
@@ -80,7 +70,6 @@ public class IndividualQuestion extends Activity {
 		pairs.add(new BasicNameValuePair("request", "get_content"));
 		pairs.add(new BasicNameValuePair("index", ((Integer) question
 				.getIndex()).toString()));
-		
 
 		ServerConnector questionConnector = new ServerConnector(this,
 				"/question", pairs, new QuestionContentResultHandler());
@@ -226,6 +215,7 @@ public class IndividualQuestion extends Activity {
 			answer_list_view.setAdapter(new AnswerAdapter(
 					IndividualQuestion.this, R.layout.individual_answer,
 					answers));
+			registerForContextMenu(answer_list_view);
 
 		}
 	}

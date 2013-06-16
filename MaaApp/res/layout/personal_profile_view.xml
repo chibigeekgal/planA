@@ -54,7 +54,7 @@
         android:layout_below="@+id/textView1"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="TextView" >
+        android:text="username" >
 
         <requestFocus />
     </TextView>

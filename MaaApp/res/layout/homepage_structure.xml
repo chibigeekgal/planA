@@ -4,20 +4,20 @@
     android:layout_height="match_parent" >    
     
     <Button
-        android:id="@+id/personal_profile"
+        android:id="@+id/profile_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:text="Personal Setting" />      
+        android:text="@string/personal_setting" />      
 
     <ImageView
         android:id="@+id/personal_picture"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true"/>
 
     <TextView
         android:id="@+id/username"

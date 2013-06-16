@@ -1,8 +1,5 @@
 package beans;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,6 +19,9 @@ public class UserMethod extends Method {
 						+ "AND Pass_word='" + password + "';");
 
 		if (rs.next()) {
+			if (rs.getString("Points") == null) {
+				return null;
+			}
 			return new User_bean(login, password, rs.getInt("Points"));
 		}
 		return null;
@@ -63,8 +63,11 @@ public class UserMethod extends Method {
 						+ username + "';");
 	}
 
-	public void update_password(String username,String password) throws SQLException{
-		getStatement().executeQuery("UPDATE Person SET Password = '"+password+"' WHERE Login = '"+username +"';");
+	public void update_password(String username, String password)
+			throws SQLException {
+		getStatement().executeQuery(
+				"UPDATE Person SET Password = '" + password
+						+ "' WHERE Login = '" + username + "';");
 	}
 
 	public String get_icon(String username) throws SQLException {

@@ -15,10 +15,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.postgresql.util.Base64;
+
 import beans.UserMethod;
 import beans.User_bean;
 
-import com.sun.org.apache.xml.internal.security.utils.Base64;
+
 
 /**
  * Servlet implementation class Person_Servlet
@@ -105,16 +107,22 @@ public class Person_Servlet extends HttpServlet {
 					File f = new File(getServletContext().getRealPath(
 							"icons/default_pic.png"));
 					image = ImageIO.read(f);
+					ImageIO.write(image, "png", out);
 				} else {
-					byte[] bytes = Base64.decode(imageString);
-					InputStream in = new ByteArrayInputStream(bytes);
-					image = ImageIO.read(in);
+					byte[] bytes;
+					try {
+						bytes = Base64.decode(imageString);
+						InputStream in = new ByteArrayInputStream(bytes);
+						image = ImageIO.read(in);
+						ImageIO.write(image, "png", out);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
-				ImageIO.write(image, "png", out);
 			}
 
-		} catch (Exception e) {
-			out.println("SQL Exception");
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 }

@@ -53,7 +53,6 @@ public class ServerConnector {
 				HttpPost post = new HttpPost(urls[0]);
 				post.setEntity(new UrlEncodedFormEntity(pairs));
 				HttpResponse response = client.execute(post);
-				System.out.println(urls[0]);
 				InputStream results= response.getEntity().getContent();
 				return results;
 			} catch (IOException e) {

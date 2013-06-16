@@ -113,17 +113,29 @@ public class MainActivity extends Activity {
 
 		@Override
 		public void processStringResults(String results) {
+
 			String message = results.substring(0, 5);
-			System.out.println("Error"+message);
 			if (message.equals(Library.ERROR)) {
-		     	Library.showAlert(MainActivity.this, "invalid username/password combinaiton");
-			}else{
+				Library.showAlert(MainActivity.this,
+						"invalid username/password combinaiton");
+			} else {
 				Intent login = new Intent(getApplicationContext(),
 						HomePageActivity.class);
-				int point = Library.parseInt(results);
-				login.putExtra("User", new UserInfo(username, point));
-				Library.showAlert(MainActivity.this, "login successful");
-				startActivity(login);
+				int index = 0;
+				while (results.charAt(index) >= '0'
+						&& results.charAt(index) <= '9') {
+					index++;
+				}
+				String pointString = results.substring(0, index);
+				if (pointString == null) {
+					Library.showAlert(MainActivity.this,
+							"Server connection failure");
+				} else {
+					int point = Integer.parseInt(pointString);
+					login.putExtra("User", new UserInfo(username, point));
+					startActivity(login);
+				}
+
 			}
 		}
 	}

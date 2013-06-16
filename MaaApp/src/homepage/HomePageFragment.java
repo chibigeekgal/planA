@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,26 +32,27 @@ public class HomePageFragment extends Fragment {
 		View homePageView = inflater.inflate(R.layout.homepage_structure,
 				container, false);
 		user = (UserInfo) getActivity().getIntent().getExtras().get("User");
+		HomePageActivity h = (HomePageActivity) getActivity();
+		h.setUser(user);
 		List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 		pairs.add(new BasicNameValuePair("Request", "get_icon"));
 		pairs.add(new BasicNameValuePair("Login", user.getUsername()));
 		ImageView icon = (ImageView) homePageView
 				.findViewById(R.id.personal_picture);
-		ServerConnector connector=new ServerConnector(getActivity(),
+		ServerConnector connector = new ServerConnector(getActivity(),
 				"/person", pairs, new IconResultHandler(icon));
 		connector.connect();
-		homePageView.findViewById(R.id.personal_profile).setOnClickListener(
-				new View.OnClickListener() {
+		homePageView.findViewById(R.id.profile_button).setOnClickListener(
+				new OnClickListener() {
 					@Override
-					public void onClick(View view) {
+					public void onClick(View v) {
+						System.out.println("Click");
 						Intent intent = new Intent(getActivity(),
 								PersonalProfile.class);
 						intent.putExtra("User", user);
 						startActivity(intent);
 					}
 				});
-
-		System.out.println(user.getUsername() + " " + user.getPoints());
 		TextView username = (TextView) homePageView.findViewById(R.id.username);
 		username.setText("Username:   " + user.getUsername());
 
@@ -71,6 +73,7 @@ public class HomePageFragment extends Fragment {
 		@Override
 		protected void processBitmapResults(Bitmap results) {
 			icon.setImageBitmap(results);
+			user.setIcon(results);
 		}
 
 	}

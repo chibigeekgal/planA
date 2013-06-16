@@ -37,7 +37,6 @@ public class SearchActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		System.out.println("oh baby");
 		setContentView(R.layout.search);
 		user = (UserInfo) getIntent().getExtras().getSerializable("User");
 		l = (ListView) findViewById(R.id.searchlist);

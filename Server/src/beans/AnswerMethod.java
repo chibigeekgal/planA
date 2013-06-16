@@ -5,9 +5,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
+import org.postgresql.util.Base64;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 
 public class AnswerMethod extends Method {
 
@@ -56,7 +57,7 @@ public class AnswerMethod extends Method {
 				String content = rs.getString("Answer_content");
 				byte[] ba = encodeImage(toBufferedImage(content));
 				o.addProperty("username", username);
-				o.addProperty("content", Base64.encode(ba));
+				o.addProperty("content", Base64.encodeBytes(ba));
 				answers.add(o);
 			}
 		} catch (SQLException e) {

@@ -14,7 +14,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.SearchView;
 
 import com.example.firstapp.R;
@@ -24,8 +23,6 @@ public class HomePageActivity extends FragmentActivity implements
 
 	private FrameAdapter adapter;
 	private ViewPager viewPagerControl;
-	public static String string = "";
-	public static ImageView image;
 	private UserInfo user;
 
 	public void onCreate(Bundle savedInstanceState) {
@@ -110,11 +107,11 @@ public class HomePageActivity extends FragmentActivity implements
 			return super.onOptionsItemSelected(item);
 		}
 	}
-	
+
 	@Override
 	public void startActivity(Intent intent) {
-		
-		if(intent.getAction().equals(Intent.ACTION_SEARCH)){
+
+		if (intent.getAction().equals(Intent.ACTION_SEARCH)) {
 			intent.putExtra("User", user);
 		}
 		super.startActivity(intent);
@@ -139,8 +136,6 @@ public class HomePageActivity extends FragmentActivity implements
 		}
 		}
 	}
-	
-	
 
 	@Override
 	public void onBackPressed() {

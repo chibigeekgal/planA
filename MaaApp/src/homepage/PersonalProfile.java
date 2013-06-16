@@ -1,7 +1,6 @@
 package homepage;
 
-import java.io.ByteArrayOutputStream;
-
+import model.UserInfo;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -10,12 +9,12 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Base64;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.firstapp.R;
 
@@ -24,6 +23,7 @@ public class PersonalProfile extends Activity {
 	private static int RESULT_ACT = 1;
 
 	private ImageView personal_imageView;
+	private UserInfo user;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -31,8 +31,9 @@ public class PersonalProfile extends Activity {
 		setContentView(R.layout.personal_profile_view);
 		// setting default picture
 		personal_imageView = (ImageView) findViewById(R.id.personal_pics);
-		personal_imageView.setImageResource(R.drawable.default_pic);
-
+		personal_imageView.setImageBitmap(user.getIcon());
+		TextView username = (TextView) findViewById(R.id.profile_username);
+		username.setText(user.getUsername());
 		Button buttonLoadImage = (Button) findViewById(R.id.select_pic);
 		buttonLoadImage.setOnClickListener(new View.OnClickListener() {
 
@@ -49,7 +50,16 @@ public class PersonalProfile extends Activity {
 
 		getWindow().setSoftInputMode(
 				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+		Button upload = (Button) findViewById(R.id.save_button);
+		upload.setOnClickListener(new OnClickListener() {
 
+			@Override
+			public void onClick(View v) {
+				// TODicon.O Auto-generated method stub
+
+			}
+
+		});
 	}
 
 	@Override
@@ -74,21 +84,7 @@ public class PersonalProfile extends Activity {
 
 			Bitmap icon = BitmapFactory.decodeFile(picturePath);
 			personal_imageView.setImageBitmap(icon);
-			ByteArrayOutputStream stream = new ByteArrayOutputStream();
-			icon.compress(Bitmap.CompressFormat.PNG, 100, stream);
-			String byteString = Base64.encodeToString(stream.toByteArray(),
-					Base64.DEFAULT);
-			Button upload=(Button)findViewById(R.id.save_button);
-			upload.setOnClickListener(new OnClickListener (){
 
-				@Override
-				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					
-				}
-				
-			});
-			
 		}
 	}
 
