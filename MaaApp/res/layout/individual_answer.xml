@@ -3,21 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <ImageView
-        android:id="@+id/answer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true" />
-
     <TextView
         android:id="@+id/answer_author"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/answer"
-        android:layout_marginRight="24dp"
-        android:text="TextView" />
+        android:layout_below="@+id/answer"
+        android:layout_marginRight="80dp"
+        android:layout_marginTop="44dp"
+        android:text="TextView"
+        android:textSize ="30dp"/>
+
+    <ImageView
+        android:id="@+id/answer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/answer_author"
+        android:layout_marginTop="62dp"/>
 
 </RelativeLayout>

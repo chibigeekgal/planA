@@ -135,7 +135,7 @@ public class SearchActivity extends Activity {
 	@Override
 	public void startActivity(Intent intent) {
 		
-		if(intent.getAction().equals(Intent.ACTION_SEARCH)){
+		if(Intent.ACTION_SEARCH.equals(intent.getAction())){
 			intent.putExtra("User", user);
 		}
 		super.startActivity(intent);

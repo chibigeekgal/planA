@@ -30,6 +30,7 @@ public class PersonalProfile extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.personal_profile_view);
 		// setting default picture
+		user = (UserInfo) getIntent().getExtras().getSerializable("User");
 		personal_imageView = (ImageView) findViewById(R.id.personal_pics);
 		personal_imageView.setImageBitmap(user.getIcon());
 		TextView username = (TextView) findViewById(R.id.profile_username);
