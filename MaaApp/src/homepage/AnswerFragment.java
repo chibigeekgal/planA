@@ -70,6 +70,7 @@ public class AnswerFragment extends ListFragment {
 						getActivity(), "/question", pairs,
 						new QuestionListResultsHandler());
 				connector.connect();
+				System.out.println("refreshing");
 			}
 
 		});
@@ -101,6 +102,7 @@ public class AnswerFragment extends ListFragment {
 				values[i] = question.getTitle();
 				allQuestions.add(i, question);
 			}
+			System.out.println("finished.....");
 		}
 
 	}

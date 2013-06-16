@@ -27,7 +27,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/question"
         android:layout_marginRight="38dp"
-        android:text="TextView" />
+        android:text="TextView" 
+        android:textSize="25dp"/>
 
     <ListView
         android:id="@+id/answer_list"

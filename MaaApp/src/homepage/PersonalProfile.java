@@ -1,18 +1,33 @@
 package homepage;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import main.ResultHandler;
+import main.ServerConnector;
 import model.UserInfo;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,18 +38,19 @@ public class PersonalProfile extends Activity {
 	private static int RESULT_ACT = 1;
 
 	private ImageView personal_imageView;
-	private UserInfo user;
+	private String username;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		user=(UserInfo) getIntent().getExtras().getSerializable("User");
+		//selected = false;
+		username = ((UserInfo) getIntent().getExtras().getSerializable("User"))
+				.getUsername();
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.personal_profile_view);
 		// setting default picture
-		user = (UserInfo) getIntent().getExtras().getSerializable("User");
 		personal_imageView = (ImageView) findViewById(R.id.personal_pics);
-		TextView username = (TextView) findViewById(R.id.profile_username);
-		username.setText(user.getUsername());
+		TextView usernameText = (TextView) findViewById(R.id.profile_username);
+		usernameText.setText(username);
 		Button buttonLoadImage = (Button) findViewById(R.id.select_pic);
 		buttonLoadImage.setOnClickListener(new View.OnClickListener() {
 
@@ -56,8 +72,43 @@ public class PersonalProfile extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODicon.O Auto-generated method stub
-
+				Drawable image = personal_imageView.getDrawable();
+				EditText ptext = (EditText) findViewById(R.id.profile_password);
+				String password = ptext.getText().toString();
+				if (image != null) {
+					personal_imageView.buildDrawingCache();
+					Bitmap icon = personal_imageView.getDrawingCache();
+					ByteArrayOutputStream stream = new ByteArrayOutputStream();
+					icon.compress(Bitmap.CompressFormat.PNG, 100, stream);
+					byte[] byteArray = stream.toByteArray();
+					String imageString = Base64.encodeToString(byteArray,
+							Base64.DEFAULT);
+					List<NameValuePair> imagePair = new ArrayList<NameValuePair>();
+					imagePair
+							.add(new BasicNameValuePair("Request", "set_icon"));
+					imagePair.add(new BasicNameValuePair("Icon", imageString));
+					imagePair.add(new BasicNameValuePair("Username", username));
+					class ImageResultHandler implements ResultHandler {
+						@Override
+						public void processResults(InputStream results) {
+						}
+					}
+					new ServerConnector(PersonalProfile.this, "/person",
+							imagePair, new ImageResultHandler()).connect();
+				}
+				if (!password.equals("")) {
+					List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+					pairs.add(new BasicNameValuePair("Request", "edit_password"));
+					pairs.add(new BasicNameValuePair("Username", username));
+					pairs.add(new BasicNameValuePair("Password", password));
+					class PasswordResultHandler implements ResultHandler {
+						@Override
+						public void processResults(InputStream results) {
+						};
+					}
+					new ServerConnector(PersonalProfile.this, "/person", pairs,
+							new PasswordResultHandler()).connect();
+				}
 			}
 
 		});
@@ -70,7 +121,7 @@ public class PersonalProfile extends Activity {
 		if (requestCode == RESULT_ACT && resultCode == Activity.RESULT_OK
 				&& data != null) {
 			Uri selectedImage = data.getData();
-
+			// selected = true;
 			String[] filePathColumn = { MediaStore.Images.Media.DATA };
 
 			Cursor cursor = getContentResolver().query(selectedImage,
@@ -82,14 +133,11 @@ public class PersonalProfile extends Activity {
 			String picturePath = cursor.getString(columnIndex);
 
 			cursor.close();
-
+			Log.d("done", "done");
+			Log.d("path", picturePath);
 			Bitmap icon = BitmapFactory.decodeFile(picturePath);
 			personal_imageView.setImageBitmap(icon);
-
 		}
-	}
-
-	private void updatepersonalPic(String path) {
 
 	}
 
