@@ -19,12 +19,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
 
 import com.example.firstapp.R;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.markupartist.android.widget.PullToRefreshListView;
+import com.markupartist.android.widget.PullToRefreshListView.OnRefreshListener;
 
 public class AnswerFragment extends ListFragment {
 
@@ -50,6 +51,42 @@ public class AnswerFragment extends ListFragment {
 		ServerConnector connector = new ServerConnector(getActivity(),
 				"/question", pairs, new QuestionListResultsHandler());
 		connector.connect();
+		
+		PullToRefreshListView question_list_view = (PullToRefreshListView) getView()
+				.findViewById(android.R.id.list);
+		QuestionViewAdapter questionAdapter = new QuestionViewAdapter(
+				getActivity(), R.layout.question_item, allQuestions);
+		question_list_view.setAdapter(questionAdapter);
+		question_list_view.setOnRefreshListener(new OnRefreshListener() {
+
+			@Override
+			public void onRefresh() {
+				allQuestions = new ArrayList<Question>();
+				user = (UserInfo) getActivity().getIntent().getExtras()
+						.get("User");
+				ArrayList<NameValuePair> pairs = new ArrayList<NameValuePair>();
+				pairs.add(new BasicNameValuePair("request", "get_all"));
+				ServerConnector connector = new ServerConnector(
+						getActivity(), "/question", pairs,
+						new QuestionListResultsHandler());
+				connector.connect();
+			}
+
+		});
+		question_list_view
+				.setOnItemClickListener(new OnItemClickListener() {
+
+					public void onItemClick(AdapterView<?> parent,
+							View view, int position, long id) {
+						Question question = allQuestions.get(position);
+						Intent intent = new Intent(getActivity(),
+								IndividualQuestion.class);
+						intent.putExtra("Question", question);
+						intent.putExtra("User", user);
+						startActivity(intent);
+					}
+
+				});
 	}
 
 	private class QuestionListResultsHandler extends JsonResultHandler {
@@ -64,28 +101,7 @@ public class AnswerFragment extends ListFragment {
 				values[i] = question.getTitle();
 				allQuestions.add(i, question);
 			}
-			ListView question_list_view = (ListView) getView().findViewById(
-					android.R.id.list);
-			QuestionViewAdapter questionAdapter = new QuestionViewAdapter(
-					getActivity(), R.layout.question_item, allQuestions);
-			question_list_view.setAdapter(questionAdapter);
-			question_list_view
-					.setOnItemClickListener(new OnItemClickListener() {
-
-						public void onItemClick(AdapterView<?> parent,
-								View view, int position, long id) {
-							Question question = allQuestions.get(position);
-							Intent intent = new Intent(getActivity(),
-									IndividualQuestion.class);
-							intent.putExtra("Question", question);
-							intent.putExtra("User", user);
-							startActivity(intent);
-
-						}
-
-					});
 		}
 
 	}
-
 }

@@ -119,6 +119,7 @@ public class MainActivity extends Activity {
 				index++;
 			}
 			String output = results.substring(0, index);
+			System.out.println(message);
 			if (message.equals(Library.ERROR)) {
 				Library.showAlert(MainActivity.this,
 						"Invalid username/password combination");

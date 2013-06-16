@@ -51,7 +51,6 @@
         android:id="@+id/Symbol"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_below="@id/answer_section"
         android:text="Symbol" />
 
@@ -59,7 +58,6 @@
         android:id="@+id/Expressions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_below="@id/answer_section"
         android:layout_toRightOf="@id/Symbol"
         android:text="Expressions" />
@@ -68,7 +66,6 @@
         android:id="@+id/Enter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_below="@id/answer_section"
         android:text="Enter" />

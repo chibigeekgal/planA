@@ -19,6 +19,7 @@ public abstract class BitmapResultHandler implements ResultHandler {
 			e.printStackTrace();
 		}
 		if (length > 0) {
+			System.out.println(length);
 			Bitmap bitmapResult = BitmapFactory.decodeByteArray(bytes, 0,
 					length);
 			processBitmapResults(bitmapResult);

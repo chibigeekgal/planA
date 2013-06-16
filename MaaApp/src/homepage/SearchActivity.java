@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import keyboard.KeyboardEntry;
+
 import main.JsonResultHandler;
 import main.ServerConnector;
 import model.Question;
@@ -18,6 +20,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -112,5 +115,21 @@ public class SearchActivity extends Activity {
 		searchView.setSearchableInfo(searchManager
 				.getSearchableInfo(getComponentName()));
 		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.extra_symbol:
+			return super.onOptionsItemSelected(item);
+		case R.id.LogOut:
+			finish();
+			return true;
+		case R.id.menu_search:
+			onSearchRequested();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 }

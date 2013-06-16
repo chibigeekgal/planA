@@ -18,7 +18,7 @@ import com.google.gson.JsonArray;
  * Servlet implementation class AnswerSelvlet
  */
 @WebServlet("/answer")
-public class Answer_Selvlet extends HttpServlet {
+public class Answer_Servlet extends HttpServlet {
 	/**
 	 * 
 	 */
