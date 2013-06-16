@@ -104,6 +104,7 @@ public class SearchActivity extends Activity {
 			});
 		}
 	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main, menu);
@@ -131,11 +132,11 @@ public class SearchActivity extends Activity {
 			return super.onOptionsItemSelected(item);
 		}
 	}
-	
+
 	@Override
 	public void startActivity(Intent intent) {
-		
-		if(intent.getAction().equals(Intent.ACTION_SEARCH)){
+
+		if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
 			intent.putExtra("User", user);
 		}
 		super.startActivity(intent);

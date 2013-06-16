@@ -32,8 +32,6 @@ public class HomePageFragment extends Fragment {
 		View homePageView = inflater.inflate(R.layout.homepage_structure,
 				container, false);
 		user = (UserInfo) getActivity().getIntent().getExtras().get("User");
-		HomePageActivity h = (HomePageActivity) getActivity();
-		h.setUser(user);
 		List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 		pairs.add(new BasicNameValuePair("Request", "get_icon"));
 		pairs.add(new BasicNameValuePair("Login", user.getUsername()));
@@ -73,7 +71,6 @@ public class HomePageFragment extends Fragment {
 		@Override
 		protected void processBitmapResults(Bitmap results) {
 			icon.setImageBitmap(results);
-			user.setIcon(results);
 		}
 
 	}
