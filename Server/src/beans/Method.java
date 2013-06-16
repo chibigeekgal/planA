@@ -56,7 +56,7 @@ public class Method {
 		return encodeImage(i);
 	}
 	
-	private byte[] encodeImage(BufferedImage i) throws IOException{
+	public byte[] encodeImage(BufferedImage i) throws IOException{
 		ByteArrayOutputStream bo = new ByteArrayOutputStream();
 		ImageIO.write(i, "png", bo);
 		bo.flush();

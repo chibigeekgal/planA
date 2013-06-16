@@ -45,8 +45,8 @@ public class AnswerMethod extends Method {
 	}
 
 	public JsonArray getAnswers(int qIndex) throws IOException {
+		JsonArray answers = new JsonArray();
 		try {
-			JsonArray answers = new JsonArray();
 			ResultSet rs = getStatement().executeQuery(
 					"SELECT * FROM Answer WHERE Question_index = " + qIndex
 							+ ";");
@@ -59,12 +59,11 @@ public class AnswerMethod extends Method {
 				o.addProperty("content", Base64.encode(ba));
 				answers.add(o);
 			}
-			return answers;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return answers;
 	}
 
 	public LinkedList<Answer_bean> getAllAnswers() {

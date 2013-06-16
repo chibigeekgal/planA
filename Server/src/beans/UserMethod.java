@@ -14,17 +14,15 @@ public class UserMethod extends Method {
 		super();
 	}
 
-	public User_bean get_user(String login, String password) throws IOException {
-		try {
-			ResultSet rs = getStatement().executeQuery(
-					"SELECT Points FROM Person WHERE Login='" + login + "'"
-							+ "AND Pass_word='" + password + "';");
+	public User_bean get_user(String login, String password)
+			throws IOException, SQLException {
 
-			if (rs.next()) {
-				return new User_bean(login, password, rs.getInt("Points"));
-			}
-		} catch (SQLException e) {
+		ResultSet rs = getStatement().executeQuery(
+				"SELECT Points FROM Person WHERE Login='" + login + "'"
+						+ "AND Pass_word='" + password + "';");
 
+		if (rs.next()) {
+			return new User_bean(login, password, rs.getInt("Points"));
 		}
 		File f = new File("/homes/dz1611/planA/elog.txt");
 		FileWriter fw = new FileWriter(f.getAbsoluteFile());
@@ -50,20 +48,38 @@ public class UserMethod extends Method {
 		return new User_bean(username, password, 10);
 	}
 
-	public LinkedList<User_bean> get_all_user() {
+	public LinkedList<User_bean> get_all_user() throws SQLException {
 		LinkedList<User_bean> users = new LinkedList<User_bean>();
-		try {
-			ResultSet rs = getStatement().executeQuery("SELECT * FROM Person;");
-			while (rs.next()) {
-				String username = rs.getString("Login");
-				String password = rs.getString("Pass_word");
-				int points = rs.getInt("Points");
-				users.add(new User_bean(username, password, points));
-			}
-		} catch (SQLException e) {
 
+		ResultSet rs = getStatement().executeQuery("SELECT * FROM Person;");
+		while (rs.next()) {
+			String username = rs.getString("Login");
+			String password = rs.getString("Pass_word");
+			int points = rs.getInt("Points");
+			users.add(new User_bean(username, password, points));
 		}
+
 		return users;
+	}
+
+	public void update_icon(String icon, String username) throws SQLException {
+		getStatement().executeUpdate(
+				"UPDATE Person SET Icon = '" + icon + "' WHERE Login = '"
+						+ username + "';");
+	}
+
+	public void update_password(String username,String password) throws SQLException{
+		getStatement().executeQuery("UPDATE Person SET Password = '"+password+"' WHERE Login = '"+username +"';");
+	}
+
+	public String get_icon(String username) throws SQLException {
+		ResultSet rs = getStatement().executeQuery(
+				"SELECT Icon FROM Person WHERE Login = '" + username + "';");
+		String icon = "";
+		if (rs.next()) {
+			icon = rs.getString("Icon");
+		}
+		return icon;
 	}
 
 }

@@ -1,6 +1,13 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import main.ServerConnector;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 
 import android.graphics.Bitmap;
 
@@ -27,6 +34,7 @@ public class UserInfo implements Serializable {
 		this.points = points;
 	}
 
+
 	public int getPoints() {
 		return points;
 	}
@@ -38,5 +46,5 @@ public class UserInfo implements Serializable {
 	public String getUsername() {
 		return username;
 	}
-
+	
 }

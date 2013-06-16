@@ -59,17 +59,17 @@ public class QuestionMethod extends Method {
 		return null;
 	}
 
-	public LinkedList<Question_bean> getAllQuestions() {
+	public JsonArray getAllQuestions() {
 		String SqlQuery = "SELECT * FROM Question;";
 		return getQuestionsFromSQLQuery(SqlQuery);
 	}
 
-	public LinkedList<Question_bean> getAllUnansweredQuestions() {
+	public JsonArray getAllUnansweredQuestions() {
 		String SqlQuery = "SELECT * FROM Question NATURAL JOIN Person WHERE Best_answer = 0 ORDER BY Points DESC;";
 		return getQuestionsFromSQLQuery(SqlQuery);
 	}
 
-	private LinkedList<Question_bean> getQuestionsFromSQLQuery(String query) {
+	private JsonArray getQuestionsFromSQLQuery(String query) {
 		ResultSet rs;
 		try {
 			rs = getStatement().executeQuery(query);
@@ -83,7 +83,7 @@ public class QuestionMethod extends Method {
 				questions.add(new Question_bean(owner, title, content, index,
 						best_answer));
 			}
-			return questions;
+			return toJsonArray(questions);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -91,7 +91,7 @@ public class QuestionMethod extends Method {
 		return null;
 	}
 
-	public LinkedList<Question_bean> get_questions_by_username(String username) {
+	public JsonArray get_questions_by_username(String username) {
 		String query = "SELECT * from Question WHERE Login = '" + username
 				+ "' AND Best_answer = 0;";
 		return getQuestionsFromSQLQuery(query);
@@ -107,7 +107,7 @@ public class QuestionMethod extends Method {
 		}
 	}
 
-	public LinkedList<Question_bean> searchSubstring(String substring) {
+	public JsonArray searchSubstring(String substring) {
 		String query = "SELECT * FROM Question WHERE Question_title LIKE '%"
 				+ substring + "%' OR content LIKE '%" + substring + "%';";
 		return getQuestionsFromSQLQuery(query);
@@ -135,6 +135,7 @@ public class QuestionMethod extends Method {
 			JsonObject qjson = new JsonObject();
 			qjson.addProperty("username", question.getOwner());
 			qjson.addProperty("index", question.getIndex());
+			qjson.addProperty("content",question.getContent());
 			qjson.addProperty("title", question.getTitle());
 			qjson.addProperty("best_answer", question.getBestAnswer());
 			qjsons.add(qjson);
