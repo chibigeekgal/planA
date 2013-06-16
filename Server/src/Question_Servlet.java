@@ -1,11 +1,8 @@
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
-import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
@@ -24,17 +21,6 @@ import com.google.gson.JsonArray;
 @WebServlet("/question")
 public class Question_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private QuestionMethod question_method;
-
-	public Question_Servlet() {
-		super();
-		try {
-			question_method = new QuestionMethod();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -47,13 +33,19 @@ public class Question_Servlet extends HttpServlet {
 		out.println("</head>");
 		out.println("<body bgcolor=\"white\">");
 		out.println("<table>");
-		LinkedList<Question_bean> questions = question_method.getAllQuestions();
-		for (int i = 0; i < questions.size(); i++) {
-			Question_bean question = questions.get(i);
-			out.println("<tr><td>" + question.getIndex() + "</td><td>"
-					+ question.getOwner() + "</td><td>" + question.getTitle()
-					+ "</td><td>" + question.getContent() + "</td><td>"
-					+ question.getBestAnswer() + "</td></tr>");
+		LinkedList<Question_bean> questions;
+		try {
+			questions = new QuestionMethod().getAllQuestions();
+			for (int i = 0; i < questions.size(); i++) {
+				Question_bean question = questions.get(i);
+				out.println("<tr><td>" + question.getIndex() + "</td><td>"
+						+ question.getOwner() + "</td><td>"
+						+ question.getTitle() + "</td><td>"
+						+ question.getContent() + "</td><td>"
+						+ question.getBestAnswer() + "</td></tr>");
+			}
+		} catch (SQLException e) {
+
 		}
 		out.println("</table>");
 		out.println("</body>");
@@ -79,31 +71,35 @@ public class Question_Servlet extends HttpServlet {
 			bestAnswer = Integer.parseInt(request.getParameter("best_answer"));
 		response.setContentType("application/json");
 		ServletOutputStream out = response.getOutputStream();
-		if (query.equals("ask")) {
-			question_method.ask_question(owner, title, content);
-		}
-		if (query.equals("get_all")) {
-			JsonArray qjsons = question_method.toJsonArray(question_method
-					.getAllUnansweredQuestions());
-			out.println(qjsons.toString());
-		}
-		if (query.equals("get_content")) {
-			BufferedImage i = question_method.get_question_content(index);
-			byte[] ba = question_method.EncodeImage(i);
-			out.write(ba);
-		}
-		if (query.equals("choose_best")) {
-			question_method.chooseBestAnswer(index, bestAnswer);
-		}
-		if (query.equals("get_question_info")) {
-			JsonArray questions = question_method.toJsonArray(question_method
-					.get_questions_by_username(owner));
-			out.println(questions.toString());
-		}
-		if (query.equals("search")) {
-			JsonArray questions = question_method.toJsonArray(question_method
-					.searchSubstring(substring));
-			out.println(questions.toString());
+		try {
+			if (query.equals("ask")) {
+				new QuestionMethod().ask_question(owner, title, content);
+			}
+			if (query.equals("get_all")) {
+				JsonArray qjsons = new QuestionMethod().toJsonArray(new QuestionMethod()
+						.getAllUnansweredQuestions());
+				out.println(qjsons.toString());
+			}
+			if (query.equals("get_content")) {
+				byte[] ba = new QuestionMethod().get_question_content(index);
+				out.write(ba);
+			}
+			if (query.equals("choose_best")) {
+				new QuestionMethod().chooseBestAnswer(index, bestAnswer);
+			}
+			if (query.equals("get_question_info")) {
+				JsonArray questions = new QuestionMethod()
+						.toJsonArray(new QuestionMethod()
+								.get_questions_by_username(owner));
+				out.println(questions.toString());
+			}
+			if (query.equals("search")) {
+				JsonArray questions = new QuestionMethod()
+						.toJsonArray(new QuestionMethod().searchSubstring(substring));
+				out.println(questions.toString());
+			}
+		} catch (SQLException e) {
+
 		}
 	}
 }

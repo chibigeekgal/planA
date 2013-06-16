@@ -1,18 +1,9 @@
 package beans;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Insets;
-import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
-
-import javax.swing.JLabel;
-
-import org.scilab.forge.jlatexmath.TeXConstants;
-import org.scilab.forge.jlatexmath.TeXFormula;
-import org.scilab.forge.jlatexmath.TeXIcon;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -124,14 +115,14 @@ public class QuestionMethod extends Method {
 
 	}
 
-	public BufferedImage get_question_content(int index) {
+	public byte[] get_question_content(int index) throws IOException {
 		try {
 			ResultSet rs = getStatement().executeQuery(
 					"SELECT Content FROM Question WHERE Question_index = "
 							+ index + ";");
 			if (rs.next()) {
 				String content = rs.getString("content");
-				return toBufferedImage(content);
+				return toByteArray(content);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -152,23 +143,7 @@ public class QuestionMethod extends Method {
 		return qjsons;
 	}
 
-	private BufferedImage toBufferedImage(String s) {
-		System.out.println(s);
-		TeXFormula t = new TeXFormula(s.replaceAll(" ", "\\\\:"));
-		TeXIcon icon = t.createTeXIcon(TeXConstants.STYLE_DISPLAY, 20);
-
-		icon.setInsets(new Insets(5, 5, 5, 5));
-
-		BufferedImage i = new BufferedImage(icon.getIconWidth(),
-				icon.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
-		Graphics2D g2 = i.createGraphics();
-		g2.setColor(Color.white);
-		g2.fillRect(0, 0, icon.getIconWidth(), icon.getIconHeight());
-		JLabel jl = new JLabel();
-		jl.setForeground(new Color(0, 0, 0));
-		icon.paintIcon(jl, g2, 0, 0);
-		return i;
-	}
+	
 
 	/*
 	 * private static String process(String s2) { String result = ""; int length

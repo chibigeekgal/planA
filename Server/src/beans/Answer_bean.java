@@ -4,7 +4,7 @@ public class Answer_bean {
 	private int answerIndex, questionIndex;
 	private String contributor, content;
 
-	public Answer_bean(int answerIndex, int questionIndex, String contributor,
+	public Answer_bean(int questionIndex, int answerIndex, String contributor,
 			String content) {
 		super();
 		this.answerIndex = answerIndex;

@@ -16,7 +16,7 @@
         android:icon="@drawable/cover1"
         android:label="EUREKA"
         android:theme="@android:style/Theme.Holo.Light.DarkActionBar" >
-        <activity android:name="com.example.firstapp.StartUp" >
+        <activity android:name="main.StartUp" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,22 +27,22 @@
                 android:name="android.app.default_searchable"
                 android:value=".SearchableActivity" />
         </activity>
-        <activity android:name="com.example.firstapp.MainActivity" >
+        <activity android:name="main.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.firstapp.RegisterScreenActivity" >
+        <activity android:name="main.RegisterScreenActivity" >
         </activity>
-        <activity android:name="com.example.firstapp.MainPageActivity" >
+        <activity android:name="main.MainPageActivity" >
         </activity>
-        <activity android:name="com.example.firstapp.AnswerPageActivity" >
+        <activity android:name="main.AnswerPageActivity" >
         </activity>
-        <activity android:name="com.example.firstapp.AskPageActivity" >
+        <activity android:name="main.AskPageActivity" >
         </activity>
-        <activity android:name="com.example.firstapp.ProfileActivity" >
+        <activity android:name="main.ProfileActivity" >
         </activity>
-        <activity android:name="com.example.homepage.HomePageActivity" >
+        <activity android:name="homepage.HomePageActivity" >
             
                <meta-data
                 android:name="android.app.default_searchable"
@@ -64,17 +64,17 @@
             android:name="keyboard.ExpressionKeyboardDisplay"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
-        <activity android:name="com.example.homepage.PersonalProfile" >
+        <activity android:name="homepage.PersonalProfile" >
         </activity>
         <activity
-            android:name="com.example.homepage.IndividualQuestion"
+            android:name="homepage.IndividualQuestion"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
         <activity
             android:name="keyboard.KeyboardEntry"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
-        <activity android:name="com.example.homepage.FullImage" >
+        <activity android:name="homepage.FullImage" >
         </activity>
     </application>
 
