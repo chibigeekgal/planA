@@ -1,29 +1,20 @@
 package main;
 
-import java.io.IOException;
 import java.io.InputStream;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.StrictMode;
 
 public abstract class BitmapResultHandler implements ResultHandler {
 
 	@Override
 	public void processResults(InputStream results) {
-		byte[] bytes = new byte[1024 * 1024 * 4];
-		int length = 0;
-		try {
-			length = results.read(bytes);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		if (length > 0) {
-			System.out.println(length);
-			Bitmap bitmapResult = BitmapFactory.decodeByteArray(bytes, 0,
-					length);
-			processBitmapResults(bitmapResult);
-		}
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+				.permitAll().build();
+		StrictMode.setThreadPolicy(policy);
+		Bitmap bitmapResult = BitmapFactory.decodeStream(results);
+		processBitmapResults(bitmapResult);
 	}
 
 	protected abstract void processBitmapResults(Bitmap results);

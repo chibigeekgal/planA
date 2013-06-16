@@ -24,11 +24,6 @@ public class UserMethod extends Method {
 		if (rs.next()) {
 			return new User_bean(login, password, rs.getInt("Points"));
 		}
-		File f = new File("/homes/dz1611/planA/elog.txt");
-		FileWriter fw = new FileWriter(f.getAbsoluteFile());
-		BufferedWriter bw = new BufferedWriter(fw);
-		bw.write("done this");
-		bw.close();
 		return null;
 	}
 

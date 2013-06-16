@@ -1,5 +1,8 @@
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -15,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 import beans.UserMethod;
 import beans.User_bean;
 
-import com.google.gson.JsonObject;
 import com.sun.org.apache.xml.internal.security.utils.Base64;
 
 /**
@@ -98,20 +100,17 @@ public class Person_Servlet extends HttpServlet {
 			}
 			if (requestType.equals("get_icon")) {
 				String imageString = user_method.get_icon(username);
-				response.setContentType("image/png");
+				BufferedImage image;
 				if (imageString == null) {
 					File f = new File(getServletContext().getRealPath(
 							"icons/default_pic.png"));
-					byte[] ba = user_method.encodeImage(ImageIO.read(f));
-					String bs = Base64.encode(ba);
-					JsonObject o = new JsonObject();
-					o.addProperty("icon", bs);
-					out.println(o.toString());
+					image = ImageIO.read(f);
 				} else {
-					JsonObject o = new JsonObject();
-					o.addProperty("icon", imageString);
-					out.println(o.toString());
+					byte[] bytes = Base64.decode(imageString);
+					InputStream in = new ByteArrayInputStream(bytes);
+					image = ImageIO.read(in);
 				}
+				ImageIO.write(image, "png", out);
 			}
 
 		} catch (Exception e) {

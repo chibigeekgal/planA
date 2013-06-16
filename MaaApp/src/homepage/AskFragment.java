@@ -37,7 +37,7 @@ public class AskFragment extends Fragment {
 		// setting up the view
 		final View askPageView = inflater.inflate(R.layout.askfragment_view,
 				container, false);
-		q_title = (EditText) askPageView.findViewById(R.id.q_title);
+		q_title = (EditText) askPageView.findViewById(R.id.profile_username);
 		q_content = (EditText) askPageView.findViewById(R.id.content);
 		askPageView.findViewById(R.id.ask).setOnClickListener(
 				new OnClickListener() {

@@ -54,7 +54,7 @@ public class AnswerMethod extends Method {
 				JsonObject o = new JsonObject();
 				String username = rs.getString("Login");
 				String content = rs.getString("Answer_content");
-				byte[] ba = toByteArray(content);
+				byte[] ba = encodeImage(toBufferedImage(content));
 				o.addProperty("username", username);
 				o.addProperty("content", Base64.encode(ba));
 				answers.add(o);

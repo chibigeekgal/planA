@@ -3,8 +3,7 @@ package homepage;
 import java.util.ArrayList;
 import java.util.List;
 
-import main.JsonResultHandler;
-import main.Library;
+import main.BitmapResultHandler;
 import main.ServerConnector;
 import model.UserInfo;
 
@@ -13,10 +12,8 @@ import org.apache.http.message.BasicNameValuePair;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,8 +21,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.firstapp.R;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 
 public class HomePageFragment extends Fragment {
 	private UserInfo user;
@@ -44,8 +39,6 @@ public class HomePageFragment extends Fragment {
 		ServerConnector connector=new ServerConnector(getActivity(),
 				"/person", pairs, new IconResultHandler(icon));
 		connector.connect();
-
-		// select a picture
 		homePageView.findViewById(R.id.personal_profile).setOnClickListener(
 				new View.OnClickListener() {
 					@Override
@@ -67,7 +60,7 @@ public class HomePageFragment extends Fragment {
 		return homePageView;
 	}
 
-	private class IconResultHandler extends JsonResultHandler {
+	private class IconResultHandler extends BitmapResultHandler {
 		private ImageView icon;
 
 		private IconResultHandler(ImageView icon) {
@@ -76,14 +69,9 @@ public class HomePageFragment extends Fragment {
 		}
 
 		@Override
-		public void processJsonResults(JsonElement element) {
-			JsonObject o=element.getAsJsonObject();
-			String byteS=Library.convertToString(o.get("icon"));
-			byte[] bytes=Base64.decode(byteS, Base64.DEFAULT);
-			Bitmap b=BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-			icon.setImageBitmap(b);
+		protected void processBitmapResults(Bitmap results) {
+			icon.setImageBitmap(results);
 		}
-
 
 	}
 }

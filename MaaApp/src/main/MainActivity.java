@@ -113,19 +113,14 @@ public class MainActivity extends Activity {
 
 		@Override
 		public void processStringResults(String results) {
-			int index = 0;
 			String message = results.substring(0, 5);
-			while (results.charAt(index) >= '0' && results.charAt(index) <= '9') {
-				index++;
-			}
-			String output = results.substring(0, index);
+			System.out.println("Error"+message);
 			if (message.equals(Library.ERROR)) {
-				Library.showAlert(MainActivity.this,
-						"Invalid username/password combination");
-			} else {
+		     	Library.showAlert(MainActivity.this, "invalid username/password combinaiton");
+			}else{
 				Intent login = new Intent(getApplicationContext(),
 						HomePageActivity.class);
-				int point = Integer.parseInt(output);
+				int point = Library.parseInt(results);
 				login.putExtra("User", new UserInfo(username, point));
 				Library.showAlert(MainActivity.this, "login successful");
 				startActivity(login);
@@ -133,5 +128,4 @@ public class MainActivity extends Activity {
 		}
 	}
 
-	
 }

@@ -5,7 +5,7 @@
     android:background="#ffffff" >
 
     <EditText
-        android:id="@+id/q_title"
+        android:id="@+id/profile_username"
         android:layout_marginTop="100dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -19,7 +19,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/q_title"
+        android:layout_below="@+id/profile_username"
         android:layout_marginTop="95dp"
         android:ems="10"
         android:hint="Ask Your Question Here"
@@ -55,7 +55,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/q_title"
+        android:layout_below="@+id/profile_username"
         android:background="#33b5e5"
         android:orientation="vertical"
         android:paddingBottom="9dp"

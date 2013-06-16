@@ -1,13 +1,18 @@
 package homepage;
 
+import java.io.ByteArrayOutputStream;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -67,8 +72,23 @@ public class PersonalProfile extends Activity {
 
 			cursor.close();
 
-			personal_imageView.setImageBitmap(BitmapFactory
-					.decodeFile(picturePath));
+			Bitmap icon = BitmapFactory.decodeFile(picturePath);
+			personal_imageView.setImageBitmap(icon);
+			ByteArrayOutputStream stream = new ByteArrayOutputStream();
+			icon.compress(Bitmap.CompressFormat.PNG, 100, stream);
+			String byteString = Base64.encodeToString(stream.toByteArray(),
+					Base64.DEFAULT);
+			Button upload=(Button)findViewById(R.id.save_button);
+			upload.setOnClickListener(new OnClickListener (){
+
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+			});
+			
 		}
 	}
 

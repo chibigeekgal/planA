@@ -1,5 +1,6 @@
 package beans;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -114,14 +115,14 @@ public class QuestionMethod extends Method {
 
 	}
 
-	public byte[] get_question_content(int index) throws IOException {
+	public BufferedImage get_question_content(int index) throws IOException {
 		try {
 			ResultSet rs = getStatement().executeQuery(
 					"SELECT Content FROM Question WHERE Question_index = "
 							+ index + ";");
 			if (rs.next()) {
 				String content = rs.getString("content");
-				return toByteArray(content);
+				return toBufferedImage(content);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

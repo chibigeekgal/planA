@@ -41,7 +41,17 @@ public class Method {
 		return stmt;
 	}
 	
-	protected byte[] toByteArray(String s) throws IOException {
+	
+	public byte[] encodeImage(BufferedImage i) throws IOException{
+		ByteArrayOutputStream bo = new ByteArrayOutputStream();
+		ImageIO.write(i, "png", bo);
+		bo.flush();
+		byte[] ba = bo.toByteArray();
+		return ba;
+	}
+
+	
+	protected BufferedImage toBufferedImage (String s) throws IOException {
 		TeXFormula t = new TeXFormula(s.replaceAll(" ", "\\\\:"));
 		TeXIcon icon = t.createTeXIcon(TeXConstants.STYLE_DISPLAY, 20);
 		icon.setInsets(new Insets(5, 5, 5, 5));
@@ -53,14 +63,6 @@ public class Method {
 		JLabel jl = new JLabel();
 		jl.setForeground(new Color(0, 0, 0));
 		icon.paintIcon(jl, g2, 0, 0);
-		return encodeImage(i);
-	}
-	
-	public byte[] encodeImage(BufferedImage i) throws IOException{
-		ByteArrayOutputStream bo = new ByteArrayOutputStream();
-		ImageIO.write(i, "png", bo);
-		bo.flush();
-		byte[] ba = bo.toByteArray();
-		return ba;
+		return i;
 	}
 }

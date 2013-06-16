@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
@@ -80,8 +81,7 @@ public class Question_Servlet extends HttpServlet {
 				out.println(qjsons.toString());
 			}
 			if (query.equals("get_content")) {
-				byte[] ba = new QuestionMethod().get_question_content(index);
-				out.write(ba);
+				ImageIO.write(question_method.get_question_content(index), "png", out);
 			}
 			if (query.equals("choose_best")) {
 				new QuestionMethod().chooseBestAnswer(index, bestAnswer);
