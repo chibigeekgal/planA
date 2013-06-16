@@ -42,6 +42,9 @@ public class HomePageFragment extends Fragment {
 		TextView points = (TextView) homePageView.findViewById(R.id.points);
 		points.setText("Points:       " + String.valueOf(user.getPoints()));
 	
+		HomePageActivity h = (HomePageActivity) getActivity();
+		h.setUser(user);
+		
 		return homePageView;
 	}
 	

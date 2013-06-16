@@ -22,10 +22,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-            <meta-data
-                android:name="android.app.default_searchable"
-                android:value=".SearchableActivity" />
         </activity>
         <activity android:name="main.MainActivity" >
             <intent-filter>
@@ -43,15 +39,15 @@
         <activity android:name="main.ProfileActivity" >
         </activity>
         <activity android:name="homepage.HomePageActivity" >
-            
-               <meta-data
+            <meta-data
                 android:name="android.app.default_searchable"
-                android:value=".SearchableActivity" />
+                android:value="homepage.SearchActivity" />
         </activity>
-        <activity android:name="come.example.firstapp.SearchActivity" >
+        <activity android:name="homepage.SearchActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
+
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />

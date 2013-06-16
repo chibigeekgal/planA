@@ -80,6 +80,7 @@ public class IndividualQuestion extends Activity {
 		pairs.add(new BasicNameValuePair("request", "get_content"));
 		pairs.add(new BasicNameValuePair("index", ((Integer) question
 				.getIndex()).toString()));
+		
 
 		ServerConnector questionConnector = new ServerConnector(this,
 				"/question", pairs, new QuestionContentResultHandler());
@@ -197,6 +198,7 @@ public class IndividualQuestion extends Activity {
 		pairs.add(new BasicNameValuePair("index", question.getIndex()
 				.toString()));
 		pairs.add(new BasicNameValuePair("request", "get_answers"));
+		System.out.println(question.getIndex().toString());
 		ServerConnector connector = new ServerConnector(this, "/answer", pairs,
 				new AnswerListResultHandler());
 		connector.connect();

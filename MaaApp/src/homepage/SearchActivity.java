@@ -1,12 +1,11 @@
-package main;
-
-import homepage.IndividualQuestion;
-import homepage.QuestionViewAdapter;
+package homepage;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import main.JsonResultHandler;
+import main.ServerConnector;
 import model.Question;
 import model.UserInfo;
 
@@ -15,12 +14,16 @@ import org.apache.http.message.BasicNameValuePair;
 
 import android.app.Activity;
 import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.firstapp.R;
@@ -39,10 +42,12 @@ public class SearchActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		System.out.println("oh baby");
 		setContentView(R.layout.search);
-		user = (UserInfo) getIntent().getExtras().getSerializable("User");
 		l = (ListView) findViewById(R.id.searchlist);
 		t = (TextView) findViewById(R.id.serchtext);
+		user = (UserInfo) getIntent().getExtras().get("User");
 		handleIntent(getIntent());
+		getWindow().setSoftInputMode(
+				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
 	}
 
@@ -51,8 +56,10 @@ public class SearchActivity extends Activity {
 	};
 
 	private void handleIntent(Intent intent) {
+		System.out.println("Hello,world!");
 		if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
 			String query = intent.getStringExtra(SearchManager.QUERY);
+			System.out.println(query);
 			showResults(query);
 		}
 	}
@@ -90,9 +97,20 @@ public class SearchActivity extends Activity {
 							IndividualQuestion.class);
 					intent.putExtra("Question", questions.get(position));
 					intent.putExtra("User", user);
+					startActivity(intent);
 				}
 
 			});
 		}
+	}
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.main, menu);
+		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+		SearchView searchView = (SearchView) menu.findItem(R.id.menu_search)
+				.getActionView();
+		searchView.setSearchableInfo(searchManager
+				.getSearchableInfo(getComponentName()));
+		return true;
 	}
 }

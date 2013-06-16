@@ -1,7 +1,7 @@
 package homepage;
 
 import keyboard.KeyboardEntry;
-import main.MainActivity;
+import model.UserInfo;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.app.SearchManager;
@@ -26,6 +26,7 @@ public class HomePageActivity extends FragmentActivity implements
 	private ViewPager viewPagerControl;
 	public static String string = "";
 	public static ImageView image;
+	private UserInfo user;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -100,14 +101,23 @@ public class HomePageActivity extends FragmentActivity implements
 			startActivityForResult(i, 1);
 			return true;
 		case R.id.LogOut:
-			Intent i3 = new Intent(getApplicationContext(), MainActivity.class);
-			startActivity(i3);
+			finish();
 			return true;
 		case R.id.menu_search:
-			return onSearchRequested();
+			onSearchRequested();
+			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+	}
+	
+	@Override
+	public void startActivity(Intent intent) {
+		
+		if(intent.getAction().equals(Intent.ACTION_SEARCH)){
+			intent.putExtra("User", user);
+		}
+		super.startActivity(intent);
 	}
 
 	@Override
@@ -116,19 +126,29 @@ public class HomePageActivity extends FragmentActivity implements
 		switch (requestCode) {
 		case (1): {
 			if (resultCode == RESULT_OK) {
+
 				EditText result = (EditText) findViewById(R.id.content);
-				String newText = result.getText().toString() + " "
-						+ data.getStringExtra("Argument");
-				result.setText("");
-				result.append(newText);
+				if (result.hasFocus()) {
+					String newText = result.getText().toString() + " "
+							+ data.getStringExtra("Argument");
+					result.setText("");
+					result.append(newText);
+				}
 			}
 			break;
 		}
 		}
 	}
+	
+	
 
 	@Override
 	public void onBackPressed() {
-		System.exit(0);
+
 	}
+
+	public void setUser(UserInfo user) {
+		this.user = user;
+	}
+
 }
