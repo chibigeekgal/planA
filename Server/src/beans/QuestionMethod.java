@@ -136,15 +136,13 @@ public class QuestionMethod extends Method {
 			JsonObject qjson = new JsonObject();
 			qjson.addProperty("username", question.getOwner());
 			qjson.addProperty("index", question.getIndex());
-			qjson.addProperty("content",question.getContent());
+			qjson.addProperty("content", question.getContent());
 			qjson.addProperty("title", question.getTitle());
 			qjson.addProperty("best_answer", question.getBestAnswer());
 			qjsons.add(qjson);
 		}
 		return qjsons;
 	}
-
-	
 
 	/*
 	 * private static String process(String s2) { String result = ""; int length
