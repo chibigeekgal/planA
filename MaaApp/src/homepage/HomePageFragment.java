@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import main.BitmapResultHandler;
-import main.JsonResultHandler;
 import main.ServerConnector;
 import main.StringResultHandler;
-import model.Question;
 import model.UserInfo;
 
 import org.apache.http.NameValuePair;
@@ -27,13 +25,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.firstapp.R;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 
 public class HomePageFragment extends Fragment {
 	private UserInfo user;
-	private List<Question> questionList;
 	private TextView t;
 
 	@Override
@@ -44,7 +38,6 @@ public class HomePageFragment extends Fragment {
 		View homePageView = inflater.inflate(R.layout.homepage_structure,
 				container, false);
 		get_user_info(homePageView);
-		questionList = new ArrayList<Question>();
 		homePageView.findViewById(R.id.profile_button).setOnClickListener(
 				new OnClickListener() {
 					@Override
