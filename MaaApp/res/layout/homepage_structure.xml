@@ -38,7 +38,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/status"
+        android:id="@+id/maths_status"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/personal_picture"
@@ -47,13 +47,14 @@
         android:text="How Mathematics drives Computing was amazing!"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <ListView
-        android:id="@+id/home_questions"
-        android:layout_width="fill_parent"
-        android:layout_height="200dp"
+    <Button
+        android:id="@+id/unanswered_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/status" >
-
-    </ListView>
+        android:layout_below="@id/maths_status"
+        android:layout_marginLeft="19dp"
+        android:layout_marginTop="52dp"
+        android:text="View your questions" />
 
 </RelativeLayout>

@@ -117,9 +117,6 @@ public class IndividualQuestion extends Activity {
 			new ServerConnector(this, "/question", pair, new ContextMenuResultHandler()).connect();
 			System.out.println(position);
 			return true;
-		case R.id.spam:
-			System.out.println("oooh, spamming eh?");
-			return true;
 		}
 		return super.onContextItemSelected(item);
 	}

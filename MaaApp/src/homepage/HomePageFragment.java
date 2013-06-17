@@ -6,6 +6,7 @@ import java.util.List;
 import main.BitmapResultHandler;
 import main.JsonResultHandler;
 import main.ServerConnector;
+import main.StringResultHandler;
 import model.Question;
 import model.UserInfo;
 
@@ -21,8 +22,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.firstapp.R;
@@ -33,11 +34,12 @@ import com.google.gson.JsonObject;
 public class HomePageFragment extends Fragment {
 	private UserInfo user;
 	private List<Question> questionList;
+	private TextView t;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		final UserInfo user = (UserInfo) getActivity().getIntent().getExtras()
+		user = (UserInfo) getActivity().getIntent().getExtras()
 				.getSerializable("User");
 		View homePageView = inflater.inflate(R.layout.homepage_structure,
 				container, false);
@@ -59,15 +61,28 @@ public class HomePageFragment extends Fragment {
 
 		TextView points = (TextView) homePageView.findViewById(R.id.points);
 		points.setText("Points:       " + String.valueOf(user.getPoints()));
+		Button b = (Button) homePageView.findViewById(R.id.unanswered_button);
+		b.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				Intent i = new Intent(getActivity(), UnansweredQuestions.class);
+				i.putExtra("User", user);
+				startActivity(i);
+			}
+
+		});
+		
+		t = (TextView) homePageView.findViewById(R.id.maths_status);
+		user = (UserInfo) getActivity().getIntent().getExtras().get("User");
 		List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-		pairs.add(new BasicNameValuePair("request", "get_question_info"));
-		pairs.add(new BasicNameValuePair("username", user.getUsername()));
-		new ServerConnector(getActivity(), "/question", pairs,
-				new QuestionListHandler()).connect();
-		ListView question_list_view = (ListView) homePageView
-				.findViewById(R.id.home_questions);
-		question_list_view.setAdapter(new QuestionViewAdapter(getActivity(),
-				R.layout.question_item, questionList));
+		pairs.add(new BasicNameValuePair("Request", "get_status"));
+		pairs.add(new BasicNameValuePair("Login", user.getUsername()));
+		ServerConnector connector = new ServerConnector(getActivity(),
+				"/person", pairs, new StatusResultHandler());
+		connector.connect();
+		
+		
 		return homePageView;
 	}
 
@@ -110,21 +125,13 @@ public class HomePageFragment extends Fragment {
 			break;
 		}
 	}
-
-	private class QuestionListHandler extends JsonResultHandler {
+	
+	private class StatusResultHandler extends StringResultHandler {
 
 		@Override
-		public void processJsonResults(JsonElement element) {
-			JsonArray questions = element.getAsJsonArray();
-			int size = questions.size();
-			String[] values = new String[size];
-			for (int i = 0; i < size; i++) {
-				JsonObject o = questions.get(i).getAsJsonObject();
-				Question question = new Question(o);
-				values[i] = question.getTitle();
-				questionList.add(i, question);
-			}
+		protected void processStringResults(String results) {
+			t.setText(results);
 		}
-
 	}
+
 }
