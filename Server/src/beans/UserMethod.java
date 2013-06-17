@@ -82,4 +82,20 @@ public class UserMethod extends Method {
 		return icon;
 	}
 
+	public String getMathStatus(String username) throws SQLException {
+		ResultSet rs = getStatement().executeQuery(
+				"SELECT status FROM person WHERE Login = '" + username + "';");
+		if (rs.next()) {
+			return rs.getString("status");
+		}
+		return "";
+	}
+
+	public void changeMathStatus(String username, String status)
+			throws SQLException {
+		getStatement().executeUpdate(
+				"UPDATE Person SET status = '" + status + "' WHERE Login = '"
+						+ username + "';");
+	}
+
 }

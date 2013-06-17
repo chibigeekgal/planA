@@ -76,6 +76,7 @@ public class PersonalProfile extends Activity {
 				Drawable image = personal_imageView.getDrawable();
 				EditText ptext = (EditText) findViewById(R.id.profile_password);
 				String password = ptext.getText().toString();
+				String status = ((TextView) findViewById(R.id.status)).getText().toString();
 				if (image != null) {
 					personal_imageView.buildDrawingCache();
 					Bitmap icon = personal_imageView.getDrawingCache();
@@ -104,6 +105,20 @@ public class PersonalProfile extends Activity {
 					pairs.add(new BasicNameValuePair("Request", "edit_password"));
 					pairs.add(new BasicNameValuePair("Login", username));
 					pairs.add(new BasicNameValuePair("Password", password));
+					class PasswordResultHandler implements ResultHandler {
+						@Override
+						public void processResults(InputStream results) {
+						};
+					}
+					new ServerConnector(PersonalProfile.this, "/person", pairs,
+							new PasswordResultHandler()).connect();
+				}
+				
+				if(!status.equals("")) {
+					List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+					pairs.add(new BasicNameValuePair("Request", "update_status"));
+					pairs.add(new BasicNameValuePair("Login", username));
+					pairs.add(new BasicNameValuePair("Status", status));
 					class PasswordResultHandler implements ResultHandler {
 						@Override
 						public void processResults(InputStream results) {

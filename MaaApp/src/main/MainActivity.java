@@ -36,6 +36,8 @@ public class MainActivity extends Activity {
 	private String password;
 	static Rect p;
 	private Button main;
+	private EditText user;
+	private EditText pass;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,10 +65,10 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Log.d("login", "login");
-				EditText user = (EditText) findViewById(R.id.idText);
+				user = (EditText) findViewById(R.id.idText);
 				user.setSelection(0);
 				username = user.getText().toString();
-				EditText pass = (EditText) findViewById(R.id.passText);
+				pass = (EditText) findViewById(R.id.passText);
 				password = pass.getText().toString();
 				String stringUrl = "/person";
 				List<NameValuePair> pairs = new ArrayList<NameValuePair>();
@@ -132,6 +134,8 @@ public class MainActivity extends Activity {
 							"Server connection failure");
 				} else {
 					int point = Integer.parseInt(pointString);
+					user.setText("");
+					pass.setText("");
 					login.putExtra("User", new UserInfo(username, point));
 					startActivity(login);
 				}

@@ -103,6 +103,22 @@ public class QuestionMethod extends Method {
 			getStatement().executeUpdate(
 					"UPDATE Question SET Best_answer = " + best_answer
 							+ " WHERE Question_index = " + index + ";");
+			ResultSet rs = getStatement()
+					.executeQuery(
+							"SELECT Points, Login FROM Person NATURAL JOIN Question NATURAL JOIN Answer WHERE Question_index = "
+									+ index
+									+ " AND Answer_index = "
+									+ best_answer);
+			if (rs.next()) {
+				String username = rs.getString("Login");
+				int points = rs.getInt("Points") + 5;
+				System.out.println(username);
+				System.out.println(points);
+				getStatement().executeUpdate(
+						"UPDATE Person SET Points = " + points
+								+ " WHERE Login = '" + username + "';");
+			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -136,15 +152,13 @@ public class QuestionMethod extends Method {
 			JsonObject qjson = new JsonObject();
 			qjson.addProperty("username", question.getOwner());
 			qjson.addProperty("index", question.getIndex());
-			qjson.addProperty("content",question.getContent());
+			qjson.addProperty("content", question.getContent());
 			qjson.addProperty("title", question.getTitle());
 			qjson.addProperty("best_answer", question.getBestAnswer());
 			qjsons.add(qjson);
 		}
 		return qjsons;
 	}
-
-	
 
 	/*
 	 * private static String process(String s2) { String result = ""; int length

@@ -20,8 +20,6 @@ import org.postgresql.util.Base64;
 import beans.UserMethod;
 import beans.User_bean;
 
-
-
 /**
  * Servlet implementation class Person_Servlet
  */
@@ -78,6 +76,7 @@ public class Person_Servlet extends HttpServlet {
 		String password = request.getParameter("Password");
 		String requestType = request.getParameter("Request");
 		String icon = request.getParameter("Icon");
+		String status = request.getParameter("Status");
 		try {
 			UserMethod user_method = new UserMethod();
 			if (requestType.equals("login")) {
@@ -119,6 +118,12 @@ public class Person_Servlet extends HttpServlet {
 						e.printStackTrace();
 					}
 				}
+			}
+			if (requestType.equals("update_status")) {
+				user_method.changeMathStatus(username, status);
+			}
+			if (requestType.equals("get_status")) {
+				out.println(user_method.getMathStatus(username));
 			}
 
 		} catch (SQLException e) {

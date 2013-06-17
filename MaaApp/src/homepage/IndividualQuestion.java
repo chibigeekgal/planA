@@ -30,6 +30,7 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -104,17 +105,30 @@ public class IndividualQuestion extends Activity {
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+	    int position = info.position;
 		switch (item.getItemId()) {
 		case R.id.best_answer:
-			System.out.println("best answer!!");
-			return true;
-		case R.id.spam:
-			System.out.println("oooh, spamming eh?");
+			Answer a = answers.get(position);
+			List<NameValuePair> pair = new LinkedList<NameValuePair>();
+			pair.add(new BasicNameValuePair("best_answer", String.valueOf(a.getIndex())));
+			pair.add(new BasicNameValuePair("request", "choose_best"));
+			pair.add(new BasicNameValuePair("index", String.valueOf(question.getIndex())));
+			new ServerConnector(this, "/question", pair, new ContextMenuResultHandler()).connect();
+			System.out.println(position);
 			return true;
 		}
 		return super.onContextItemSelected(item);
 	}
 
+	private class ContextMenuResultHandler extends StringResultHandler {
+
+		@Override
+		protected void processStringResults(String results) {
+			
+		}		
+	}
+	
 	private class QuestionContentResultHandler extends BitmapResultHandler {
 
 		@Override
@@ -209,7 +223,8 @@ public class IndividualQuestion extends Activity {
 				byte[] ba = Base64.decode(contentString, Base64.DEFAULT);
 				Bitmap content = BitmapFactory
 						.decodeByteArray(ba, 0, ba.length);
-				answers.add(new Answer(username, content));
+				int answerIndex = ajson.get("index").getAsInt();
+				answers.add(new Answer(username, content, answerIndex));
 			}
 			ListView answer_list_view = (ListView) findViewById(R.id.answer_list);
 			answer_list_view.setAdapter(new AnswerAdapter(

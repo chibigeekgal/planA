@@ -27,7 +27,6 @@
         android:layout_marginLeft="24dp"
         android:layout_marginTop="22dp"
         android:layout_toRightOf="@+id/personal_picture"
-        android:text="dr411"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -36,11 +35,10 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/personal_picture"
         android:layout_alignLeft="@+id/username"
-        android:text="Points:10"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/status"
+        android:id="@+id/maths_status"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/personal_picture"
@@ -49,12 +47,14 @@
         android:text="How Mathematics drives Computing was amazing!"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <ListView
-        android:id="@android:id/list"
-        android:layout_width="fill_parent"
-        android:layout_height="200dp"
-        android:layout_below="@+id/status"
-        android:layout_alignParentLeft="true" >
-    </ListView>
+    <Button
+        android:id="@+id/unanswered_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/maths_status"
+        android:layout_marginLeft="19dp"
+        android:layout_marginTop="52dp"
+        android:text="View your questions" />
 
 </RelativeLayout>
