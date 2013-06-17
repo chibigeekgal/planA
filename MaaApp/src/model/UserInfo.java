@@ -2,8 +2,6 @@ package model;
 
 import java.io.Serializable;
 
-import android.graphics.Bitmap;
-
 public class UserInfo implements Serializable {
 	/**
 	 * 
@@ -17,17 +15,12 @@ public class UserInfo implements Serializable {
 		this.points = points;
 	}
 
-
 	public int getPoints() {
 		return points;
-	}
-
-	public void setPoints(int points) {
-		this.points = points;
 	}
 
 	public String getUsername() {
 		return username;
 	}
-	
+
 }

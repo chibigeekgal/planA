@@ -16,7 +16,7 @@ public class Library {
 	/* Library constants */
 	public static String ERROR = "error";
 	public static String EXIST = "exist";
-	public static String serverUrl = "http://129.31.213.128:8080/MaaServer";
+	public static String serverUrl = "http://146.169.53.37:59999";
 
 	/* Library methods */
 	/**

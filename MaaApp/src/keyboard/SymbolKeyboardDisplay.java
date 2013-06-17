@@ -28,8 +28,8 @@ public class SymbolKeyboardDisplay extends KeyboardDisplay {
 		latexMap.put("\u03C8", "\\\\psi");
 		latexMap.put("\u03C9", "\\\\omega");
 		latexMap.put("\u03A9", "\\\\Omega");
-		latexMap.put("\u220A", "\\\\in");
-		latexMap.put("\u220D", "\\\\ni");
+		//latexMap.put("\u220A", "\\\\in");
+		//latexMap.put("\u220d", "\\\\ni");
 		latexMap.put("\u2264", "\\\\leq");
 		latexMap.put("\u2265", "\\\\geq");
 		latexMap.put("\u223C", "\\\\sim");
@@ -42,7 +42,7 @@ public class SymbolKeyboardDisplay extends KeyboardDisplay {
 		latexMap.put("\u2287", "\\\\supseteq");
 		latexMap.put("\u22A5", "\\\\perp");
 		latexMap.put("\u221D", "\\\\propto");
-		latexMap.put("\u2213", "\\\\mp");
+		//latexMap.put("\u2213", "\\\\mp");
 		latexMap.put("\u00B1", "\\\\pm");
 		latexMap.put("\u2260", "\\\\ne");
 		latexMap.put("\u2209", "\\\\notin");

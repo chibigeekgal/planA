@@ -18,7 +18,7 @@
         android:layout_toRightOf="@+id/icon"
         android:paddingBottom="10dp"
         android:textColor="#CC0033"
-        android:textSize="16sp" />
+        android:textSize="25sp" />
 
     <TextView
         android:id="@+id/username"
@@ -28,6 +28,6 @@
         android:layout_toRightOf="@+id/icon"
         android:paddingLeft="10dp"
         android:textColor="#3399FF"
-        android:textSize="14sp" />
+        android:textSize="20sp" />
 
 </RelativeLayout>

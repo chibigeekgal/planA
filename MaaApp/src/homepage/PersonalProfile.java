@@ -36,16 +36,16 @@ import com.example.firstapp.R;
 public class PersonalProfile extends Activity {
 
 	private static int RESULT_ACT = 1;
-	private boolean selected;
 
 	private ImageView personal_imageView;
 	private String username;
+	private UserInfo user;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		selected = false;
-		username = ((UserInfo) getIntent().getExtras().getSerializable("User"))
-				.getUsername();
+		// selected = false;
+		user = ((UserInfo) getIntent().getExtras().getSerializable("User"));
+		username = user.getUsername();
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.personal_profile_view);
 		// setting default picture
@@ -88,7 +88,7 @@ public class PersonalProfile extends Activity {
 					imagePair
 							.add(new BasicNameValuePair("Request", "set_icon"));
 					imagePair.add(new BasicNameValuePair("Icon", imageString));
-					imagePair.add(new BasicNameValuePair("Username", username));
+					imagePair.add(new BasicNameValuePair("Login", username));
 					class ImageResultHandler implements ResultHandler {
 						@Override
 						public void processResults(InputStream results) {
@@ -96,11 +96,13 @@ public class PersonalProfile extends Activity {
 					}
 					new ServerConnector(PersonalProfile.this, "/person",
 							imagePair, new ImageResultHandler()).connect();
+
 				}
 				if (!password.equals("")) {
+					Log.d("password", password);
 					List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 					pairs.add(new BasicNameValuePair("Request", "edit_password"));
-					pairs.add(new BasicNameValuePair("Username", username));
+					pairs.add(new BasicNameValuePair("Login", username));
 					pairs.add(new BasicNameValuePair("Password", password));
 					class PasswordResultHandler implements ResultHandler {
 						@Override
@@ -110,6 +112,7 @@ public class PersonalProfile extends Activity {
 					new ServerConnector(PersonalProfile.this, "/person", pairs,
 							new PasswordResultHandler()).connect();
 				}
+				finish();
 			}
 
 		});
@@ -121,7 +124,6 @@ public class PersonalProfile extends Activity {
 
 		if (requestCode == RESULT_ACT && resultCode == Activity.RESULT_OK
 				&& data != null) {
-			ImageView personal_imageView = (ImageView) findViewById(R.id.personal_pics);
 			Uri selectedImage = data.getData();
 			// selected = true;
 			String[] filePathColumn = { MediaStore.Images.Media.DATA };
@@ -136,6 +138,7 @@ public class PersonalProfile extends Activity {
 
 			cursor.close();
 			Log.d("done", "done");
+			Log.d("path", picturePath);
 			Bitmap icon = BitmapFactory.decodeFile(picturePath);
 			personal_imageView.setImageBitmap(icon);
 		}

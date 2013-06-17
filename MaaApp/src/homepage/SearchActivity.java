@@ -132,7 +132,7 @@ public class SearchActivity extends Activity {
 			return super.onOptionsItemSelected(item);
 		}
 	}
-
+	
 	@Override
 	public void startActivity(Intent intent) {
 

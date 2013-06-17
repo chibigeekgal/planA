@@ -10,6 +10,7 @@ import model.UserInfo;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -29,17 +30,11 @@ public class HomePageFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		final UserInfo user = (UserInfo) getActivity().getIntent().getExtras()
+				.getSerializable("User");
 		View homePageView = inflater.inflate(R.layout.homepage_structure,
 				container, false);
-		user = (UserInfo) getActivity().getIntent().getExtras().get("User");
-		List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-		pairs.add(new BasicNameValuePair("Request", "get_icon"));
-		pairs.add(new BasicNameValuePair("Login", user.getUsername()));
-		ImageView icon = (ImageView) homePageView
-				.findViewById(R.id.personal_picture);
-		ServerConnector connector = new ServerConnector(getActivity(),
-				"/person", pairs, new IconResultHandler(icon));
-		connector.connect();
+		get_user_info(homePageView);
 		homePageView.findViewById(R.id.profile_button).setOnClickListener(
 				new OnClickListener() {
 					@Override
@@ -48,7 +43,7 @@ public class HomePageFragment extends Fragment {
 						Intent intent = new Intent(getActivity(),
 								PersonalProfile.class);
 						intent.putExtra("User", user);
-						startActivity(intent);
+						startActivityForResult(intent, 1);
 					}
 				});
 		TextView username = (TextView) homePageView.findViewById(R.id.username);
@@ -60,10 +55,22 @@ public class HomePageFragment extends Fragment {
 		return homePageView;
 	}
 
+	private void get_user_info(View homePageView) {
+		user = (UserInfo) getActivity().getIntent().getExtras().get("User");
+		List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+		pairs.add(new BasicNameValuePair("Request", "get_icon"));
+		pairs.add(new BasicNameValuePair("Login", user.getUsername()));
+		ImageView icon = (ImageView) homePageView
+				.findViewById(R.id.personal_picture);
+		ServerConnector connector = new ServerConnector(getActivity(),
+				"/person", pairs, new IconResultHandler(icon));
+		connector.connect();
+	}
+	
 	private class IconResultHandler extends BitmapResultHandler {
 		private ImageView icon;
 
-		private IconResultHandler(ImageView icon) {
+		public IconResultHandler(ImageView icon) {
 			super();
 			this.icon = icon;
 		}
@@ -73,5 +80,18 @@ public class HomePageFragment extends Fragment {
 			icon.setImageBitmap(results);
 		}
 
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		switch (requestCode) {
+		case (1): {
+			if (resultCode == Activity.RESULT_OK) {
+				get_user_info(getView());
+			}
+		}
+			break;
+		}
 	}
 }

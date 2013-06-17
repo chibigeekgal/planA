@@ -65,8 +65,10 @@ public class UserMethod extends Method {
 
 	public void update_password(String username, String password)
 			throws SQLException {
-		getStatement().executeQuery(
-				"UPDATE Person SET Password = '" + password
+		System.out.println(username);
+		System.out.println(password);
+		getStatement().executeUpdate(
+				"UPDATE Person SET Pass_word = '" + password
 						+ "' WHERE Login = '" + username + "';");
 	}
 
