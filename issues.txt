@@ -1,0 +1,12 @@
+Issues:
+Pipe and filter (security issue)
+
+
+Resolved:
+JDBC not connected - resolved using servlets
+Encode and decode image - resolved using encode to string
+Encode and decode object - resolved using encode
+Popup when produced login error - resolved, due to checking String == null rather than string is null character;
+Unable to search - resolved due to a typo in the Android Manifest
+
+

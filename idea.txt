@@ -1,0 +1,20 @@
+Ideas:
+Swipe page from Homepage, Ask page and answer page - i
+Search of questions - i
+List of questions on Homepage - i
+User icon - i
+Updatable password, icon - i
+Maths status
+Keyboard - i
+Best Answer - i 
+Followup asking
+Mark as spam
+View other user's profile
+
+
+
+
+
+Not implemented:
+Updatable username
+Search answers
