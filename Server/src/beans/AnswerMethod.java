@@ -55,9 +55,11 @@ public class AnswerMethod extends Method {
 				JsonObject o = new JsonObject();
 				String username = rs.getString("Login");
 				String content = rs.getString("Answer_content");
+				int bestAnswer = rs.getInt("answer_index");
 				byte[] ba = encodeImage(toBufferedImage(content));
 				o.addProperty("username", username);
 				o.addProperty("content", Base64.encodeBytes(ba));
+				o.addProperty("index", bestAnswer);
 				answers.add(o);
 			}
 		} catch (SQLException e) {
@@ -76,6 +78,7 @@ public class AnswerMethod extends Method {
 				int aIndex = rs.getInt("Answer_index");
 				String username = rs.getString("Login");
 				String content = rs.getString("Answer_content");
+			     
 				answers.add(new Answer_bean(qIndex, aIndex, username, content));
 			}
 		} catch (SQLException e) {
