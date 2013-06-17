@@ -123,7 +123,8 @@ public class HomePageFragment extends Fragment {
 
 		@Override
 		protected void processStringResults(String results) {
-			t.setText(results);
+			if(results == "" || results == null)
+				t.setText(results);	
 		}
 	}
 

@@ -59,7 +59,7 @@ public class MainActivity extends Activity {
 		Button registerButton = (Button) findViewById(R.id.Register_button);
 		Button loginButton = (Button) findViewById(R.id.Login_button);
 		main = (Button) findViewById(R.id.Tempbutton);
-		// main.setVisibility(View.INVISIBLE);
+		main.setVisibility(View.INVISIBLE);
 		loginButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override
