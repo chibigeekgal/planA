@@ -29,8 +29,10 @@ import com.markupartist.android.widget.PullToRefreshListView.OnRefreshListener;
 
 public class AnswerFragment extends ListFragment {
 
+	private PullToRefreshListView question_list_view; 
 	private List<Question> allQuestions;
 	private UserInfo user;
+	private QuestionViewAdapter questionAdapter;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,9 +54,9 @@ public class AnswerFragment extends ListFragment {
 				"/question", pairs, new QuestionListResultsHandler());
 		connector.connect();
 		
-		PullToRefreshListView question_list_view = (PullToRefreshListView) getView()
+		question_list_view = (PullToRefreshListView) getView()
 				.findViewById(android.R.id.list);
-		QuestionViewAdapter questionAdapter = new QuestionViewAdapter(
+		questionAdapter = new QuestionViewAdapter(
 				getActivity(), R.layout.question_item, allQuestions);
 		question_list_view.setAdapter(questionAdapter);
 		question_list_view.setOnRefreshListener(new OnRefreshListener() {
@@ -70,7 +72,6 @@ public class AnswerFragment extends ListFragment {
 						getActivity(), "/question", pairs,
 						new QuestionListResultsHandler());
 				connector.connect();
-				System.out.println("refreshing");
 			}
 
 		});
@@ -102,7 +103,8 @@ public class AnswerFragment extends ListFragment {
 				values[i] = question.getTitle();
 				allQuestions.add(i, question);
 			}
-			System.out.println("finished.....");
+			questionAdapter.notifyDataSetChanged();
+			((PullToRefreshListView) question_list_view).onRefreshComplete();
 		}
 
 	}
