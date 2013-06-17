@@ -6,7 +6,7 @@ CLASSES =	$(call toclass,$(wildcard src/*.java))
 BEANS =		$(wildcard src/beans/*.java)
 BEANSCLASSES =	$(call toclass,$(BEANS))
 BEANSJAR =	build/beans.jar
-CLASSPATH =	$(BEANSJAR):/usr/lib/tomcat7/tomcat-7.0.29/lib/servlet-api.jar:$(LIBDIR)/gson-2.2.4.jar:$(LIBDIR)/jlatexmath-1.0.2.jar
+CLASSPATH =	$(BEANSJAR):/usr/lib/tomcat7/tomcat-7.0.29/lib/servlet-api.jar:$(LIBDIR)/gson-2.2.4.jar:$(LIBDIR)/jlatexmath-1.0.2.jar:$(LIBDIR)/postgresql-9.2-1002.jdbc4.jar
 
 all:	install
 
