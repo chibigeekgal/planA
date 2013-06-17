@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import main.BitmapResultHandler;
+import main.JsonResultHandler;
 import main.ServerConnector;
+import model.Question;
 import model.UserInfo;
 
 import org.apache.http.NameValuePair;
@@ -20,12 +22,17 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.firstapp.R;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 public class HomePageFragment extends Fragment {
 	private UserInfo user;
+	private List<Question> questionList;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,6 +42,7 @@ public class HomePageFragment extends Fragment {
 		View homePageView = inflater.inflate(R.layout.homepage_structure,
 				container, false);
 		get_user_info(homePageView);
+		questionList = new ArrayList<Question>();
 		homePageView.findViewById(R.id.profile_button).setOnClickListener(
 				new OnClickListener() {
 					@Override
@@ -51,7 +59,15 @@ public class HomePageFragment extends Fragment {
 
 		TextView points = (TextView) homePageView.findViewById(R.id.points);
 		points.setText("Points:       " + String.valueOf(user.getPoints()));
-
+		List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+		pairs.add(new BasicNameValuePair("request", "get_question_info"));
+		pairs.add(new BasicNameValuePair("username", user.getUsername()));
+		new ServerConnector(getActivity(), "/question", pairs,
+				new QuestionListHandler()).connect();
+		ListView question_list_view = (ListView) homePageView
+				.findViewById(R.id.home_questions);
+		question_list_view.setAdapter(new QuestionViewAdapter(getActivity(),
+				R.layout.question_item, questionList));
 		return homePageView;
 	}
 
@@ -66,7 +82,7 @@ public class HomePageFragment extends Fragment {
 				"/person", pairs, new IconResultHandler(icon));
 		connector.connect();
 	}
-	
+
 	private class IconResultHandler extends BitmapResultHandler {
 		private ImageView icon;
 
@@ -93,5 +109,22 @@ public class HomePageFragment extends Fragment {
 		}
 			break;
 		}
+	}
+
+	private class QuestionListHandler extends JsonResultHandler {
+
+		@Override
+		public void processJsonResults(JsonElement element) {
+			JsonArray questions = element.getAsJsonArray();
+			int size = questions.size();
+			String[] values = new String[size];
+			for (int i = 0; i < size; i++) {
+				JsonObject o = questions.get(i).getAsJsonObject();
+				Question question = new Question(o);
+				values[i] = question.getTitle();
+				questionList.add(i, question);
+			}
+		}
+
 	}
 }
